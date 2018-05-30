@@ -11,7 +11,7 @@ defmodule Planet.Application do
       # Start the Ecto repository
       supervisor(Planet.Repo, []),
       # Start the endpoint when the application starts
-      supervisor(PlanetWeb.Endpoint, []),
+      supervisor(PlanetWeb.Endpoint, [])
       # Start your own worker by calling: Planet.Worker.start_link(arg1, arg2, arg3)
       # worker(Planet.Worker, [arg1, arg2, arg3]),
     ]

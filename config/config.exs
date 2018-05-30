@@ -6,16 +6,14 @@
 use Mix.Config
 
 # General application configuration
-config :planet,
-  ecto_repos: [Planet.Repo]
+config :planet, ecto_repos: [Planet.Repo]
 
 # Configures the endpoint
 config :planet, PlanetWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "TYlZ+tfWNCIki6f8W7avWBhwzG0t6Yio8z21KcV0JcnGy0T9fP1i0qyG8TR16I3/",
   render_errors: [view: PlanetWeb.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: Planet.PubSub,
-           adapter: Phoenix.PubSub.PG2]
+  pubsub: [name: Planet.PubSub, adapter: Phoenix.PubSub.PG2]
 
 # Configures Elixir's Logger
 config :logger, :console,
@@ -24,4 +22,4 @@ config :logger, :console,
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
-import_config "#{Mix.env}.exs"
+import_config "#{Mix.env()}.exs"

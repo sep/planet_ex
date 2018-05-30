@@ -25,13 +25,13 @@ defmodule PlanetWeb.ChannelCase do
     end
   end
 
-
   setup tags do
     :ok = Ecto.Adapters.SQL.Sandbox.checkout(Planet.Repo)
+
     unless tags[:async] do
       Ecto.Adapters.SQL.Sandbox.mode(Planet.Repo, {:shared, self()})
     end
+
     :ok
   end
-
 end
