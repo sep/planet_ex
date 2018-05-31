@@ -20,6 +20,8 @@ defmodule PlanetWeb.ConnCase do
       # Import conveniences for testing with connections
       use Phoenix.ConnTest
       import PlanetWeb.Router.Helpers
+      import Ecto.Query, warn: false
+      alias Planet.Repo
 
       # The default endpoint for testing
       @endpoint PlanetWeb.Endpoint

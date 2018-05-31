@@ -18,6 +18,7 @@ defmodule PlanetWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+    resources "/rss", RssController
   end
 
   # Other scopes may use custom stacks.
