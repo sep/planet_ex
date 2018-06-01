@@ -46,6 +46,7 @@ View the full documentation at https://tailwindcss.com.
 let colors = {
   'transparent': 'transparent',
 
+  'charcoal': '#4A4A4A',
   'black': '#22292f',
   'grey-darkest': '#3d4852',
   'grey-darker': '#606f7b',
@@ -80,13 +81,13 @@ let colors = {
   'yellow-lighter': '#fff9c2',
   'yellow-lightest': '#fcfbeb',
 
-  'green-darkest': '#0f2f21',
-  'green-darker': '#1a4731',
-  'green-dark': '#1f9d55',
-  'green': '#38c172',
-  'green-light': '#51d88a',
-  'green-lighter': '#a2f5bf',
-  'green-lightest': '#e3fcec',
+  'green-lightest': '#EDF7ED',
+  'green-lighter': '#B5DEB8',
+  'green-light': '#7EC583',
+  'green': '#46AC4E',
+  'green-dark': '#3F9B46',
+  'green-darker': '#2A672F',
+  'green-darkest': '#153417',
 
   'teal-darkest': '#0d3331',
   'teal-darker': '#20504f',
@@ -397,6 +398,7 @@ module.exports = {
     '0': '0',
     '2': '2px',
     '4': '4px',
+    '7': '7px',
     '8': '8px',
   },
 
@@ -899,7 +901,7 @@ module.exports = {
 
   plugins: [
     require('tailwindcss/plugins/container')({
-      // center: true,
+      center: true,
       // padding: '1rem',
     }),
   ],
