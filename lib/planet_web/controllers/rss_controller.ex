@@ -2,6 +2,13 @@ defmodule PlanetWeb.RssController do
   use PlanetWeb, :controller
   alias Planet.Feeds.Rss
 
+  def index(conn, _p) do
+    with feeds <- Planet.Feeds.list_rss() |> Enum.sort_by(fn f -> f.name end) do
+      conn
+      |> render(:index, feeds: feeds)
+    end
+  end
+
   def create conn, %{"rss" => params} do
     with {:ok, %Rss{}} <- Planet.Feeds.create_rss(params) do
       conn

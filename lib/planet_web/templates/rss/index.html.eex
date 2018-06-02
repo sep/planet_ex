@@ -1,1 +1,11 @@
-hellow world
+<div class="max-w-xs mx-auto">
+  <div class="text-center text-5xl font-light">Feeds</div>
+  <hr class="w-full h-px bg-green-lightest mb-8">
+  <%= for feed <- @feeds do %>
+    <div class="mb-4">
+      <div id="feedName" class="text-3xl py-2"><%= feed.name %></div>
+      <p class="py-1"><%= feed.author %></p>
+      <a class="py-1 text-green no-underline hover:underline" href="<%= feed.url %>" target="_blank"><%= feed.url %></a>
+    </div>
+  <% end %>
+</div>

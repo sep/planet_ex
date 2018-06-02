@@ -1,11 +1,15 @@
-# Script for populating the database. You can run it as:
-#
-#     mix run priv/repo/seeds.exs
-#
-# Inside the script, you can read and write to any of your
-# repositories directly:
-#
-#     Planet.Repo.insert!(%Planet.SomeSchema{})
-#
-# We recommend using the bang functions (`insert!`, `update!`
-# and so on) as they will fail if something goes wrong.
+~w(
+  mitchellhanberg.com
+  sep.com
+  robots.thoughtbot.com
+  spin.atomicobject.com
+  engineering.github.com
+)
+|> Enum.with_index()
+|> Enum.each(fn {url, index} ->
+  Planet.Feeds.create_rss(%{
+    name: "name #{index}",
+    url: url,
+    author: "author: #{index}"
+  })
+end)

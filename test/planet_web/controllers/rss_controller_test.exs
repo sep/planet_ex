@@ -1,5 +1,24 @@
 defmodule PlanetWeb.RssControllerTest do
   use PlanetWeb.ConnCase
+  import PlanetWeb.Factory
+
+  describe "index/2" do
+    test "should render all rss feeds", %{conn: conn} do
+      feeds = [
+        rss_fixture(%{url: "url1"}),
+        rss_fixture(%{url: "url2"}),
+        rss_fixture(%{url: "url3"})
+      ]
+
+      conn = get conn, "/rss"
+
+      assert html_response(conn, 200) =~ "Feeds"
+
+      for feed <- feeds do
+        assert html_response(conn, 200) =~ feed.url
+      end
+    end
+  end
 
   describe "create/2" do
     @valid_attrs %{
