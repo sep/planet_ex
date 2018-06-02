@@ -3,6 +3,11 @@ defmodule PlanetWeb.Endpoint do
 
   socket "/socket", PlanetWeb.UserSocket
 
+  # Wallaby configuration
+  if Application.get_env(:planet, :sql_sandbox) do
+    plug Phoenix.Ecto.SQL.Sandbox
+  end
+
   # Serve at "/" the static files from "priv/static" directory.
   #
   # You should set gzip to true if you are running phoenix.digest
