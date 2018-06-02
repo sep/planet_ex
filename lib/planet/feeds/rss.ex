@@ -11,9 +11,10 @@ defmodule Planet.Feeds.Rss do
   end
 
   @doc false
-  def changeset(rss, attrs) do
+  def changeset(rss, attrs \\ %{}) do
     rss
     |> cast(attrs, [:name, :url, :author])
     |> validate_required([:name, :url, :author])
+    |> unique_constraint(:url, message: "this feed has already been added.")
   end
 end

@@ -2,15 +2,26 @@ defmodule PlanetWeb.RssController do
   use PlanetWeb, :controller
   alias Planet.Feeds.Rss
 
-  def create conn, params = %{"name" => name, "url" => url, "name" => name} do
+  def create conn, %{"rss" => params} do
     with {:ok, %Rss{}} <- Planet.Feeds.create_rss(params) do
       conn
       |> put_status(201)
-      |> render(:new)
+      |> render_form(:new, %Rss{})
+    else
+      {:error, changeset} ->
+        conn
+        |> put_status(400)
+        |> render_form(:new, changeset)
     end
   end
 
   def new(conn, _p) do
-    render conn, :new
+    render_form(conn, :new, %Rss{})
+  end
+
+  defp render_form(conn, action, rss) do
+    rss_changeset = Rss.changeset(rss)
+
+    render conn, action, rss_changeset: rss_changeset
   end
 end

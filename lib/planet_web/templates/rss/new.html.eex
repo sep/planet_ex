@@ -1,1 +1,30 @@
-Add an RSS Feed
+<div class="text-center mt-2 mb-12">
+  <span class="text-4xl md:text-5xl font-light">Add an <strong>RSS</strong> Feed</span>
+</div>
+
+<%= form_for @rss_changeset, rss_path(@conn, :create), [class: "max-w-xs-sm mx-auto"], fn(f) -> %>
+  <div class="flex flex-col">
+
+    <label class="text-label-grey opacity-75">
+      Name
+      <%= error_tag f, :name %>
+    </label>
+    <%= text_input f, :name, [class: "bg-green-ultimate-light p-3 mt-2 mb-4", required: true] %>
+
+    <label class="text-label-grey opacity-75">
+      URL
+      <%= error_tag f, :url %>
+    </label>
+    <%= text_input f, :url, [class: "bg-green-ultimate-light p-3 mt-2 mb-4", required: true] %>
+
+    <label class="text-label-grey opacity-75">
+      Author
+      <%= error_tag f, :author %>
+    </label>
+    <%= text_input f, :author, [class: "bg-green-ultimate-light p-3 mt-2 mb-4", required: true] %>
+  </div>
+
+  <button type="submit" class="bg-green text-xl text-white px-12 py-2 rounded-full">
+    <span class="opacity-75">Add<span>
+  </button>
+<% end %>
