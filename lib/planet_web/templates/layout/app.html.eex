@@ -5,8 +5,12 @@
   <body class="border-green border-t-7 font-sans">
     <div class="container px-4">
       <%= render PlanetWeb.LayoutView, "_header.html" %>
-      <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-      <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+      <%= if get_flash(@conn, :success) do %>
+        <div class="bg-green-lightest border-l-4 border-green text-green-dark p-4" role="alert">
+          <p class="font-bold">Success!</p>
+          <p><%= get_flash(@conn, :success) %></p>
+        </div>
+      <% end %>
 
       <main role="main">
         <%= render @view_module, @view_template, assigns %>

@@ -10,10 +10,11 @@ defmodule PlanetWeb.RssController do
   end
 
   def create conn, %{"rss" => params} do
-    with {:ok, %Rss{}} <- Planet.Feeds.create_rss(params) do
+    with {:ok, feed = %Rss{}} <- Planet.Feeds.create_rss(params) do
       conn
-      |> put_status(201)
-      |> render_form(:new, %Rss{})
+      |> put_status(303)
+      |> put_flash(:success, "You've add the feed #{feed.url}")
+      |> redirect(to: "/rss/new")
     else
       {:error, changeset} ->
         conn

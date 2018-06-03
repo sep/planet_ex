@@ -35,16 +35,13 @@ defmodule PlanetWeb.RssControllerTest do
       {:ok, conn: conn}
     end
 
-    test "should respond with 201 on success", %{conn: conn} do
-      assert conn.status == 201
-    end
-
-    test "should create an rss speed" do
+    test "should create an rss feed", %{conn: conn} do
       assert Repo.get_by!(Planet.Feeds.Rss, url: "mitchblog.com")
+      assert get_flash(conn, :success)
     end
 
-    test "should render new template on success", %{conn: conn} do
-      assert html_response(conn, 201) =~ "Add an <strong>RSS</strong> Feed"
+    test "should redirect to  new template on success", %{conn: conn} do
+      assert redirected_to(conn, 303) =~ "/rss/new"
     end
 
     test "should not be able to add a url twice", %{conn: conn} do
