@@ -43,6 +43,7 @@ defmodule Planet.Mixfile do
       {:cowboy, "~> 1.0"},
       {:wallaby, "~> 0.20.0", [runtime: false, only: :test]},
       {:sweet_xml, "~> 0.6.5"}
+      {:timex, "~> 3.0"}
     ]
   end
 
