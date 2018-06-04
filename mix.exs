@@ -41,7 +41,8 @@ defmodule Planet.Mixfile do
       {:phoenix_live_reload, "~> 1.0", only: :dev},
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
-      {:wallaby, "~> 0.20.0", [runtime: false, only: :test]}
+      {:wallaby, "~> 0.20.0", [runtime: false, only: :test]},
+      {:sweet_xml, "~> 0.6.5"}
     ]
   end
 
