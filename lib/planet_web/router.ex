@@ -16,6 +16,7 @@ defmodule PlanetWeb.Router do
   scope "/", PlanetWeb do
     pipe_through :browser
 
+    get "/", EntriesController, :index
     resources "/rss", RssController
   end
 

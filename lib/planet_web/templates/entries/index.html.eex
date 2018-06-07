@@ -1,0 +1,13 @@
+<h1><%= @feed.title %></h1>
+<h3><%= @feed.author %></h3>
+
+<%= for entry <- @feed.entries do %>
+  <article>
+    <h2><%= entry.title %></h2>
+    <h3><%= entry.author %></h3>
+    <h4><%= Timex.format!(entry.published, "{M}/{D}/{YYYY}") %></h4>
+    <a href="<%= entry.url %>"><%= entry.url %></a>
+
+    <p><%= raw entry.content %></p>
+  </article>
+<% end %>
