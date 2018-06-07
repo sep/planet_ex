@@ -5,6 +5,10 @@ defmodule Planet.Core.FeedParserTest do
   describe "parse/1" do
     @xml_feed File.read!("test/fixtures/feed_fixture.xml")
 
+    test "returns and empty string when it is passed an Feed" do
+      assert FeedParser.parse("") == %FeedParser.Feed{}
+    end
+
     test "turns an xml feed into a Feed struct" do
       actual = FeedParser.parse(@xml_feed)
 

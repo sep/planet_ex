@@ -42,8 +42,9 @@ defmodule Planet.Mixfile do
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
       {:wallaby, "~> 0.20.0", [runtime: false, only: :test]},
-      {:sweet_xml, "~> 0.6.5"}
-      {:timex, "~> 3.0"}
+      {:httpoison, "~> 1.0", override: true},
+      {:sweet_xml, "~> 0.6.5"},
+      {:timex, "~> 3.0"},
     ]
   end
 

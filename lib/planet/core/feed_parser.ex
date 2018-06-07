@@ -9,6 +9,8 @@ defmodule Planet.Core.FeedParser do
     defstruct [:title, :url, :author, :content, :published]
   end
 
+  def parse(""), do: %Feed{}
+
   def parse(raw_feed) do
     %Feed{}
     |> put_title(raw_feed)
