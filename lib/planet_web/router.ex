@@ -14,10 +14,8 @@ defmodule PlanetWeb.Router do
   end
 
   scope "/", PlanetWeb do
-    # Use the default browser stack
     pipe_through :browser
 
-    get "/", PageController, :index
     resources "/rss", RssController
   end
 
