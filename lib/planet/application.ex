@@ -4,7 +4,8 @@ defmodule Planet.Application do
   def start(_type, _args) do
     children = [
       Planet.Repo,
-      PlanetWeb.Endpoint
+      PlanetWeb.Endpoint,
+      Planet.Core.FeedServer
     ]
 
     opts = [strategy: :one_for_one, name: Planet.Supervisor]
