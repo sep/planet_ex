@@ -45,6 +45,7 @@ defmodule Planet.Mixfile do
       {:httpoison, "~> 1.0", override: true},
       {:sweet_xml, "~> 0.6.5"},
       {:timex, "~> 3.0"},
+      {:mox, "~> 0.3.2", only: :test}
     ]
   end
 
