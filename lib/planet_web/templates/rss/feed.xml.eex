@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title><%= @feed.title %></title>
+  <link href="<%= @feed.url %>"/>
+  <updated><%= last_updated_at(@feed) %></updated>
+  <author>
+    <name><%= @feed.author %></name>
+  </author>
+  <id><%= @feed.url %></id>
+
+  <%= for entry <- @feed.entries do %>
+    <entry>
+      <title type="text"><%= escape(entry.title) %></title>
+      <author>
+        <name><%= entry.author %></name>
+      </author>
+      <link href="<%= entry.url %>"/>
+      <id><%= entry.url %></id>
+      <updated><%= published(entry.published) %></updated>
+      <content type="html"><%= escape(entry.content) %></content>
+    </entry>
+  <% end %>
+</feed>

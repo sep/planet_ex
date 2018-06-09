@@ -31,6 +31,8 @@ defmodule Planet.Core.FeedServer do
 
   def handle_info(:rebuild_feed, state) do
     feed = build_feed()
+
+    write_feed(feed)
     schedule(state.timeout)
 
     {:noreply, Map.put(state, :planet, feed)}
@@ -47,5 +49,12 @@ defmodule Planet.Core.FeedServer do
       |> FeedParser.parse()
     end)
     |> FeedParser.merge()
+  end
+
+  defp write_feed(feed) do
+    File.write!(
+      "assets/static/feed.xml",
+      Phoenix.View.render_to_iodata(PlanetWeb.RssView, "feed.xml", feed: feed)
+    )
   end
 end
