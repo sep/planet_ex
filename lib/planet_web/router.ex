@@ -19,9 +19,4 @@ defmodule PlanetWeb.Router do
     get "/", EntriesController, :index
     resources "/rss", RssController
   end
-
-  # Other scopes may use custom stacks.
-  # scope "/api", PlanetWeb do
-  #   pipe_through :api
-  # end
 end

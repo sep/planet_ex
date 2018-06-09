@@ -5,6 +5,7 @@ defmodule Planet.Core.FeedServerTest do
   import PlanetWeb.Factory
 
   @stub_feed_xml File.read!("test/fixtures/feed_fixture.xml")
+  @server_opts [timeout: 0, name: :test_server]
 
   setup_all do
     Mox.defmock(FetchMock, for: Planet.Core.FeedFetcher)
@@ -18,7 +19,7 @@ defmodule Planet.Core.FeedServerTest do
   end
 
   test "server starts up" do
-    server = start_supervised!({FeedServer, [name: :test_server]})
+    server = start_supervised!({FeedServer, @server_opts})
 
     assert GenServer.whereis(server)
   end
@@ -29,7 +30,7 @@ defmodule Planet.Core.FeedServerTest do
     FetchMock
     |> Mox.expect(:get, fn "feed_url" -> @stub_feed_xml end)
 
-    server = start_supervised!({FeedServer, [name: :test_server]})
+    server = start_supervised!({FeedServer, @server_opts})
 
     assert %FeedParser.Feed{
              entries: [
@@ -47,7 +48,7 @@ defmodule Planet.Core.FeedServerTest do
     |> Mox.expect(:get, fn "feed_url" -> @stub_feed_xml end)
     |> Mox.expect(:get, fn "feed_url" -> send(id, :done) end)
 
-    start_supervised!({FeedServer, [timeout: 0, name: :test_server]})
+    start_supervised!({FeedServer, @server_opts})
 
     assert_receive :done
   end
