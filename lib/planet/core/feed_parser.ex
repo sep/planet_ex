@@ -12,10 +12,12 @@ defmodule Planet.Core.FeedParser do
   def parse(""), do: %Feed{}
 
   def parse(raw_feed) do
+    parsed = SweetXml.parse(raw_feed)
+
     %Feed{}
-    |> put_title(raw_feed)
-    |> put_url(raw_feed)
-    |> put_author(raw_feed)
+    |> put_title(parsed)
+    |> put_url(parsed)
+    |> put_author(parsed)
     |> put_entries(raw_feed)
   end
 
