@@ -12,6 +12,7 @@ npm-debug.log
 
 # Static artifacts
 /assets/node_modules
+/assets/static/feed.xml
 screenshots/
 
 # Since we are building assets from assets/,
