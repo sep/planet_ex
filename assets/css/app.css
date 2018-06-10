@@ -1,3 +1,67 @@
 @tailwind preflight;
 @tailwind components;
 @tailwind utilities;
+
+a {
+  color: #46ac4e;
+  word-wrap: break-word;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+h1 {
+  font-size: 2rem;
+}
+
+h2 {
+  font-size: 1.7rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
+h4 {
+  font-size: 1.3rem;
+}
+
+h5 {
+  font-size: 1.1rem;
+}
+
+.post {
+  h1,
+  h2,
+  h3,
+  h4,
+  p,
+  ul,
+  ol,
+  div.highlight {
+    margin-bottom: 1rem;
+  }
+
+  p,
+  ul,
+  ol {
+    line-height: 2;
+  }
+}
+
+blockquote {
+  border-left: 3px solid #46ac4e;
+  font-size: 1.1em;
+  font-style: italic;
+  margin: 1.5em 0;
+  padding-left: 0.75em;
+}
+
+@media (min-width: 320px) {
+  blockquote {
+    font-size: 0.9em;
+  }
+}
+

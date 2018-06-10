@@ -50,6 +50,7 @@ exports.config = {
     },
     postcss: {
       processors: [
+        require('postcss-nested'),
         require('tailwindcss')('./tailwind.js')
       ]
     }

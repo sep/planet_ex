@@ -1,12 +1,9 @@
-<h1><%= @feed.title %></h1>
-<h3><%= @feed.author %></h3>
+<h1 class="text-center mb-8"><%= @feed.title %></h1>
 
 <%= for entry <- @feed.entries do %>
-  <article>
-    <h2><%= entry.title %></h2>
-    <h3><%= entry.author %></h3>
-    <h4><%= Timex.format!(entry.published, "{M}/{D}/{YYYY}") %></h4>
-    <a href="<%= entry.url %>"><%= entry.url %></a>
+  <article class="post max-w-md mx-auto pb-8 mb-12 border-green-lighter border-b">
+    <div class="xs:text-3xl sm:text-4xl mb-4"><a href="<%= entry.url %>"><%= entry.title %></a></div>
+    <div class="xs:text-lg text-2xl font-bold">By <%= entry.author %> on <%= Timex.format!(entry.published, "{M}/{D}/{YYYY}") %></div>
 
     <p><%= raw entry.content %></p>
   </article>
