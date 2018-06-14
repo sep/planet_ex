@@ -1,8 +1,23 @@
 defmodule PlanetWeb.Features.RssTest do
-  use PlanetWeb.FeatureCase, async: true
+  use PlanetWeb.FeatureCase
+  alias Planet.Core.FeedParser.{Feed, Entry}
+  alias Planet.Core.FeedServer
   import PlanetWeb.Factory
 
   import Wallaby.Query
+
+  @stub_feed_xml File.read!("test/fixtures/feed_fixture.xml")
+
+  setup_all do
+    Mox.defmock(FetchMock, for: Planet.Core.FeedFetcher)
+
+    :ok
+  end
+
+  setup do
+    Mox.set_mox_global()
+    Mox.verify_on_exit!()
+  end
 
   test "feeds should be listed in descending order by name", %{session: session} do
     rss_fixture(%{name: "zname", url: "zurl"})
@@ -31,5 +46,23 @@ defmodule PlanetWeb.Features.RssTest do
     |> fill_in(Query.text_field("Author"), with: "The Blog Man")
     |> click(Query.button("Add"))
     |> assert_text("Success!")
+  end
+
+  test "should display blog posts on the home page", %{session: session} do
+    rss_fixture(%{
+      name: "Mitchell Hanberg's Blog",
+      url: "https://www.mitchellhanberg.com/feed.xml"
+    })
+    IO.puts("JUST ADDED FIXTURE")
+
+    FetchMock
+    |> Mox.stub(:get, fn _ -> @stub_feed_xml end)
+
+    pid = start_supervised!(FeedServer)
+    IO.inspect(pid, label: "server in test: ")
+
+    session
+    |> visit("/")
+    |> assert_text("Integrate and Deploy React with Phoenix")
   end
 end

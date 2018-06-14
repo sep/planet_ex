@@ -23,3 +23,5 @@ config :planet, Planet.Repo,
   pool: Ecto.Adapters.SQL.Sandbox
 
 config :planet, :fetcher, FetchMock
+config :planet, :feed_server, []
+config :planet, :server_timeout, 1

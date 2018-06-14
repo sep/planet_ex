@@ -4,6 +4,7 @@ defmodule PlanetWeb.RssView do
   def last_updated_at(feed) do
     feed.entries
     |> List.first()
+    |> no_nil()
     |> Map.get(:published, Timex.now())
     |> Timex.format!("{M}/{D}/{YYYY}")
   end
@@ -15,4 +16,6 @@ defmodule PlanetWeb.RssView do
     |> html_escape
     |> safe_to_string
   end
+
+  defp no_nil(feed), do: unless(is_nil(feed), do: feed, else: %{})
 end

@@ -3,6 +3,8 @@ defmodule PlanetWeb.EntriesController do
   alias Planet.Core.FeedServer
 
   def index(conn, _) do
+    GenServer.whereis(FeedServer)
+    |> IO.inspect(label: "whereis")
     feed = FeedServer.status(FeedServer)
 
     conn

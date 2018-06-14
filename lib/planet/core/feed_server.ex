@@ -4,25 +4,23 @@ defmodule Planet.Core.FeedServer do
   alias Planet.Core.FeedParser
 
   @fetcher Application.get_env(:planet, :fetcher, Planet.Core.FeedFetcher)
+  @timeout Application.get_env(:planet, :server_timeout)
 
   def start_link(opts \\ []) do
-    {name, opts} = Keyword.pop(opts, :name, __MODULE__)
-
-    GenServer.start_link(__MODULE__, opts, name: name)
+    GenServer.start_link(__MODULE__, opts)
+    |> IO.inspect(label: "pid: ")
   end
 
   def status(server) do
     GenServer.call(server, :status)
   end
 
-  def init(args \\ Keyword.new()) do
-    timeout = Keyword.get(args, :timeout, 60000)
-
+  def init(_args) do
     feed = build_feed()
 
-    schedule(timeout)
+    schedule()
 
-    {:ok, %{planet: feed, timeout: timeout}}
+    {:ok, %{planet: feed}}
   end
 
   def handle_call(:status, _f, state) do
@@ -33,13 +31,13 @@ defmodule Planet.Core.FeedServer do
     feed = build_feed()
 
     write_feed(feed)
-    schedule(state.timeout)
+    schedule()
 
     {:noreply, Map.put(state, :planet, feed)}
   end
 
-  defp schedule(timeout) do
-    Process.send_after(self(), :rebuild_feed, timeout)
+  defp schedule() do
+    Process.send_after(self(), :rebuild_feed, @timeout)
   end
 
   defp build_feed() do

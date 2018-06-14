@@ -2,11 +2,11 @@ defmodule Planet.Application do
   use Application
 
   def start(_type, _args) do
-    children = [
-      Planet.Repo,
-      PlanetWeb.Endpoint,
-      Planet.Core.FeedServer
-    ]
+    children =
+      [
+        Planet.Repo,
+        PlanetWeb.Endpoint
+      ] ++ Application.get_env(:planet, :feed_server)
 
     opts = [strategy: :one_for_one, name: Planet.Supervisor]
     Supervisor.start_link(children, opts)
