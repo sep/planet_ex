@@ -20,7 +20,8 @@ config :planet, Planet.Repo,
   password: "postgres",
   database: "planet_test",
   hostname: "localhost",
-  pool: Ecto.Adapters.SQL.Sandbox
+  pool: Ecto.Adapters.SQL.Sandbox,
+  ownership_timeout: 999_999
 
 config :planet, :fetcher, FetchMock
 config :planet, :feed_server, []
