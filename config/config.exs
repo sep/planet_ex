@@ -20,7 +20,7 @@ config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:user_id]
 
-config :planet, :feed_server, Planet.Core.FeedServer
+config :planet, :feed_server, [Planet.Core.FeedServer]
 config :planet, :server_timeout, 60000
 
 # Import environment specific config. This must remain at the bottom
