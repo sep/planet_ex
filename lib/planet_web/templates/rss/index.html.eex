@@ -3,7 +3,7 @@
   <hr class="w-full h-px bg-green-lightest mb-8">
   <%= for feed <- @feeds do %>
     <div class="mb-4">
-      <div id="feedName" class="text-3xl py-2"><%= feed.name %></div>
+      <div id="feedName" class="text-3xl py-2"><a href="<%= rss_path(@conn, :edit, feed.id) %>"><%= feed.name %></a></div>
       <p class="py-1"><%= feed.author %></p>
       <a class="py-1 text-green no-underline hover:underline" href="<%= feed.url %>" target="_blank"><%= feed.url %></a>
     </div>
