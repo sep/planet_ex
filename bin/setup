@@ -34,6 +34,14 @@ command -v psql >/dev/null 2>&1 || {
   exit 1;
 }
 
+# Verify that Chromedriver is installed
+command -v chromedriver >/dev/null 2>&1 || {
+  echo >&2 "Whoops! You need to install chromedriver first.";
+  echo >&2 "Follow the instructions here, then try again:";
+  echo >&2 "http://chromedriver.chromium.org/downloads";
+  exit 1;
+}
+
 # Install dependencies
 echo "==> Installing Elixir dependencies"
 mix deps.get
@@ -44,4 +52,4 @@ cd assets && yarn
 
 # Setup the local database
 echo "==> Creating the development database"
-cd ../ && mix ecto.create && mix ecto.load
+cd ../ && mix ecto.setup
