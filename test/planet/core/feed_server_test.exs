@@ -1,22 +1,14 @@
 defmodule Planet.Core.FeedServerTest do
   use Planet.DataCase
   alias Planet.Core.{FeedServer, FeedParser}
+  import Mox
 
   import PlanetWeb.Factory
 
+  setup :set_mox_global
+  setup :verify_on_exit!
+
   @stub_feed_xml File.read!("test/fixtures/feed_fixture.xml")
-  @server_opts [name: :test_server]
-
-  setup_all do
-    Mox.defmock(FetchMock, for: Planet.Core.FeedFetcher)
-
-    :ok
-  end
-
-  setup do
-    Mox.set_mox_global()
-    Mox.verify_on_exit!()
-  end
 
   test "server initializes with feeds from database" do
     rss_fixture(%{name: "Mitchell Hanberg's Blog", url: "feed_url"})

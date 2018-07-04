@@ -1,23 +1,15 @@
 defmodule PlanetWeb.Features.RssTest do
   use PlanetWeb.FeatureCase
-  alias Planet.Core.FeedParser.{Feed, Entry}
   alias Planet.Core.FeedServer
   import PlanetWeb.Factory
+  import Mox
 
   import Wallaby.Query
 
+  setup :set_mox_global
+  setup :verify_on_exit!
+
   @stub_feed_xml File.read!("test/fixtures/feed_fixture.xml")
-
-  setup_all do
-    Mox.defmock(FetchMock, for: Planet.Core.FeedFetcher)
-
-    :ok
-  end
-
-  setup do
-    Mox.set_mox_global()
-    Mox.verify_on_exit!()
-  end
 
   test "feeds should be listed in descending order by name", %{session: session} do
     rss_fixture(%{name: "zname", url: "zurl"})
