@@ -11,28 +11,45 @@ defmodule PlanetWeb.Features.RssTest do
 
   @stub_feed_xml File.read!("test/fixtures/feed_fixture.xml")
 
-  test "feeds should be listed in descending order by name", %{session: session} do
-    rss_fixture(%{name: "zname", url: "zurl"})
-    rss_fixture(%{name: "aname", url: "aurl"})
-    rss_fixture(%{name: "mname", url: "murl"})
+  setup do
+    feeds = [
+      rss_fixture(%{name: "zname", url: "https://zurl.com"}),
+      rss_fixture(%{name: "aname", url: "https://aurl.com"}),
+      rss_fixture(%{name: "mname", url: "https://murl.com"})
+    ]
 
+    FetchMock
+    |> Mox.stub(:get, fn _ -> @stub_feed_xml end)
+
+    start_supervised!(FeedServer)
+
+    %{fixtures: feeds}
+  end
+
+  test "feeds should be listed in descending order by name", %{
+    session: session,
+    fixtures: fixtures
+  } do
     feeds =
       session
-      |> visit("/rss")
+      |> visit("/")
+      |> click(Query.link("Feeds"))
       |> find(css("#feedName", count: 3))
 
     feeds
     |> List.first()
-    |> assert_text("aname")
+    |> assert_text(Enum.at(fixtures, 1).name)
 
     feeds
     |> List.last()
-    |> assert_text("zname")
+    |> assert_text(Enum.at(fixtures, 0).name)
   end
 
   test "should be able to add an RSS feed", %{session: session} do
     session
-    |> visit("/rss/new")
+    |> visit("/")
+    |> click(Query.link("Feeds"))
+    |> click(Query.link("New"))
     |> fill_in(Query.text_field("Name"), with: "Blog title")
     |> fill_in(Query.text_field("URL"), with: "https://bloggington.blog")
     |> fill_in(Query.text_field("Author"), with: "The Blog Man")
@@ -40,17 +57,18 @@ defmodule PlanetWeb.Features.RssTest do
     |> assert_text("Success!")
   end
 
+  test "should be able to update an RSS feed", %{session: session, fixtures: fixtures} do
+    session
+    |> visit("/")
+    |> click(Query.link("Feeds"))
+    |> click(Query.link(List.first(fixtures).name))
+    |> fill_in(Query.text_field("Name"), with: "New amazing name")
+    |> click(Query.button("Update"))
+    |> take_screenshot
+    |> assert_text("Success!")
+  end
+
   test "should display blog posts on the home page", %{session: session} do
-    rss_fixture(%{
-      name: "Mitchell Hanberg's Blog",
-      url: "https://www.mitchellhanberg.com/feed.xml"
-    })
-
-    FetchMock
-    |> Mox.stub(:get, fn _ -> @stub_feed_xml end)
-
-    start_supervised!(FeedServer)
-
     session
     |> visit("/")
     |> assert_text("Integrate and Deploy React with Phoenix")
