@@ -45,13 +45,11 @@ defmodule PlanetWeb.Features.RssTest do
       name: "Mitchell Hanberg's Blog",
       url: "https://www.mitchellhanberg.com/feed.xml"
     })
-    IO.puts("JUST ADDED FIXTURE")
 
     FetchMock
     |> Mox.stub(:get, fn _ -> @stub_feed_xml end)
 
-    pid = start_supervised!(FeedServer)
-    IO.inspect(pid, label: "server in test: ")
+    start_supervised!(FeedServer)
 
     session
     |> visit("/")

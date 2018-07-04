@@ -34,7 +34,7 @@ defmodule Planet.Core.FeedServerTest do
     |> Mox.expect(:get, fn "feed_url" -> @stub_feed_xml end)
     |> Mox.expect(:get, fn "feed_url" -> send(id, :done) end)
 
-    server = start_supervised!(FeedServer)
+    start_supervised!(FeedServer)
 
     assert_receive :done
   end

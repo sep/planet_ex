@@ -6,9 +6,8 @@ defmodule Planet.Core.FeedServer do
   @fetcher Application.get_env(:planet, :fetcher, Planet.Core.FeedFetcher)
   @timeout Application.get_env(:planet, :server_timeout)
 
-  def start_link(opts \\ []) do
-    GenServer.start_link(__MODULE__, opts)
-    |> IO.inspect(label: "pid: ")
+  def start_link(_opts) do
+    GenServer.start_link(__MODULE__, [], name: __MODULE__)
   end
 
   def status(server) do
