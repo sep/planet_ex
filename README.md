@@ -1,20 +1,42 @@
 # Planet
 
-To start your Phoenix server:
+## Getting started
 
-  * Install dependencies with `mix deps.get`
-  * Create and migrate your database with `mix ecto.create && mix ecto.migrate`
-  * Install Node.js dependencies with `cd assets && npm install`
-  * Start Phoenix endpoint with `mix phx.server`
+### Prerequisites
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+You'll need to install the following dependencies first:
 
-Ready to run in production? Please [check our deployment guides](http://www.phoenixframework.org/docs/deployment).
+- [Elixir](https://elixir-lang.org/install.html) ([version](https://github.com/mhanberg/planet/blob/master/.tool-versions))
+- [Erlang](https://elixir-lang.org/install.html#installing-erlang) ([version](https://github.com/mhanberg/planet/blob/master/.tool-versions))
+- [PostgreSQL](https://postgresapp.com/) 10
+- [Yarn](https://yarnpkg.com/en/docs/install)
+- [Node](#nodejs) ([version](https://github.com/levelhq/level/blob/master/.tool-versions))
 
-## Learn more
+### Installing
 
-  * Official website: http://www.phoenixframework.org/
-  * Guides: http://phoenixframework.org/docs/overview
-  * Docs: https://hexdocs.pm/phoenix
-  * Mailing list: http://groups.google.com/group/phoenix-talk
-  * Source: https://github.com/phoenixframework/phoenix
+If you have [asdf](https://github.com/asdf-vm/asdf) installed, simply run `asdf install` in the root directory.
+
+Run the bootstrap script to install the remaining dependencies and create your
+development database:
+
+```shell
+$ cd planet
+$ bin/setup
+```
+
+To run the server: `mix phx.server`.
+
+## Running the tests
+
+```shell
+$ mix test
+```
+
+## Built With
+
+- [Phoenix](http://phoenixframework.org/) - Web framework
+- [TailwindCSS](https://tailwindcss.com/) - CSS library
+
+## Contributors
+
+- Mitchell Hanberg
