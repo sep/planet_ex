@@ -1,6 +1,12 @@
-<div class="max-w-xs mx-auto">
-  <div class="text-center text-5xl font-light">Feeds</div>
+<div class="max-w-sm mx-auto">
+  <span class="flex justify-between">
+    <div class="text-5xl font-light">Feeds</div>
+    <a href="<%= rss_path(@conn, :new) %>" class="self-center bg-white hover:bg-green border border-green text-lg text-green hover:text-white px-6 py-2 rounded-full">New</a>
+  </span>
   <hr class="w-full h-px bg-green-lightest mb-8">
+</div>
+
+<div class="max-w-xs mx-auto">
   <%= for feed <- @feeds do %>
     <div class="mb-4">
       <div id="feedName" class="text-3xl py-2"><a href="<%= rss_path(@conn, :edit, feed.id) %>"><%= feed.name %></a></div>
