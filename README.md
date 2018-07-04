@@ -1,5 +1,7 @@
 # Planet
 
+[![CircleCI](https://circleci.com/gh/mhanberg/planet.svg?style=svg)](https://circleci.com/gh/mhanberg/planet)
+
 ## Getting started
 
 ### Prerequisites
