@@ -2,28 +2,4 @@
   <span class="text-4xl md:text-5xl font-light">Add an <strong>RSS</strong> Feed</span>
 </div>
 
-<%= form_for @rss_changeset, rss_path(@conn, :create), [class: "max-w-xs-sm mx-auto"], fn(f) -> %>
-  <div class="flex flex-col">
-    <%= label f, :name, [class: "text-label-grey opacity-75"] do %>
-      Name 
-      <%= error_tag f, :name %>
-    <% end %>
-    <%= text_input f, :name, [class: "bg-green-ultimate-light p-3 mt-2 mb-4", required: true] %>
-
-    <%= label f, :url, [class: "text-label-grey opacity-75"] do %>
-      URL
-      <%= error_tag f, :url %>
-    <% end %>
-    <%= url_input f, :url, [class: "bg-green-ultimate-light p-3 mt-2 mb-4", required: true] %>
-
-    <%= label f, :author, [class: "text-label-grey opacity-75"] do %>
-      Author
-      <%= error_tag f, :author %>
-    <% end %>
-    <%= text_input f, :author, [class: "bg-green-ultimate-light p-3 mt-2 mb-4", required: true] %>
-  </div>
-
-  <button type="submit" class="bg-green text-xl text-white px-12 py-2 rounded-full">
-    <span class="opacity-75">Add<span>
-  </button>
-<% end %>
+<%= render PlanetWeb.RssView, "_form.html", Map.merge(assigns, %{action: rss_path(@conn, :create), button_text: "Add"}) %>
