@@ -1,13 +1,6 @@
 defmodule Planet.Core.FeedParser do
+  alias Planet.Core.FeedParser.{Feed, Entry}
   import SweetXml
-
-  defmodule Feed do
-    defstruct [:title, :url, :author, entries: []]
-  end
-
-  defmodule Entry do
-    defstruct [:title, :url, :author, :content, :published]
-  end
 
   def parse(""), do: %Feed{}
 
