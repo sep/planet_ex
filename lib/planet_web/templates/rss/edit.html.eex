@@ -1,0 +1,5 @@
+<div class="text-center mt-2 mb-12">
+  <span class="text-4xl md:text-5xl font-light">Edit an <strong>RSS</strong> Feed</span>
+</div>
+
+<%= render PlanetWeb.RssView, "_form.html", Map.merge(assigns, %{action: rss_path(@conn, :update, @rss_changeset.data.id), button_text: "Update"}) %>

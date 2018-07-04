@@ -27,6 +27,29 @@ defmodule PlanetWeb.RssController do
     render_form(conn, :new, %Rss{})
   end
 
+  def edit(conn, %{"id" => id}) do
+    with feed = %Rss{} <- Planet.Feeds.get_rss!(id) do
+      conn
+      |> render_form(:edit, feed)
+    end
+  end
+
+  def update(conn, %{"id" => id, "rss" => params}) do
+    feed = Planet.Feeds.get_rss!(id)
+
+    with {:ok, updated_feed = %Rss{}} <- Planet.Feeds.update_rss(feed, params) do
+      conn
+      |> put_status(303)
+      |> put_flash(:success, "You've updated the feed #{updated_feed.name}")
+      |> redirect(to: "/rss")
+    else
+      {:error, changeset} ->
+        conn
+        |> put_status(400)
+        |> render_form(:edit, changeset)
+    end
+  end
+
   defp render_form(conn, action, rss) do
     rss_changeset = Rss.changeset(rss)
 
