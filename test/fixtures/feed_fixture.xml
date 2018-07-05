@@ -4,7 +4,7 @@
 
 &lt;h2 id=&quot;motivation&quot;&gt;Motivation&lt;/h2&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://www.mitchellhanberg.com/images/contact.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/contact.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;My most recent side project, &lt;a href=&quot;https://www.github.com/mhanberg/contact&quot;&gt;Contact&lt;/a&gt;, is a JSON REST API written with &lt;a href=&quot;https://elixir-lang.org/&quot;&gt;Elixir&lt;/a&gt; and &lt;a href=&quot;https://github.com/phoenixframework/phoenix&quot;&gt;Phoenix&lt;/a&gt;, designed to be the backend to an instant messaging application (e.g., Slack). There was a hackathon coming up at work, and I thought it’d be fun to make a frontend for Contact during it, and although Contact’s development was thoroughly test-driven, I wanted to make sure that my API was ready to be used.&lt;/p&gt;
 
@@ -26,7 +26,7 @@
 &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;yarn start &lt;span class=&quot;c&quot;&gt;# npm start if you don't use yarn&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;a href=&quot;https://github.com/facebook/create-react-app&quot;&gt;create-react-app&lt;/a&gt; gets us set up with React, Babel, and Webpack out of the box, allowing us to get started developing our application and not mess around with a ton of esoteric configuration.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;/relativelink&quot;&gt;create-react-app&lt;/a&gt; gets us set up with React, Babel, and Webpack out of the box, allowing us to get started developing our application and not mess around with a ton of esoteric configuration.&lt;/p&gt;
 
 &lt;h2 id=&quot;success&quot;&gt;Success!&lt;/h2&gt;
 

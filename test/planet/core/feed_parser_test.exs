@@ -62,6 +62,42 @@ defmodule Planet.Core.FeedParserTest do
       assert actual.content =~ expected_entry.content
       assert expected_entry.published == actual.published
     end
+
+    test "replaces relative links in href values with absolute ones" do
+      expected_entry = %FeedParser.Entry{
+        title: "Integrate and Deploy React with Phoenix",
+        url:
+          "https://www.mitchellhanberg.com/post/2018/02/22/integrate-and-deploy-react-with-phoenix",
+        author: "Mitchell Hanberg",
+        content: "<a href=\"https://www.mitchellhanberg.com/relativelink\">",
+        published: Timex.parse!("2018-02-22T12:00:00+00:00", "{ISO:Extended}")
+      }
+
+      actual =
+        FeedParser.parse(@xml_feed)
+        |> Map.get(:entries)
+        |> List.first()
+
+      assert actual.content =~ expected_entry.content
+    end
+
+    test "replaces relative img srcs with absolute ones" do
+      expected_entry = %FeedParser.Entry{
+        title: "Integrate and Deploy React with Phoenix",
+        url:
+          "https://www.mitchellhanberg.com/post/2018/02/22/integrate-and-deploy-react-with-phoenix",
+        author: "Mitchell Hanberg",
+        content: "<img src=\"https://www.mitchellhanberg.com/images/contact.png\"",
+        published: Timex.parse!("2018-02-22T12:00:00+00:00", "{ISO:Extended}")
+      }
+
+      actual =
+        FeedParser.parse(@xml_feed)
+        |> Map.get(:entries)
+        |> List.first()
+
+      assert actual.content =~ expected_entry.content
+    end
   end
 
   describe "merge/1" do
