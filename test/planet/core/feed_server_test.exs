@@ -3,12 +3,12 @@ defmodule Planet.Core.FeedServerTest do
   alias Planet.Core.{FeedServer, FeedParser}
   import Mox
 
-  import PlanetWeb.Factory
+  import PlanetWeb.Support
 
   setup :set_mox_global
   setup :verify_on_exit!
 
-  @stub_feed_xml File.read!("test/fixtures/feed_fixture.xml")
+  @stub_feed_xml feed_fixture(2)
 
   test "server initializes with feeds from database" do
     rss_fixture(%{name: "Mitchell Hanberg's Blog", url: "feed_url"})

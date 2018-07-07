@@ -35,7 +35,7 @@ defmodule Planet.Core.FeedParser do
   defp put_content(%Entry{} = entry, xml, feed) do
     content =
       xpath(xml, ~x"./content/text()"s)
-      |> String.replace(~r{(href|src)=(?:"|')/(.*)(?:"|')}, "\\1=\"#{feed.url}\\2\"")
+      |> String.replace(~r{(href|src)=(?:"|')/(.*?)(?:"|')}, "\\1=\"#{feed.url}\\2\"")
 
     struct(entry, content: content)
   end

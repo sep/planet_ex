@@ -1,6 +1,6 @@
 defmodule PlanetWeb.RssControllerTest do
   use PlanetWeb.ConnCase
-  import PlanetWeb.Factory
+  import PlanetWeb.Support
 
   describe "index/2" do
     test "should render all rss feeds", %{conn: conn} do

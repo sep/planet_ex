@@ -1,9 +1,10 @@
 defmodule Planet.Core.FeedParserTest do
   use ExUnit.Case
   alias Planet.Core.FeedParser
+  import PlanetWeb.Support
 
   describe "parse/1" do
-    @xml_feed File.read!("test/fixtures/feed_fixture.xml")
+    @xml_feed feed_fixture(5)
 
     test "returns and empty string when it is passed an Feed" do
       assert FeedParser.parse("") == %FeedParser.Feed{}
@@ -29,16 +30,11 @@ defmodule Planet.Core.FeedParserTest do
       assert expected.author == actual.author
     end
 
-    test "parses the entries into an entries field that is a list of Entry structs" do
-      actual = FeedParser.parse(@xml_feed)
-
-      assert [%FeedParser.Entry{}, %FeedParser.Entry{}] = actual.entries
-    end
-
     test "parses all entries" do
       actual = FeedParser.parse(@xml_feed)
 
-      assert 2 == Enum.count(actual.entries)
+      assert 5 == Enum.count(actual.entries)
+      assert %FeedParser.Entry{} = List.first(actual.entries)
     end
 
     test "parses entry data from feed" do
@@ -69,7 +65,7 @@ defmodule Planet.Core.FeedParserTest do
         url:
           "https://www.mitchellhanberg.com/post/2018/02/22/integrate-and-deploy-react-with-phoenix",
         author: "Mitchell Hanberg",
-        content: "<a href=\"https://www.mitchellhanberg.com/relativelink\">",
+        content: ~s{<a href="https://www.mitchellhanberg.com/relativelink">},
         published: Timex.parse!("2018-02-22T12:00:00+00:00", "{ISO:Extended}")
       }
 
