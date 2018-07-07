@@ -27,7 +27,7 @@ defmodule Planet.Core.FeedParser do
     %Entry{}
     |> put_title(entryXml)
     |> put_url(entryXml)
-    |> put_author(entryXml)
+    |> put_author(entryXml, feed)
     |> put_content(entryXml, feed)
     |> put_published(entryXml)
   end
@@ -62,6 +62,19 @@ defmodule Planet.Core.FeedParser do
 
   defp put_author(struct, xml) do
     struct(struct, author: xpath(xml, ~x"./author/name/text()"s))
+  end
+
+  defp put_author(struct, xml, feed) do
+    author =
+      case xpath(xml, ~x"./author/name/text()"s) do
+        "" ->
+          feed.author
+
+        entry_author ->
+          entry_author
+      end
+
+    struct(struct, author: author)
   end
 
   def merge(feeds) when is_list(feeds) do

@@ -8,7 +8,7 @@ defmodule Planet.Core.FeedServerTest do
   setup :set_mox_global
   setup :verify_on_exit!
 
-  @stub_feed_xml feed_fixture(2)
+  @stub_feed_xml feed_fixture([author: "Mitchell Hanberg"], 2)
 
   test "server initializes with feeds from database" do
     rss_fixture(%{name: "Mitchell Hanberg's Blog", url: "feed_url"})

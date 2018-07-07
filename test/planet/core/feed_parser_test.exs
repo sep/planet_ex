@@ -4,7 +4,7 @@ defmodule Planet.Core.FeedParserTest do
   import PlanetWeb.Support
 
   describe "parse/1" do
-    @xml_feed feed_fixture(5)
+    @xml_feed feed_fixture([author: "Mitchell Hanberg"], 5)
 
     test "returns and empty string when it is passed an Feed" do
       assert FeedParser.parse("") == %FeedParser.Feed{}
@@ -57,6 +57,26 @@ defmodule Planet.Core.FeedParserTest do
       assert expected_entry.author == actual.author
       assert actual.content =~ expected_entry.content
       assert expected_entry.published == actual.published
+    end
+
+    test "replaces empty entry author field with one from feed author field" do
+      xml_feed = feed_fixture(author: "Mitchell Hanberg", entry: nil)
+
+      expected_entry = %FeedParser.Entry{
+        title: "Integrate and Deploy React with Phoenix",
+        url:
+          "https://www.mitchellhanberg.com/post/2018/02/22/integrate-and-deploy-react-with-phoenix",
+        author: "Mitchell Hanberg",
+        content: "<blockquote>",
+        published: Timex.parse!("2018-02-22T12:00:00+00:00", "{ISO:Extended}")
+      }
+
+      actual =
+        FeedParser.parse(xml_feed)
+        |> Map.get(:entries)
+        |> List.first()
+
+      assert expected_entry.author == actual.author
     end
 
     test "replaces relative links in href values with absolute ones" do

@@ -20,7 +20,7 @@ defmodule PlanetWeb.Features.RssTest do
       ]
 
       FetchMock
-      |> Mox.stub(:get, fn _ -> feed_fixture() end)
+      |> Mox.stub(:get, fn _ -> feed_fixture(author: "Mitchell Hanberg") end)
 
       start_supervised!(FeedServer)
 
@@ -72,7 +72,7 @@ defmodule PlanetWeb.Features.RssTest do
   describe "entries page" do
     setup do
       rss_fixture(%{name: "aname", url: "https://aurl.com"})
-      stub_feed_xml = feed_fixture(15)
+      stub_feed_xml = feed_fixture([author: "Mitchell Hanberg"], 15)
 
       FetchMock
       |> Mox.stub(:get, fn _ -> stub_feed_xml end)
