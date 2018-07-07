@@ -5,16 +5,28 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/elixir:1.6-browsers
+      - image: circleci/elixir:1.6-node-browsers
       - image: circleci/postgres:10.3
 
     working_directory: ~/repo
     steps:
       - checkout
+      - restore_cache:
+          keys:
+            - elixir-build-v3-{{ checksum "mix.lock" }}
 
-        # specify any bash command here prefixed with `run: `
+
       - run: mix local.hex --force
       - run: mix local.rebar --force
       - run: mix deps.get
       - run: mix ecto.create
-      - run: mix test
+
+      - run: cd assets && yarn
+      - run: mix test.all
+
+      - save_cache:
+          key: elixir-build-v3-{{ checksum "mix.lock" }}
+          paths:
+            - '_build'
+            - 'deps'
+            - '~/.mix'
