@@ -1,5 +1,7 @@
 defmodule PlanetWeb.Features.RssTest do
   use PlanetWeb.FeatureCase
+
+  @moduletag :feature
   alias Planet.Core.FeedServer
   import PlanetWeb.Factory
   import Mox

@@ -10,6 +10,10 @@ defmodule Planet.Mixfile do
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
+      preferred_cli_env: [
+        "test.all": :test,
+        "test.feature": :test
+      ],
       deps: deps()
     ]
   end
@@ -65,6 +69,8 @@ defmodule Planet.Mixfile do
         "ecto.migrate",
         "test"
       ],
+      "test.feature": "test --only feature",
+      "test.all": "test --include feature",
       "assets.compile": &compile_assets/1
     ]
   end

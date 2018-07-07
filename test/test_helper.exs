@@ -1,4 +1,4 @@
-ExUnit.configure(timeout: :infinity)
+ExUnit.configure(timeout: :infinity, exclude: [feature: true])
 ExUnit.start()
 
 Ecto.Adapters.SQL.Sandbox.mode(Planet.Repo, :manual)
