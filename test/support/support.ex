@@ -1,7 +1,7 @@
 defmodule PlanetWeb.Support do
   @valid_attrs %{author: "some author", name: "some name", url: "some url"}
 
-  def rss_fixture(attrs \\ %{}) do
+  def feed_fixture(attrs \\ %{}) do
     {:ok, rss} =
       attrs
       |> Enum.into(@valid_attrs)
@@ -10,7 +10,7 @@ defmodule PlanetWeb.Support do
     rss
   end
 
-  def feed_fixture(authors, count \\ 1) do
+  def atom_fixture(authors, count \\ 1) do
     author = Keyword.get(authors, :author, "Mitchell Hanberg")
     entry_author = Keyword.get(authors, :entry, author)
 

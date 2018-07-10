@@ -14,7 +14,7 @@ defmodule Planet.FeedsTest do
     }
     @invalid_attrs %{author: nil, name: nil, url: nil}
 
-    def rss_fixture(attrs \\ %{}) do
+    def feed_fixture(attrs \\ %{}) do
       {:ok, rss} =
         attrs
         |> Enum.into(@valid_attrs)
@@ -24,12 +24,12 @@ defmodule Planet.FeedsTest do
     end
 
     test "list_rss/0 returns all rss" do
-      rss = rss_fixture()
+      rss = feed_fixture()
       assert Feeds.list_rss() == [rss]
     end
 
     test "get_rss!/1 returns the rss with given id" do
-      rss = rss_fixture()
+      rss = feed_fixture()
       assert Feeds.get_rss!(rss.id) == rss
     end
 
@@ -45,7 +45,7 @@ defmodule Planet.FeedsTest do
     end
 
     test "update_rss/2 with valid data updates the rss" do
-      rss = rss_fixture()
+      rss = feed_fixture()
       assert {:ok, rss} = Feeds.update_rss(rss, @update_attrs)
       assert %Rss{} = rss
       assert rss.author == "some updated author"
@@ -54,19 +54,19 @@ defmodule Planet.FeedsTest do
     end
 
     test "update_rss/2 with invalid data returns error changeset" do
-      rss = rss_fixture()
+      rss = feed_fixture()
       assert {:error, %Ecto.Changeset{}} = Feeds.update_rss(rss, @invalid_attrs)
       assert rss == Feeds.get_rss!(rss.id)
     end
 
     test "delete_rss/1 deletes the rss" do
-      rss = rss_fixture()
+      rss = feed_fixture()
       assert {:ok, %Rss{}} = Feeds.delete_rss(rss)
       assert_raise Ecto.NoResultsError, fn -> Feeds.get_rss!(rss.id) end
     end
 
     test "change_rss/1 returns a rss changeset" do
-      rss = rss_fixture()
+      rss = feed_fixture()
       assert %Ecto.Changeset{} = Feeds.change_rss(rss)
     end
   end

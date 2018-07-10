@@ -4,7 +4,7 @@ defmodule Planet.Core.FeedParserTest do
   import PlanetWeb.Support
 
   describe "parse/1" do
-    @xml_feed feed_fixture([author: "Mitchell Hanberg"], 5)
+    @xml_feed atom_fixture([author: "Mitchell Hanberg"], 5)
 
     test "returns and empty string when it is passed an Feed" do
       assert FeedParser.parse("") == %FeedParser.Feed{}
@@ -60,7 +60,7 @@ defmodule Planet.Core.FeedParserTest do
     end
 
     test "replaces empty entry author field with one from feed author field" do
-      xml_feed = feed_fixture(author: "Mitchell Hanberg", entry: nil)
+      xml_feed = atom_fixture(author: "Mitchell Hanberg", entry: nil)
 
       expected_entry = %FeedParser.Entry{
         title: "Integrate and Deploy React with Phoenix",

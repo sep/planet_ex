@@ -8,10 +8,10 @@ defmodule Planet.Core.FeedServerTest do
   setup :set_mox_global
   setup :verify_on_exit!
 
-  @stub_feed_xml feed_fixture([author: "Mitchell Hanberg"], 2)
+  @stub_feed_xml atom_fixture([author: "Mitchell Hanberg"], 2)
 
   test "server initializes with feeds from database" do
-    rss_fixture(%{name: "Mitchell Hanberg's Blog", url: "feed_url"})
+    feed_fixture(%{name: "Mitchell Hanberg's Blog", url: "feed_url"})
 
     FetchMock
     |> Mox.expect(:get, fn "feed_url" -> @stub_feed_xml end)
@@ -27,7 +27,7 @@ defmodule Planet.Core.FeedServerTest do
   end
 
   test "server fetches feeds periodically" do
-    rss_fixture(%{name: "Mitchell Hanberg's Blog", url: "feed_url"})
+    feed_fixture(%{name: "Mitchell Hanberg's Blog", url: "feed_url"})
     id = self()
 
     FetchMock

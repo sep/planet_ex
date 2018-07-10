@@ -5,9 +5,9 @@ defmodule PlanetWeb.RssControllerTest do
   describe "index/2" do
     test "should render all rss feeds", %{conn: conn} do
       feeds = [
-        rss_fixture(%{url: "url1"}),
-        rss_fixture(%{url: "url2"}),
-        rss_fixture(%{url: "url3"})
+        feed_fixture(%{url: "url1"}),
+        feed_fixture(%{url: "url2"}),
+        feed_fixture(%{url: "url3"})
       ]
 
       conn = get conn, "/rss"
@@ -61,7 +61,7 @@ defmodule PlanetWeb.RssControllerTest do
 
   describe "edit/2" do
     test "should render edit template with current data", %{conn: conn} do
-      feed = rss_fixture(%{url: "url"})
+      feed = feed_fixture(%{url: "url"})
 
       conn = get conn, "/rss/#{feed.id}/edit"
 
@@ -73,7 +73,7 @@ defmodule PlanetWeb.RssControllerTest do
 
   describe "update/2" do
     test "should update a feed", %{conn: conn} do
-      feed = rss_fixture(%{url: "url"})
+      feed = feed_fixture(%{url: "url"})
 
       updated_attrs = %{
         rss: %{
@@ -90,8 +90,8 @@ defmodule PlanetWeb.RssControllerTest do
     end
 
     test "should not be able to update a feed with another feeds url", %{conn: conn} do
-      feed = rss_fixture(%{url: "url"})
-      another_feed = rss_fixture(%{url: "taken_url"})
+      feed = feed_fixture(%{url: "url"})
+      another_feed = feed_fixture(%{url: "taken_url"})
 
       updated_attrs = %{
         rss: %{

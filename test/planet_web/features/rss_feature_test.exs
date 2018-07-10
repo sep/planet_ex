@@ -14,13 +14,13 @@ defmodule PlanetWeb.Features.RssTest do
   describe "feeds page" do
     setup do
       feeds = [
-        rss_fixture(%{name: "zname", url: "https://zurl.com"}),
-        rss_fixture(%{name: "aname", url: "https://aurl.com"}),
-        rss_fixture(%{name: "mname", url: "https://murl.com"})
+        feed_fixture(%{name: "zname", url: "https://zurl.com"}),
+        feed_fixture(%{name: "aname", url: "https://aurl.com"}),
+        feed_fixture(%{name: "mname", url: "https://murl.com"})
       ]
 
       FetchMock
-      |> Mox.stub(:get, fn _ -> feed_fixture(author: "Mitchell Hanberg") end)
+      |> Mox.stub(:get, fn _ -> atom_fixture(author: "Mitchell Hanberg") end)
 
       start_supervised!(FeedServer)
 
@@ -71,8 +71,8 @@ defmodule PlanetWeb.Features.RssTest do
 
   describe "entries page" do
     setup do
-      rss_fixture(%{name: "aname", url: "https://aurl.com"})
-      stub_feed_xml = feed_fixture([author: "Mitchell Hanberg"], 15)
+      feed_fixture(%{name: "aname", url: "https://aurl.com"})
+      stub_feed_xml = atom_fixture([author: "Mitchell Hanberg"], 15)
 
       FetchMock
       |> Mox.stub(:get, fn _ -> stub_feed_xml end)
