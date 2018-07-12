@@ -47,7 +47,7 @@ defmodule Planet.Mixfile do
       {:cowboy, "~> 1.0"},
       {:wallaby, "~> 0.20.0", [runtime: false, only: :test]},
       {:httpoison, "~> 1.0", override: true},
-      {:sweet_xml, "~> 0.6.5"},
+      {:sweet_xml, git: "git@github.com:mhanberg/sweet_xml.git"},
       {:timex, "~> 3.0"},
       {:mox, "~> 0.3.2", only: :test}
     ]

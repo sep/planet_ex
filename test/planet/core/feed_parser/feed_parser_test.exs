@@ -3,15 +3,15 @@ defmodule Planet.Core.FeedParserTest do
   alias Planet.Core.FeedParser
   import PlanetWeb.Support
 
-  describe "parse/1" do
-    @xml_feed atom_fixture([author: "Mitchell Hanberg"], 5)
+  test "returns and empty string when it is passed an Feed" do
+    assert FeedParser.parse("") == %FeedParser.Feed{}
+  end
 
-    test "returns and empty string when it is passed an Feed" do
-      assert FeedParser.parse("") == %FeedParser.Feed{}
-    end
+  describe "parse/1 for atom feeds" do
+    @atom_feed atom_fixture([author: "Mitchell Hanberg"], 5)
 
-    test "turns an xml feed into a Feed struct" do
-      actual = FeedParser.parse(@xml_feed)
+    test "turns an atom feed into a Feed struct" do
+      actual = FeedParser.parse(@atom_feed)
 
       assert %FeedParser.Feed{} = actual
     end
@@ -23,7 +23,7 @@ defmodule Planet.Core.FeedParserTest do
         author: "Mitchell Hanberg"
       }
 
-      actual = FeedParser.parse(@xml_feed)
+      actual = FeedParser.parse(@atom_feed)
 
       assert expected.title == actual.title
       assert expected.url == actual.url
@@ -31,7 +31,7 @@ defmodule Planet.Core.FeedParserTest do
     end
 
     test "parses all entries" do
-      actual = FeedParser.parse(@xml_feed)
+      actual = FeedParser.parse(@atom_feed)
 
       assert 5 == Enum.count(actual.entries)
       assert %FeedParser.Entry{} = List.first(actual.entries)
@@ -48,7 +48,7 @@ defmodule Planet.Core.FeedParserTest do
       }
 
       actual =
-        FeedParser.parse(@xml_feed)
+        FeedParser.parse(@atom_feed)
         |> Map.get(:entries)
         |> List.first()
 
@@ -90,7 +90,7 @@ defmodule Planet.Core.FeedParserTest do
       }
 
       actual =
-        FeedParser.parse(@xml_feed)
+        FeedParser.parse(@atom_feed)
         |> Map.get(:entries)
         |> List.first()
 
@@ -108,7 +108,7 @@ defmodule Planet.Core.FeedParserTest do
       }
 
       actual =
-        FeedParser.parse(@xml_feed)
+        FeedParser.parse(@atom_feed)
         |> Map.get(:entries)
         |> List.first()
 
@@ -116,73 +116,57 @@ defmodule Planet.Core.FeedParserTest do
     end
   end
 
-  describe "merge/1" do
-    test "takes a list of Feed and returns a single Feed" do
-      feeds = [
-        %FeedParser.Feed{},
-        %FeedParser.Feed{},
-        %FeedParser.Feed{}
-      ]
+  describe "parse/1 for rss feeds" do
+    @rss_feed rss_fixture(5)
 
-      actual = FeedParser.merge(feeds)
+    test "turns an rss feed into a Feed struct" do
+      actual = FeedParser.parse(@rss_feed)
 
       assert %FeedParser.Feed{} = actual
     end
 
-    test "merged feed has Planet's meta data" do
+    test "parses the title and url fields" do
       expected = %FeedParser.Feed{
-        title: "Planet: The Blogs of SEP",
-        url: "https://planet.sep.com",
-        author: "SEPeers"
+        title: "SEP Blog",
+        url: "https://www.sep.com/sep-blog"
       }
 
-      actual = FeedParser.merge([])
+      actual = FeedParser.parse(@rss_feed)
 
       assert expected.title == actual.title
       assert expected.url == actual.url
-      assert expected.author == actual.author
     end
 
-    test "should merge Feed entries into a single Feed in descending order by published" do
-      expected_entries = [
-        %FeedParser.Entry{
-          title: "Entry1",
-          published: Timex.parse!("2018-06-24T04:50:34-05:00", "{ISO:Extended}")
-        },
-        %FeedParser.Entry{
-          title: "Entry2",
-          published: Timex.parse!("2017-06-24T04:50:34-05:00", "{ISO:Extended}")
-        },
-        %FeedParser.Entry{
-          title: "Entry3",
-          published: Timex.parse!("2015-06-24T04:50:34-05:00", "{ISO:Extended}")
-        },
-        %FeedParser.Entry{
-          title: "Entry4",
-          published: Timex.parse!("2013-06-24T04:50:34-05:00", "{ISO:Extended}")
-        }
-      ]
+    test "parses all entries" do
+      actual = FeedParser.parse(@rss_feed)
 
-      feeds = [
-        %FeedParser.Feed{
-          entries: [
-            Enum.at(expected_entries, 0),
-            Enum.at(expected_entries, 2)
-          ]
-        },
-        %FeedParser.Feed{
-          entries: [
-            Enum.at(expected_entries, 1),
-            Enum.at(expected_entries, 3)
-          ]
-        }
-      ]
+      assert 5 == Enum.count(actual.entries)
+      assert %FeedParser.Entry{} = List.first(actual.entries)
+    end
+
+    test "parses entry data from feed" do
+      expected_entry = %FeedParser.Entry{
+        title: "Meet the 2018 Interns",
+        url: "https://www.sep.com/sep-blog/2018/06/19/meet-the-2018-interns/",
+        content: "Berkley",
+        author: "SEP Interns",
+        published:
+          Timex.parse!(
+            "Tue, 19 Jun 2018 15:53:03 +0000",
+            "{WDshort}, {0D} {Mshort} {YYYY} {h24}:{m}:{s} {Z}"
+          )
+      }
 
       actual =
-        FeedParser.merge(feeds)
+        FeedParser.parse(@rss_feed)
         |> Map.get(:entries)
+        |> List.first()
 
-      assert expected_entries == actual
+      assert expected_entry.title == actual.title
+      assert expected_entry.url == actual.url
+      assert actual.content =~ expected_entry.content
+      assert expected_entry.published == actual.published
+      assert expected_entry.author == actual.author
     end
   end
 end

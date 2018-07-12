@@ -1,5 +1,6 @@
 defmodule Planet.Core.FeedServer do
   use GenServer
+  require Logger
   alias Planet.Feeds
   alias Planet.Core.FeedParser
 
@@ -15,7 +16,13 @@ defmodule Planet.Core.FeedServer do
   end
 
   def init(_args) do
-    feed = build_feed()
+    initial_feed = %FeedParser.Feed{
+      title: "Planet: The Blogs of SEP",
+      url: "https://planet.sep.com",
+      author: "SEPeers"
+    }
+
+    feed = build_feed(initial_feed)
 
     schedule()
 
@@ -27,7 +34,7 @@ defmodule Planet.Core.FeedServer do
   end
 
   def handle_info(:rebuild_feed, state) do
-    feed = build_feed()
+    feed = build_feed(state.planet)
 
     write_feed(feed)
     schedule()
@@ -39,16 +46,18 @@ defmodule Planet.Core.FeedServer do
     Process.send_after(self(), :rebuild_feed, @timeout)
   end
 
-  defp build_feed() do
+  defp build_feed(feed) do
     Feeds.list_rss()
     |> Enum.map(fn rss ->
       @fetcher.get(rss.url)
       |> FeedParser.parse()
     end)
-    |> FeedParser.merge()
+    |> FeedParser.Feed.merge(feed)
   end
 
   defp write_feed(feed) do
+    Logger.info("Writing feed.xml")
+
     File.write!(
       "assets/static/feed.xml",
       Phoenix.View.render_to_iodata(PlanetWeb.RssView, "feed.xml", feed: feed)
