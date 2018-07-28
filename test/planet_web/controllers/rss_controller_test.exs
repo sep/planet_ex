@@ -25,7 +25,8 @@ defmodule PlanetWeb.RssControllerTest do
       rss: %{
         name: "Mitchell Hanberg's Blog",
         url: "mitchblog.com",
-        author: "Mitchell Hanberg"
+        author: "Mitchell Hanberg",
+        is_sharepoint: false
       }
     }
 

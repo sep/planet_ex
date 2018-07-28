@@ -1,5 +1,5 @@
 defmodule PlanetWeb.Support do
-  @valid_attrs %{author: "some author", name: "some name", url: "some url"}
+  @valid_attrs %{author: "some author", name: "some name", url: "some url", is_sharepoint: false}
 
   def feed_fixture(attrs \\ %{}) do
     {:ok, rss} =

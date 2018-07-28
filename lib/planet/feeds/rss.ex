@@ -6,6 +6,7 @@ defmodule Planet.Feeds.Rss do
     field :author, :string
     field :name, :string
     field :url, :string
+    field :is_sharepoint, :boolean
 
     timestamps()
   end
@@ -13,8 +14,8 @@ defmodule Planet.Feeds.Rss do
   @doc false
   def changeset(rss, attrs \\ %{}) do
     rss
-    |> cast(attrs, [:name, :url, :author])
-    |> validate_required([:name, :url, :author])
+    |> cast(attrs, [:name, :url, :author, :is_sharepoint])
+    |> validate_required([:name, :url, :author, :is_sharepoint])
     |> unique_constraint(:url, message: "this feed has already been added.")
   end
 end
