@@ -34,7 +34,6 @@ defmodule Planet.Core.FeedFetcher do
           .then(r => r.text())
           .then(t => document.querySelector("html").innerHTML = t);
         """)
-        |> take_screenshot()
         |> page_source
 
       session
