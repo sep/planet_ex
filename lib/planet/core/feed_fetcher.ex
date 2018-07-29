@@ -29,7 +29,7 @@ defmodule Planet.Core.FeedFetcher do
         session
         |> visit(url_with_creds)
         |> execute_script("""
-        fetch("https://sharepoint.sep.com:8383/personal/ohri/Blog/_layouts/15/listfeed.aspx?List={CC026F11-42A9-481A-92A4-03608256B2F1}")
+        fetch("#{url}")
           .then(r => r.text())
           .then(t => document.querySelector("html").innerHTML = t);
         """)
