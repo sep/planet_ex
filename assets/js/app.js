@@ -7,3 +7,9 @@
 // in vendor, which are never wrapped in imports and
 // therefore are always executed.
 
+window.disableSubmitButton = function() {
+   const submitButton = document.getElementById("submitButton");
+
+   submitButton.setAttribute("disabled", "");
+   submitButton.classList.add("opacity-50", "cursor-not-allowed");
+};
