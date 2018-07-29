@@ -24,7 +24,7 @@ defmodule Planet.Core.FeedParser.Rss do
     %Entry{}
     |> put_title(entryXml)
     |> put_url(entryXml)
-    |> put_author(entryXml, feed)
+    |> put_author(entryXml)
     |> put_content(entryXml, feed)
     |> put_published(entryXml)
   end
@@ -55,8 +55,8 @@ defmodule Planet.Core.FeedParser.Rss do
       {:ok, date} ->
         date
 
-      {:error, error} ->
-        false
+      {:error, _} ->
+        nil
     end
   end
 
@@ -65,8 +65,8 @@ defmodule Planet.Core.FeedParser.Rss do
       {:ok, date} ->
         date
 
-      {:error, error} ->
-        false
+      {:error, _} ->
+        nil
     end
   end
 
@@ -75,8 +75,8 @@ defmodule Planet.Core.FeedParser.Rss do
       {:ok, date} ->
         date
 
-      {:error, error} ->
-        false
+      {:error, _} ->
+        nil
     end
   end
 
@@ -90,7 +90,7 @@ defmodule Planet.Core.FeedParser.Rss do
     struct(struct, url: url)
   end
 
-  defp put_author(struct, xml, feed) do
+  defp put_author(struct, xml) do
     author = xpath(xml, ~x"./author/text()"so) || xpath(xml, ~x"./dc:creator/text()"so)
 
     struct(struct, author: author)
