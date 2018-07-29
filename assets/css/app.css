@@ -65,3 +65,11 @@ blockquote {
   }
 }
 
+.green-focus {
+  outline-color: config("colors.green");
+}
+
+.soft-placeholder::placeholder {
+  @apply text-grey;
+}
+

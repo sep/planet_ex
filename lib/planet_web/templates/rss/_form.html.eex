@@ -4,19 +4,19 @@
       Name 
       <%= error_tag f, :name %>
     <% end %>
-    <%= text_input f, :name, [class: "bg-green-ultimate-light p-3 mt-2 mb-4", required: true] %>
+    <%= text_input f, :name, [class: "bg-green-ultimate-light p-3 mt-2 mb-4 soft-placeholder green-focus", required: true, placeholder: "SEP Blog"] %>
 
     <%= label f, :url, [class: "text-label-grey opacity-75"] do %>
       URL
       <%= error_tag f, :url %>
     <% end %>
-    <%= url_input f, :url, [class: "bg-green-ultimate-light p-3 mt-2 mb-4", required: true] %>
+    <%= url_input f, :url, [class: "bg-green-ultimate-light p-3 mt-2 mb-4 soft-placeholder green-focus", required: true, placeholder: "https://www.sep.com/sep-blog/feed"] %>
 
     <%= label f, :author, [class: "text-label-grey opacity-75"] do %>
       Author
       <%= error_tag f, :author %>
     <% end %>
-    <%= text_input f, :author, [class: "bg-green-ultimate-light p-3 mt-2 mb-4", required: true] %>
+    <%= text_input f, :author, [class: "bg-green-ultimate-light p-3 mt-2 mb-4 soft-placeholder green-focus", required: true, placeholder: "SEPeers"] %>
 
     <div class="flex">
       <%= checkbox f, :is_sharepoint, [class: "mr-4"] %>
