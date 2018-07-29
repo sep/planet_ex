@@ -1,4 +1,5 @@
 defmodule Planet.Core.FeedParser.Rss do
+  require Logger
   alias Planet.Core.FeedParser.{Feed, Entry}
   import SweetXml
 
@@ -30,7 +31,8 @@ defmodule Planet.Core.FeedParser.Rss do
 
   defp put_content(%Entry{} = entry, xml, feed) do
     content =
-      xpath(xml, ~x"./content:encoded/text()"s)
+      (xpath(xml, ~x"./content:encoded/text()"so) ||
+         xpath(xml, ~x"./description/div/*/text()"lso) |> Enum.join("\n") || "")
       |> String.replace(~r{(href|src)=(?:"|')/(.*?)(?:"|')}, "\\1=\"#{feed.url}\\2\"")
 
     struct(entry, content: content)
@@ -38,14 +40,14 @@ defmodule Planet.Core.FeedParser.Rss do
 
   defp put_published(%Entry{} = entry, xml) do
     published =
-      xpath(xml, ~x"./pubDate/text()"s)
+      (xpath(xml, ~x"./pubDate/text()"so) || xpath(xml, ~x"./pubdate/text()"so))
       |> parse_date
 
     struct(entry, published: published)
   end
 
   defp parse_date(date) do
-    parse_rfc_822(date) || parse_rfc_822_bastard(date)
+    parse_rfc_822(date) || parse_rfc_822_bastard(date) || parse_rfc_822_sharepoint_bastard(date)
   end
 
   def parse_rfc_822(date) do
@@ -53,7 +55,7 @@ defmodule Planet.Core.FeedParser.Rss do
       {:ok, date} ->
         date
 
-      {:error, _} ->
+      {:error, error} ->
         false
     end
   end
@@ -63,7 +65,17 @@ defmodule Planet.Core.FeedParser.Rss do
       {:ok, date} ->
         date
 
-      {:error, _} ->
+      {:error, error} ->
+        false
+    end
+  end
+
+  def parse_rfc_822_sharepoint_bastard(date) do
+    case Timex.parse(date, "{WDshort}, {0D} {Mshort} {YYYY} {h24}:{m}:{s} {Zabbr}") do
+      {:ok, date} ->
+        date
+
+      {:error, error} ->
         false
     end
   end
@@ -73,7 +85,9 @@ defmodule Planet.Core.FeedParser.Rss do
   end
 
   defp put_url(struct, xml) do
-    struct(struct, url: xpath(xml, ~x"./link/text()"s))
+    url = xpath(xml, ~x"./link/text()"so) || xpath(xml, ~x"./guid/text()"so) || ""
+
+    struct(struct, url: url)
   end
 
   defp put_author(struct, xml, feed) do

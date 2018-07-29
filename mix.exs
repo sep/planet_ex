@@ -45,11 +45,12 @@ defmodule Planet.Mixfile do
       {:phoenix_live_reload, "~> 1.0", only: :dev},
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
-      {:wallaby, "~> 0.20.0", [runtime: false, only: :test]},
+      {:wallaby, "~> 0.20.0"},
       {:httpoison, "~> 1.0", override: true},
       {:sweet_xml, git: "git@github.com:mhanberg/sweet_xml.git"},
       {:timex, "~> 3.0"},
-      {:mox, "~> 0.3.2", only: :test}
+      {:mox, "~> 0.3.2", only: :test},
+      {:dotenv, "~> 2.0.0", only: :dev}
     ]
   end
 

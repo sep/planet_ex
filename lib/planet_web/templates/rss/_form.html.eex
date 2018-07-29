@@ -17,6 +17,14 @@
       <%= error_tag f, :author %>
     <% end %>
     <%= text_input f, :author, [class: "bg-green-ultimate-light p-3 mt-2 mb-4", required: true] %>
+
+    <div class="flex">
+      <%= checkbox f, :is_sharepoint, [class: "mr-4"] %>
+      <%= label f, :is_sharepoint, [class: "text-label-grey opacity-75"] do %>
+        Sharepoint?
+        <%= error_tag f, :is_sharepoint %>
+      <% end %>
+    </div>
   </div>
 
   <div class="flex justify-between mt-4">

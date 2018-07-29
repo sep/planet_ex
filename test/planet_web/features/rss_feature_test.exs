@@ -58,6 +58,19 @@ defmodule PlanetWeb.Features.RssTest do
       |> assert_text("Success!")
     end
 
+    test "should be able to add a sharepoint RSS feed", %{session: session} do
+      session
+      |> visit("/")
+      |> click(Query.link("Feeds"))
+      |> click(Query.link("New"))
+      |> fill_in(Query.text_field("Name"), with: "Blog title")
+      |> fill_in(Query.text_field("URL"), with: "https://bloggington.blog")
+      |> fill_in(Query.text_field("Author"), with: "The Blog Man")
+      |> click(Query.checkbox("Sharepoint?"))
+      |> click(Query.button("Add"))
+      |> assert_text("Success!")
+    end
+
     test "should be able to update an RSS feed", %{session: session, fixtures: fixtures} do
       session
       |> visit("/")

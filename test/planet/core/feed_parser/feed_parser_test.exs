@@ -169,4 +169,58 @@ defmodule Planet.Core.FeedParserTest do
       assert expected_entry.author == actual.author
     end
   end
+
+  describe "parse/1 for sharepoint feeds" do
+    @sharepoint_feed sharepoint_fixture()
+
+    test "turns an html doc into a Feed struct" do
+      actual = FeedParser.parse(@sharepoint_feed)
+
+      assert %FeedParser.Feed{} = actual
+    end
+
+    test "parses the title and url fields" do
+      expected = %FeedParser.Feed{
+        title: "Blog: Posts",
+        url: "https://sharepoint.sep.com:8383/personal/ohri/Blog/Lists/Posts/AllPosts.aspx"
+      }
+
+      actual = FeedParser.parse(@sharepoint_feed)
+
+      assert expected.title == actual.title
+    end
+
+    test "parses all entries" do
+      actual = FeedParser.parse(@sharepoint_feed)
+
+      assert 2 == Enum.count(actual.entries)
+      assert %FeedParser.Entry{} = List.first(actual.entries)
+    end
+
+    test "parses entry data from feed" do
+      expected_entry = %FeedParser.Entry{
+        title: "Staffing Meeting Notes 7/3/18",
+        url:
+          "https://sharepoint.sep.com:8383/personal/ohri/Blog/Lists/Posts/ViewPost.aspx?ID=400",
+        content: "JML",
+        author: "Raman N. Ohri",
+        published:
+          Timex.parse!(
+            "Tue, 03 Jul 2018 15:07:18 GMT",
+            "{WDshort}, {0D} {Mshort} {YYYY} {h24}:{m}:{s} {Zabbr}"
+          )
+      }
+
+      actual =
+        FeedParser.parse(@sharepoint_feed)
+        |> Map.get(:entries)
+        |> List.first()
+
+      assert expected_entry.title == actual.title
+      assert expected_entry.url == actual.url
+      assert actual.content =~ expected_entry.content
+      assert expected_entry.published == actual.published
+      assert expected_entry.author == actual.author
+    end
+  end
 end

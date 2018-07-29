@@ -49,7 +49,7 @@ defmodule Planet.Core.FeedServer do
   defp build_feed(feed) do
     Feeds.list_rss()
     |> Enum.map(fn rss ->
-      @fetcher.get(rss.url)
+      @fetcher.get(rss)
       |> FeedParser.parse()
     end)
     |> FeedParser.Feed.merge(feed)

@@ -11,10 +11,10 @@ defmodule Planet.Core.FeedServerTest do
   @stub_feed_xml atom_fixture([author: "Mitchell Hanberg"], 2)
 
   test "server initializes with feeds from database" do
-    feed_fixture(%{name: "Mitchell Hanberg's Blog", url: "feed_url"})
+    feed = feed_fixture(%{name: "Mitchell Hanberg's Blog", url: "feed_url"})
 
     FetchMock
-    |> Mox.expect(:get, fn "feed_url" -> @stub_feed_xml end)
+    |> Mox.expect(:get, fn ^feed -> @stub_feed_xml end)
 
     server = start_supervised!(FeedServer)
 
@@ -27,12 +27,12 @@ defmodule Planet.Core.FeedServerTest do
   end
 
   test "server fetches feeds periodically" do
-    feed_fixture(%{name: "Mitchell Hanberg's Blog", url: "feed_url"})
+    feed = feed_fixture(%{name: "Mitchell Hanberg's Blog", url: "feed_url"})
     id = self()
 
     FetchMock
-    |> Mox.expect(:get, fn "feed_url" -> @stub_feed_xml end)
-    |> Mox.expect(:get, fn "feed_url" -> send(id, :done) end)
+    |> Mox.expect(:get, fn ^feed -> @stub_feed_xml end)
+    |> Mox.expect(:get, fn ^feed -> send(id, :done) end)
 
     start_supervised!(FeedServer)
 

@@ -6,10 +6,7 @@ config :planet, PlanetWeb.Endpoint,
 
 config :planet, :sql_sandbox, true
 
-config :wallaby,
-  screenshot_on_failure: true,
-  # chrome: [headless: false],
-  driver: Wallaby.Experimental.Chrome
+config :wallaby, chrome: [headless: true]
 
 # Print only warnings and errors during test
 config :logger, level: :warn
