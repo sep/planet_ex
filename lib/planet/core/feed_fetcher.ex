@@ -1,4 +1,7 @@
 defmodule Planet.Core.FeedFetcher do
+  @moduledoc """
+  This module is responsible for for fetching Feed data.
+  """
   require Logger
   alias Planet.Feeds.Rss
   use Wallaby.DSL

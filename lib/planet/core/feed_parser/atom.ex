@@ -1,5 +1,8 @@
 defmodule Planet.Core.FeedParser.Atom do
-  alias Planet.Core.FeedParser.{Feed, Entry}
+  @moduledoc """
+  This module understands how to parse an Atom feed.
+  """
+  alias Planet.Core.FeedParser.{Entry, Feed}
   import SweetXml
 
   def parse(xml) do
@@ -12,24 +15,26 @@ defmodule Planet.Core.FeedParser.Atom do
 
   defp put_entries(%Feed{} = feed, xml) do
     entries =
-      xpath(xml, ~x"./entry"l)
+      xml
+      |> xpath(~x"./entry"l)
       |> Enum.map(fn entry -> to_entry(entry, feed) end)
 
     struct(feed, entries: entries)
   end
 
-  defp to_entry(entryXml, feed) do
+  defp to_entry(entry_xml, feed) do
     %Entry{}
-    |> put_title(entryXml)
-    |> put_url(entryXml)
-    |> put_author(entryXml, feed)
-    |> put_content(entryXml, feed)
-    |> put_published(entryXml)
+    |> put_title(entry_xml)
+    |> put_url(entry_xml)
+    |> put_author(entry_xml, feed)
+    |> put_content(entry_xml, feed)
+    |> put_published(entry_xml)
   end
 
   defp put_content(%Entry{} = entry, xml, feed) do
     content =
-      xpath(xml, ~x"./content/text()"s)
+      xml
+      |> xpath(~x"./content/text()"s)
       |> String.replace(~r{(href|src)=(?:"|')/(.*?)(?:"|')}, "\\1=\"#{feed.url}\\2\"")
 
     struct(entry, content: content)
@@ -37,7 +42,8 @@ defmodule Planet.Core.FeedParser.Atom do
 
   defp put_published(%Entry{} = entry, xml) do
     published =
-      xpath(xml, ~x"./published/text()"s)
+      xml
+      |> xpath(~x"./published/text()"s)
       |> parse_date
 
     struct(entry, published: published)

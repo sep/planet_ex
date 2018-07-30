@@ -17,5 +17,5 @@ defmodule PlanetWeb.RssView do
     |> safe_to_string
   end
 
-  defp no_nil(feed), do: unless(is_nil(feed), do: feed, else: %{})
+  defp no_nil(feed), do: if(is_nil(feed), do: %{}, else: feed)
 end

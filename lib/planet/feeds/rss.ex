@@ -1,4 +1,9 @@
 defmodule Planet.Feeds.Rss do
+  @moduledoc """
+  This module provides the schema for the RSS domain concept.
+
+  Each RSS struct represents an RSS, Atom, or Sharepoint feed.
+  """
   use Ecto.Schema
   import Ecto.Changeset
 

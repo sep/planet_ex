@@ -1,6 +1,6 @@
 defmodule Planet.Core.FeedParser.FeedTest do
   use ExUnit.Case
-  alias Planet.Core.FeedParser.{Feed, Entry}
+  alias Planet.Core.FeedParser.{Entry, Feed}
 
   describe "merge/1" do
     test "takes a list of Feed and returns a single Feed" do
@@ -51,7 +51,8 @@ defmodule Planet.Core.FeedParser.FeedTest do
       ]
 
       actual =
-        Feed.merge(feeds, %Feed{})
+        feeds
+        |> Feed.merge(%Feed{})
         |> Map.get(:entries)
 
       assert expected_entries == actual

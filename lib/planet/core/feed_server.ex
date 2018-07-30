@@ -1,8 +1,11 @@
 defmodule Planet.Core.FeedServer do
+  @moduledoc """
+  FeedServer fetches, parses, and serves the feeds on a configurable schedule.
+  """
   use GenServer
   require Logger
-  alias Planet.Feeds
   alias Planet.Core.FeedParser
+  alias Planet.Feeds
 
   @fetcher Application.get_env(:planet, :fetcher, Planet.Core.FeedFetcher)
   @timeout Application.get_env(:planet, :server_timeout)
@@ -42,14 +45,15 @@ defmodule Planet.Core.FeedServer do
     {:noreply, Map.put(state, :planet, feed)}
   end
 
-  defp schedule() do
+  defp schedule do
     Process.send_after(self(), :rebuild_feed, @timeout)
   end
 
   defp build_feed(feed) do
     Feeds.list_rss()
     |> Enum.map(fn rss ->
-      @fetcher.get(rss)
+      rss
+      |> @fetcher.get()
       |> FeedParser.parse()
     end)
     |> FeedParser.Feed.merge(feed)

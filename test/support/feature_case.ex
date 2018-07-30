@@ -1,4 +1,7 @@
 defmodule PlanetWeb.FeatureCase do
+  @moduledoc """
+  This module sets up Feature tests using Wallaby and Google Chrome. 
+  """
   use ExUnit.CaseTemplate
 
   using do

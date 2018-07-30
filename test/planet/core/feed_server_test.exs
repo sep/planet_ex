@@ -1,6 +1,6 @@
 defmodule Planet.Core.FeedServerTest do
   use Planet.DataCase
-  alias Planet.Core.{FeedServer, FeedParser}
+  alias Planet.Core.{FeedParser, FeedServer}
   import Mox
 
   import PlanetWeb.Support

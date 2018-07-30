@@ -1,7 +1,7 @@
 defmodule PlanetWeb.EntriesController do
   use PlanetWeb, :controller
-  alias Planet.Core.FeedServer
   alias Planet.Core.FeedParser.Feed
+  alias Planet.Core.FeedServer
 
   def index(conn, %{"page" => page}) do
     conn

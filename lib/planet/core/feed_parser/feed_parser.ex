@@ -1,11 +1,15 @@
 defmodule Planet.Core.FeedParser do
+  @moduledoc """
+  This module coordinates parsing feeds, delegating to the appropriate parser.
+  """
   require Logger
-  alias Planet.Core.FeedParser.{Feed, Atom, Rss, Sharepoint}
+  alias Planet.Core.FeedParser.{Atom, Feed, Rss, Sharepoint}
 
   def parse(""), do: %Feed{}
 
   def parse(raw_feed) do
-    SweetXml.parse(raw_feed)
+    raw_feed
+    |> SweetXml.parse()
     |> case do
       {_, :feed, _, _, _, _, _, _, _, _, _, _} = feed ->
         Atom.parse(feed)

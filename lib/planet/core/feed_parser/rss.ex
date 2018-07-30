@@ -1,6 +1,9 @@
 defmodule Planet.Core.FeedParser.Rss do
+  @moduledoc """
+  This module understands how to parse an RSS feed.
+  """
   require Logger
-  alias Planet.Core.FeedParser.{Feed, Entry}
+  alias Planet.Core.FeedParser.{Entry, Feed}
   import SweetXml
 
   def parse(xml) do
@@ -14,28 +17,34 @@ defmodule Planet.Core.FeedParser.Rss do
 
   defp put_entries(%Feed{} = feed, xml) do
     entries =
-      xpath(xml, ~x"./item"le)
+      xml
+      |> xpath(~x"./item"le)
       |> Enum.map(fn entry -> to_entry(entry, feed) end)
 
     struct(feed, entries: entries)
   end
 
-  defp to_entry(entryXml, feed) do
+  defp to_entry(entry_xml, feed) do
     %Entry{}
-    |> put_title(entryXml)
-    |> put_url(entryXml)
-    |> put_author(entryXml)
-    |> put_content(entryXml, feed)
-    |> put_published(entryXml)
+    |> put_title(entry_xml)
+    |> put_url(entry_xml)
+    |> put_author(entry_xml)
+    |> put_content(entry_xml, feed)
+    |> put_published(entry_xml)
   end
 
   defp put_content(%Entry{} = entry, xml, feed) do
     content =
-      (xpath(xml, ~x"./content:encoded/text()"so) ||
-         xpath(xml, ~x"./description/div/*/text()"lso) |> Enum.join("\n") || "")
+      xml
+      |> get_content()
       |> String.replace(~r{(href|src)=(?:"|')/(.*?)(?:"|')}, "\\1=\"#{feed.url}\\2\"")
 
     struct(entry, content: content)
+  end
+
+  defp get_content(xml) do
+    xpath(xml, ~x"./content:encoded/text()"so) ||
+      xml |> xpath(~x"./description/div/*/text()"lso) |> Enum.join("\n") || ""
   end
 
   defp put_published(%Entry{} = entry, xml) do

@@ -1,4 +1,7 @@
 defmodule Planet.Core.FeedParser.Feed do
+  @moduledoc """
+  This module represents a feed and certain operations that can be done on a feed.
+  """
   defstruct [:type, :title, :url, :author, entries: []]
 
   def with_entries(feed, page, per_page) do
@@ -15,7 +18,8 @@ defmodule Planet.Core.FeedParser.Feed do
   end
 
   defp combine_and_sort_entries(feeds) do
-    Enum.flat_map(feeds, & &1.entries)
+    feeds
+    |> Enum.flat_map(& &1.entries)
     |> Enum.sort_by(& &1.published, &Timex.after?/2)
   end
 end

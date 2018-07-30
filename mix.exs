@@ -50,7 +50,8 @@ defmodule Planet.Mixfile do
       {:sweet_xml, git: "git@github.com:mhanberg/sweet_xml.git"},
       {:timex, "~> 3.0"},
       {:mox, "~> 0.3.2", only: :test},
-      {:dotenv, "~> 2.0.0", only: :dev}
+      {:dotenv, "~> 2.0.0", only: :dev},
+      {:credo, "~> 0.10.0", only: [:dev, :test], runtime: false}
     ]
   end
 

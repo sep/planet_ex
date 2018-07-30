@@ -48,7 +48,8 @@ defmodule Planet.Core.FeedParserTest do
       }
 
       actual =
-        FeedParser.parse(@atom_feed)
+        @atom_feed
+        |> FeedParser.parse()
         |> Map.get(:entries)
         |> List.first()
 
@@ -72,7 +73,8 @@ defmodule Planet.Core.FeedParserTest do
       }
 
       actual =
-        FeedParser.parse(xml_feed)
+        xml_feed
+        |> FeedParser.parse()
         |> Map.get(:entries)
         |> List.first()
 
@@ -90,7 +92,8 @@ defmodule Planet.Core.FeedParserTest do
       }
 
       actual =
-        FeedParser.parse(@atom_feed)
+        @atom_feed
+        |> FeedParser.parse()
         |> Map.get(:entries)
         |> List.first()
 
@@ -108,7 +111,8 @@ defmodule Planet.Core.FeedParserTest do
       }
 
       actual =
-        FeedParser.parse(@atom_feed)
+        @atom_feed
+        |> FeedParser.parse()
         |> Map.get(:entries)
         |> List.first()
 
@@ -158,7 +162,8 @@ defmodule Planet.Core.FeedParserTest do
       }
 
       actual =
-        FeedParser.parse(@rss_feed)
+        @rss_feed
+        |> FeedParser.parse()
         |> Map.get(:entries)
         |> List.first()
 
@@ -212,7 +217,8 @@ defmodule Planet.Core.FeedParserTest do
       }
 
       actual =
-        FeedParser.parse(@sharepoint_feed)
+        @sharepoint_feed
+        |> FeedParser.parse()
         |> Map.get(:entries)
         |> List.first()
 
