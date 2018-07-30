@@ -12,7 +12,8 @@ defmodule Planet.Mixfile do
       aliases: aliases(),
       preferred_cli_env: [
         "test.all": :test,
-        "test.feature": :test
+        "test.feature": :test,
+        verify: :test
       ],
       deps: deps()
     ]
@@ -73,7 +74,12 @@ defmodule Planet.Mixfile do
       ],
       "test.feature": "test --only feature",
       "test.all": "test --include feature",
-      "assets.compile": &compile_assets/1
+      "assets.compile": &compile_assets/1,
+      verify: [
+        "format --check-formatted",
+        "credo",
+        "test.all"
+      ]
     ]
   end
 
