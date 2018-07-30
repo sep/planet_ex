@@ -22,6 +22,9 @@ jobs:
       - run: mix ecto.create
 
       - run: cd assets && yarn
+
+      - run: mix format --check-formatted
+      - run: mix credo suggest
       - run: mix test.all
 
       - save_cache:
