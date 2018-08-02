@@ -5,7 +5,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Hello Planet!</title>
+  <title>Planet</title>
   <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
 
   <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
