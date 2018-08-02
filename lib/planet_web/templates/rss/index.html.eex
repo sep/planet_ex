@@ -6,12 +6,26 @@
   <hr class="w-full h-px bg-green-lightest mb-8">
 </div>
 
-<div class="max-w-xs mx-auto">
+<div class="max-w-sm mx-auto">
   <%= for feed <- @feeds do %>
     <div class="mb-4">
-      <div id="feedName" class="text-3xl py-2"><a href="<%= rss_path(@conn, :edit, feed.id) %>"><%= feed.name %></a></div>
+      <div class="flex justify-between items-center">
+        <div id="feedName" class="text-3xl py-2"><%= feed.name %></div>
+
+        <div class="relative inline-block">
+          <button id="btn-<%= feed.id %>" onclick="Planet.openFeedMenu(event, '<%= feed.id %>')" class="cursor-pointer focus:outline-none dropdown-button">
+            <svg  class="inline-block h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 12a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0-6a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 12a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/></svg>
+          </button>
+          <div id="<%= feed.id %>-dropdown" class="hidden absolute bg-grey-lightest shadow z-10 dropdown-content">
+            <%= link("Edit", to: rss_path(@conn, :edit, feed.id), class: "text-black py-4 px-6 block hover:bg-grey-lighter") %>
+            <%= link("Delete", to: rss_path(@conn, :delete, feed.id), class: "text-black py-4 px-6 block hover:bg-grey-lighter", method: :delete, data: [confirm: "Are you sure you want to delete this feed?"]) %>
+          </div>
+        </div>
+      </div>
       <p class="py-1"><%= feed.author %></p>
       <a class="py-1 text-green no-underline hover:underline" href="<%= feed.url %>" target="_blank"><%= feed.url %></a>
     </div>
   <% end %>
 </div>
+
+<script> Planet.setupCloseFeedMenuHandler(); </script>

@@ -5,18 +5,25 @@
   <body class="border-green border-t-7 font-sans">
     <div class="container px-4">
       <%= render PlanetWeb.LayoutView, "_header.html" %>
-      <%= if get_flash(@conn, :success) do %>
-        <div class="bg-green-lightest border-l-4 border-green text-green-dark p-4" role="alert">
-          <p class="font-bold">Success!</p>
-          <p><%= get_flash(@conn, :success) %></p>
-        </div>
+      <%= case get_flash(@conn) do %>
+        <% %{"success" => message} -> %>
+          <div class="bg-green-lightest border-l-4 border-green text-green-dark p-4" role="alert">
+            <p class="font-bold">Success!</p>
+            <p><%= message %></p>
+          </div>
+
+        <% %{"danger" => message} -> %>
+          <div class="bg-red-lightest border-l-4 border-red text-red-dark p-4" role="alert">
+            <p class="font-bold">Oh no!</p>
+            <p><%= message %></p>
+          </div>
+
+        <% _-> %>
       <% end %>
 
       <main role="main">
         <%= render @view_module, @view_template, assigns %>
       </main>
     </div>
-
-    <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
   </body>
 </html>

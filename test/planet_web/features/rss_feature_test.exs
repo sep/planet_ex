@@ -72,12 +72,30 @@ defmodule PlanetWeb.Features.RssTest do
     end
 
     test "should be able to update an RSS feed", %{session: session, fixtures: fixtures} do
+      feed = List.first(fixtures)
+
       session
       |> visit("/")
       |> click(Query.link("Feeds"))
-      |> click(Query.link(List.first(fixtures).name))
+      |> click(Query.button("btn-#{feed.id}"))
+      |> click(Query.link("Edit"))
       |> fill_in(Query.text_field("Name"), with: "New amazing name")
       |> click(Query.button("Update"))
+      |> assert_text("Success!")
+    end
+
+    test "should be able to delete an RSS feed", %{session: session, fixtures: fixtures} do
+      feed = List.first(fixtures)
+
+      session
+      |> visit("/")
+      |> click(Query.link("Feeds"))
+      |> click(Query.button("btn-#{feed.id}"))
+      |> accept_confirm(fn s ->
+        s |> click(Query.link("Delete"))
+      end)
+
+      session
       |> assert_text("Success!")
     end
   end

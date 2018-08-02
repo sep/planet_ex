@@ -41,7 +41,7 @@ defmodule PlanetWeb.RssControllerTest do
       assert get_flash(conn, :success)
     end
 
-    test "should redirect to  new template on success", %{conn: conn} do
+    test "should redirect to new template on success", %{conn: conn} do
       assert redirected_to(conn, 303) =~ "/rss/new"
     end
 
@@ -105,6 +105,24 @@ defmodule PlanetWeb.RssControllerTest do
       conn = patch(conn, "/rss/#{feed.id}", updated_attrs)
 
       assert html_response(conn, 400)
+    end
+  end
+
+  describe "delete/2" do
+    test "should delete a feed", %{conn: conn} do
+      feed = feed_fixture(%{url: "url"})
+
+      conn = delete(conn, "/rss/#{feed.id}")
+
+      assert redirected_to(conn, 303) =~ "/rss"
+      assert get_flash(conn, :success)
+    end
+
+    test "should return a 400 when id doesn't match a feed", %{conn: conn} do
+      conn = delete(conn, "/rss/#{123_123_123}")
+
+      assert redirected_to(conn, 303) =~ "/rss"
+      assert get_flash(conn, :danger)
     end
   end
 end

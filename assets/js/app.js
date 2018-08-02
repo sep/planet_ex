@@ -7,9 +7,33 @@
 // in vendor, which are never wrapped in imports and
 // therefore are always executed.
 
-window.disableSubmitButton = function() {
-   const submitButton = document.getElementById("submitButton");
 
-   submitButton.setAttribute("disabled", "");
-   submitButton.classList.add("opacity-50", "cursor-not-allowed");
-};
+import "phoenix_html";
+
+export const Planet = {
+  disableSubmitButton() {
+    const submitButton = document.getElementById("submitButton");
+
+    submitButton.setAttribute("disabled", "");
+    submitButton.classList.add("opacity-50", "cursor-not-allowed");
+  },
+  openFeedMenu(e, id) {
+    Array.from(document.getElementsByClassName("dropdown-content"))
+      .forEach(dropdown => 
+        dropdown.id === `${id}-dropdown`
+        ? dropdown.classList.toggle("hidden")
+        : dropdown.classList.add("hidden")
+      );
+
+    e.stopPropagation();
+  },
+  setupCloseFeedMenuHandler() {
+    window.onclick = function(event) {
+      if (!event.target.matches('.dropdown-button')) {
+        Array.from(document.getElementsByClassName("dropdown-content"))
+          .forEach(dropdown => dropdown.classList.add('hidden'));
+      }
+    }
+  }
+}
+

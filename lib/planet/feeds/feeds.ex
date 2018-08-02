@@ -38,6 +38,20 @@ defmodule Planet.Feeds do
   def get_rss!(id), do: Repo.get!(Rss, id)
 
   @doc """
+  Gets a single rss.
+
+  ## Examples
+
+      iex> get_rss(123)
+      {:ok, %Rss{}}
+
+      iex> get_rss(456)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def get_rss(id), do: Repo.get(Rss, id)
+
+  @doc """
   Creates a rss.
 
   ## Examples

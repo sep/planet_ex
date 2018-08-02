@@ -50,6 +50,22 @@ defmodule PlanetWeb.RssController do
     end
   end
 
+  def delete(conn, %{"id" => id}) do
+    with %Rss{} = feed <- Planet.Feeds.get_rss(id),
+         {:ok, deleted_feed} <- Planet.Feeds.delete_rss(feed) do
+      conn
+      |> put_status(303)
+      |> put_flash(:success, "You've deleted the feed #{deleted_feed.name}")
+      |> redirect(to: "/rss")
+    else
+      _ ->
+        conn
+        |> put_status(303)
+        |> put_flash(:danger, "Failed to delete that feed!")
+        |> redirect(to: "/rss")
+    end
+  end
+
   defp render_form(conn, action, rss) do
     rss_changeset = Rss.changeset(rss)
 
