@@ -28,10 +28,14 @@ $ bin/setup
 
 To run the server: `mix phx.server`.
 
-## Running the tests
+## Running the tests, formatter, and linter
 
 ```shell
-$ mix test
+$ mix verify
+
+==> mix format --check-formatted
+==> mix credo
+==> mix test.all
 ```
 
 ## Built With
