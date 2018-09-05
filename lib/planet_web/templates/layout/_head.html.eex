@@ -5,7 +5,9 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Planet</title>
+  <title>Planet</title> 
+  <link rel="shortcut icon" href="<%= static_path(@conn, "/favicon.ico") %>" type="image/x-icon">
+  <link rel="icon" href="<%= static_path(@conn, "/favicon.ico") %>" type="image/x-icon">
   <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
 
   <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
