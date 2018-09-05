@@ -20,7 +20,7 @@ config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:user_id]
 
-config :planet, :feed_server, [Planet.Core.FeedServer]
+config :planet, :server_farm_supervisor, Planet.Core.ServerFarmSupervisor
 config :planet, :server_timeout, 60000
 
 config :wallaby,

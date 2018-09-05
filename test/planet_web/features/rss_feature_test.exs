@@ -2,7 +2,7 @@ defmodule PlanetWeb.Features.RssTest do
   use PlanetWeb.FeatureCase
 
   @moduletag :feature
-  alias Planet.Core.FeedServer
+  alias Planet.Core.ServerFarmSupervisor
   import PlanetWeb.Support
   import Mox
 
@@ -22,7 +22,7 @@ defmodule PlanetWeb.Features.RssTest do
       FetchMock
       |> Mox.stub(:get, fn _ -> atom_fixture(author: "Mitchell Hanberg") end)
 
-      start_supervised!(FeedServer)
+      start_supervised!(ServerFarmSupervisor)
 
       %{fixtures: feeds}
     end
@@ -108,7 +108,7 @@ defmodule PlanetWeb.Features.RssTest do
       FetchMock
       |> Mox.stub(:get, fn _ -> stub_feed_xml end)
 
-      start_supervised!(FeedServer)
+      start_supervised!(ServerFarmSupervisor)
 
       :ok
     end

@@ -1,7 +1,7 @@
 defmodule PlanetWeb.EntriesController do
   use PlanetWeb, :controller
   alias Planet.Core.FeedParser.Feed
-  alias Planet.Core.FeedServer
+  alias Planet.Core.FeedStore
 
   def index(conn, %{"page" => page}) do
     conn
@@ -14,10 +14,10 @@ defmodule PlanetWeb.EntriesController do
   end
 
   defp fetch_and_render_entries(conn, page) do
-    feed = FeedServer.status(FeedServer)
+    feed = FeedStore.status()
 
     chunked = Enum.chunk_every(feed.entries, 10)
-    entries = chunked |> Enum.at(page - 1)
+    entries = chunked |> Enum.at(page - 1, [])
     pages = length(chunked)
 
     feed = %Feed{

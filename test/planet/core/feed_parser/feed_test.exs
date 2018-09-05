@@ -3,7 +3,7 @@ defmodule Planet.Core.FeedParser.FeedTest do
   alias Planet.Core.FeedParser.{Entry, Feed}
 
   describe "merge/1" do
-    test "takes a list of Feed and returns a single Feed" do
+    test "takes a list of Feeds and returns a single Feed" do
       feeds = [
         %Feed{},
         %Feed{},

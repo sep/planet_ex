@@ -5,66 +5,62 @@ defmodule Planet.Core.FeedServer do
   use GenServer
   require Logger
   alias Planet.Core.FeedParser
-  alias Planet.Feeds
 
   @fetcher Application.get_env(:planet, :fetcher, Planet.Core.FeedFetcher)
   @timeout Application.get_env(:planet, :server_timeout)
 
-  def start_link(_opts) do
-    GenServer.start_link(__MODULE__, [], name: __MODULE__)
+  def start_link(args) do
+    GenServer.start_link(__MODULE__, args)
   end
 
   def status(server) do
     GenServer.call(server, :status)
   end
 
-  def init(_args) do
-    initial_feed = %FeedParser.Feed{
-      title: "Planet: The Blogs of SEP",
-      url: "https://planet.sep.com",
-      author: "SEPeers"
-    }
+  def update(server, rss) do
+    GenServer.cast(server, {:update, rss})
+  end
 
-    feed = build_feed(initial_feed)
+  def stop(server) do
+    GenServer.stop(server)
+  end
+
+  def init(args) do
+    rss = Keyword.get(args, :rss)
+    feed = build_feed(rss)
 
     schedule()
 
-    {:ok, %{planet: feed}}
+    {:ok, %{feed: feed, rss: rss}}
   end
 
   def handle_call(:status, _f, state) do
-    {:reply, state.planet, state}
+    {:reply, state.feed, state}
+  end
+
+  def handle_cast({:update, updated_rss}, state) do
+    new_state = Map.put(state, :rss, updated_rss)
+
+    {:noreply, new_state}
   end
 
   def handle_info(:rebuild_feed, state) do
-    feed = build_feed(state.planet)
+    feed = build_feed(state.rss)
 
-    write_feed(feed)
     schedule()
 
-    {:noreply, Map.put(state, :planet, feed)}
+    {:noreply, Map.put(state, :feed, feed)}
   end
 
   defp schedule do
     Process.send_after(self(), :rebuild_feed, @timeout)
   end
 
-  defp build_feed(feed) do
-    Feeds.list_rss()
-    |> Enum.map(fn rss ->
-      rss
-      |> @fetcher.get()
-      |> FeedParser.parse()
-    end)
-    |> FeedParser.Feed.merge(feed)
-  end
+  defp build_feed(rss) do
+    Logger.debug(fn -> "Rebuilding feed: #{inspect rss.url}" end)
 
-  defp write_feed(feed) do
-    Logger.info("Writing feed.xml")
-
-    File.write!(
-      "assets/static/feed.xml",
-      Phoenix.View.render_to_iodata(PlanetWeb.RssView, "feed.xml", feed: feed)
-    )
+    rss
+    |> @fetcher.get()
+    |> FeedParser.parse()
   end
 end

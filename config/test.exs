@@ -22,5 +22,5 @@ config :planet, Planet.Repo,
   ownership_timeout: 999_999
 
 config :planet, :fetcher, FetchMock
-config :planet, :feed_server, []
+config :planet, :server_farm_supervisor, nil
 config :planet, :server_timeout, 1

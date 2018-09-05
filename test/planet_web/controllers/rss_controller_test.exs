@@ -1,8 +1,27 @@
 defmodule PlanetWeb.RssControllerTest do
   use PlanetWeb.ConnCase
   import PlanetWeb.Support
+  alias Planet.Core.ServerFarmSupervisor
+  import Mox
+
+  setup :set_mox_global
+  setup :verify_on_exit!
+
+  @stub_feed_xml atom_fixture([author: "Mitchell Hanberg"], 2)
+
+  setup do
+    Mox.stub(FetchMock, :get, fn _ -> @stub_feed_xml end)
+
+    :ok
+  end
 
   describe "index/2" do
+    setup do
+      start_supervised!(Planet.Core.ServerFarmSupervisor)
+
+      :ok
+    end
+
     test "should render all rss feeds", %{conn: conn} do
       feeds = [
         feed_fixture(%{url: "url1"}),
@@ -31,6 +50,7 @@ defmodule PlanetWeb.RssControllerTest do
     }
 
     setup %{conn: conn} do
+      start_supervised!(Planet.Core.ServerFarmSupervisor)
       conn = post conn, "/rss", @valid_attrs
 
       {:ok, conn: conn}
@@ -49,6 +69,17 @@ defmodule PlanetWeb.RssControllerTest do
       conn = post conn, "/rss", @valid_attrs
 
       assert html_response(conn, 400)
+    end
+
+    test "should plant a feed in the server farm", %{conn: conn} do
+      post conn, "/rss", @valid_attrs
+
+      rss_id = Planet.Feeds.Rss |> Repo.get_by!(url: "mitchblog.com") |> Map.fetch!(:id)
+
+      assert Planet.Core.FeedStore
+             |> :sys.get_state()
+             |> Map.fetch!(:feed_servers)
+             |> Map.has_key?(rss_id)
     end
   end
 
@@ -112,13 +143,36 @@ defmodule PlanetWeb.RssControllerTest do
     test "should delete a feed", %{conn: conn} do
       feed = feed_fixture(%{url: "url"})
 
+      start_supervised!(ServerFarmSupervisor)
+
       conn = delete(conn, "/rss/#{feed.id}")
 
       assert redirected_to(conn, 303) =~ "/rss"
       assert get_flash(conn, :success)
     end
 
+    test "should reap a feed in the server farm", %{conn: conn} do
+      rss = %{url: "url"} |> feed_fixture()
+      rss_id = rss |> Map.fetch!(:id)
+
+      start_supervised!(ServerFarmSupervisor)
+
+      assert Planet.Core.FeedStore
+             |> :sys.get_state()
+             |> Map.fetch!(:feed_servers)
+             |> Map.has_key?(rss_id)
+
+      delete conn, "/rss/#{rss_id}"
+
+      refute Planet.Core.FeedStore
+             |> :sys.get_state()
+             |> Map.fetch!(:feed_servers)
+             |> Map.has_key?(rss_id)
+    end
+
     test "should return a 400 when id doesn't match a feed", %{conn: conn} do
+      start_supervised!(ServerFarmSupervisor)
+
       conn = delete(conn, "/rss/#{123_123_123}")
 
       assert redirected_to(conn, 303) =~ "/rss"

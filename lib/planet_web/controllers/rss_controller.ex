@@ -10,7 +10,8 @@ defmodule PlanetWeb.RssController do
   end
 
   def create conn, %{"rss" => params} do
-    with {:ok, feed = %Rss{}} <- Planet.Feeds.create_rss(params) do
+    with {:ok, feed = %Rss{}} <- Planet.Feeds.create_rss(params),
+         Planet.Core.FeedStore.store(feed) do
       conn
       |> put_status(303)
       |> put_flash(:success, "You've add the feed #{feed.url}")
@@ -37,7 +38,8 @@ defmodule PlanetWeb.RssController do
   def update(conn, %{"id" => id, "rss" => params}) do
     feed = Planet.Feeds.get_rss!(id)
 
-    with {:ok, updated_feed = %Rss{}} <- Planet.Feeds.update_rss(feed, params) do
+    with {:ok, updated_feed = %Rss{}} <- Planet.Feeds.update_rss(feed, params),
+         Planet.Core.FeedStore.update(updated_feed) do
       conn
       |> put_status(303)
       |> put_flash(:success, "You've updated the feed #{updated_feed.name}")
@@ -52,7 +54,8 @@ defmodule PlanetWeb.RssController do
 
   def delete(conn, %{"id" => id}) do
     with %Rss{} = feed <- Planet.Feeds.get_rss(id),
-         {:ok, deleted_feed} <- Planet.Feeds.delete_rss(feed) do
+         {:ok, deleted_feed} <- Planet.Feeds.delete_rss(feed),
+         Planet.Core.FeedStore.remove(deleted_feed) do
       conn
       |> put_status(303)
       |> put_flash(:success, "You've deleted the feed #{deleted_feed.name}")
