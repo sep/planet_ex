@@ -43,8 +43,19 @@ defmodule Planet.Core.FeedParser.Rss do
   end
 
   defp get_content(xml) do
-    xpath(xml, ~x"./content:encoded/text()"so) ||
-      xml |> xpath(~x"./description/div/*/text()"lso) |> Enum.join("\n") || ""
+    content_encoded(xml) || description(xml) || ""
+  end
+
+  defp content_encoded(xml) do
+    xpath(xml, ~x"./content:encoded/text()"so)
+  end
+
+  defp description(xml) do
+    xml
+    |> xpath(~x"./description")
+    |> elem(8)
+    |> :xmerl.export_simple_content(:xmerl_html)
+    |> List.to_string()
   end
 
   defp put_published(%Entry{} = entry, xml) do
@@ -56,7 +67,8 @@ defmodule Planet.Core.FeedParser.Rss do
   end
 
   defp parse_date(date) do
-    parse_rfc_822(date) || parse_rfc_822_bastard(date) || parse_rfc_822_sharepoint_bastard(date)
+    parse_rfc_822(date) || parse_rfc_1123(date) || parse_rfc_1123_published_on(date) ||
+      parse_rfc_822_sharepoint_bastard(date)
   end
 
   def parse_rfc_822(date) do
@@ -69,8 +81,18 @@ defmodule Planet.Core.FeedParser.Rss do
     end
   end
 
-  def parse_rfc_822_bastard(date) do
-    case Timex.parse(date, "{WDshort}, {0D} {Mshort} {YYYY} {h24}:{m}:{s} {Z}") do
+  def parse_rfc_1123(date) do
+    case Timex.parse(date, "{RFC1123}") do
+      {:ok, date} ->
+        date
+
+      {:error, _} ->
+        nil
+    end
+  end
+
+  def parse_rfc_1123_published_on(date) do
+    case Timex.parse(date, "Published on {RFC1123}") do
       {:ok, date} ->
         date
 
