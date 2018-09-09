@@ -43,7 +43,7 @@ defmodule Planet.Core.FeedParser.Atom do
   defp put_published(%Entry{} = entry, xml) do
     published =
       xml
-      |> xpath(~x"./published/text()"s)
+      |> xpath(~x"./updated/text()"s)
       |> parse_date
 
     struct(entry, published: published)
