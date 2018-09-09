@@ -32,9 +32,12 @@ defmodule Planet.Core.FeedServerTest do
 
     FetchMock
     |> Mox.expect(:get, fn ^feed -> @stub_feed_xml end)
-    |> Mox.expect(:get, fn ^feed -> send(id, :done) end)
+    |> Mox.expect(:get, fn ^feed ->
+      send(id, :done)
+      @stub_feed_xml
+    end)
 
-    start_supervised!({FeedServer, [rss: feed]})
+    start_supervised!({FeedServer, [rss: feed, timeout: 1]})
 
     assert_receive :done
   end

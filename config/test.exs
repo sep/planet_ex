@@ -23,4 +23,3 @@ config :planet, Planet.Repo,
 
 config :planet, :fetcher, FetchMock
 config :planet, :server_farm_supervisor, nil
-config :planet, :server_timeout, 1

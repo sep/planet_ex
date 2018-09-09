@@ -27,11 +27,13 @@ defmodule Planet.Core.FeedServer do
 
   def init(args) do
     rss = Keyword.get(args, :rss)
+    timeout = Keyword.get(args, :timeout, @timeout)
+
     feed = build_feed(rss)
 
-    schedule()
+    schedule(timeout)
 
-    {:ok, %{feed: feed, rss: rss}}
+    {:ok, %{feed: feed, rss: rss, timeout: timeout}}
   end
 
   def handle_call(:status, _f, state) do
@@ -47,13 +49,13 @@ defmodule Planet.Core.FeedServer do
   def handle_info(:rebuild_feed, state) do
     feed = build_feed(state.rss)
 
-    schedule()
+    schedule(state.timeout)
 
     {:noreply, Map.put(state, :feed, feed)}
   end
 
-  defp schedule do
-    Process.send_after(self(), :rebuild_feed, @timeout)
+  defp schedule(timeout) do
+    Process.send_after(self(), :rebuild_feed, timeout)
   end
 
   defp build_feed(rss) do
