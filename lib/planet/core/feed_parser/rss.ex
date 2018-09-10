@@ -37,7 +37,7 @@ defmodule Planet.Core.FeedParser.Rss do
     content =
       xml
       |> get_content()
-      |> String.replace(~r{(href|src)=(?:"|')/(.*?)(?:"|')}, "\\1=\"#{feed.url}\\2\"")
+      |> Entry.convert_relative_urls(feed.url)
 
     struct(entry, content: content)
   end
