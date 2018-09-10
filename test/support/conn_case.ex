@@ -22,6 +22,7 @@ defmodule PlanetWeb.ConnCase do
       import PlanetWeb.Router.Helpers
       import Ecto.Query, warn: false
       alias Planet.Repo
+      import Mox
 
       # The default endpoint for testing
       @endpoint PlanetWeb.Endpoint
@@ -34,6 +35,8 @@ defmodule PlanetWeb.ConnCase do
     unless tags[:async] do
       Ecto.Adapters.SQL.Sandbox.mode(Planet.Repo, {:shared, self()})
     end
+
+    Mox.set_mox_global()
 
     {:ok, conn: Phoenix.ConnTest.build_conn()}
   end

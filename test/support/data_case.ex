@@ -22,6 +22,7 @@ defmodule Planet.DataCase do
       import Ecto.Changeset
       import Ecto.Query
       import Planet.DataCase
+      import Mox
     end
   end
 
@@ -31,6 +32,8 @@ defmodule Planet.DataCase do
     unless tags[:async] do
       Ecto.Adapters.SQL.Sandbox.mode(Planet.Repo, {:shared, self()})
     end
+
+    Mox.set_mox_global()
 
     :ok
   end

@@ -4,12 +4,8 @@ defmodule PlanetWeb.Features.RssTest do
   @moduletag :feature
   alias Planet.Core.ServerFarmSupervisor
   import PlanetWeb.Support
-  import Mox
 
   import Wallaby.Query
-
-  setup :set_mox_global
-  setup :verify_on_exit!
 
   describe "feeds page" do
     setup do

@@ -2,10 +2,6 @@ defmodule PlanetWeb.RssControllerTest do
   use PlanetWeb.ConnCase
   import PlanetWeb.Support
   alias Planet.Core.ServerFarmSupervisor
-  import Mox
-
-  setup :set_mox_global
-  setup :verify_on_exit!
 
   @stub_feed_xml atom_fixture([author: "Mitchell Hanberg"], 2)
 

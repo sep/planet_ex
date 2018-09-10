@@ -1,12 +1,8 @@
 defmodule Planet.Core.FeedServerTest do
   use Planet.DataCase
   alias Planet.Core.{FeedParser, FeedServer}
-  import Mox
 
   import PlanetWeb.Support
-
-  setup :set_mox_global
-  setup :verify_on_exit!
 
   @stub_feed_xml atom_fixture([author: "Mitchell Hanberg"], 2)
 

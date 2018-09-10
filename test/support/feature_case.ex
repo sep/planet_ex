@@ -12,6 +12,7 @@ defmodule PlanetWeb.FeatureCase do
       import Ecto
       import Ecto.Changeset
       import Ecto.Query
+      import Mox
 
       import PlanetWeb.Router.Helpers
     end
@@ -23,6 +24,8 @@ defmodule PlanetWeb.FeatureCase do
     unless tags[:async] do
       Ecto.Adapters.SQL.Sandbox.mode(Planet.Repo, {:shared, self()})
     end
+
+    Mox.set_mox_global()
 
     metadata = Phoenix.Ecto.SQL.Sandbox.metadata_for(Planet.Repo, self())
     {:ok, session} = Wallaby.start_session(metadata: metadata)

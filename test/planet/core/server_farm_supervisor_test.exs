@@ -3,10 +3,6 @@ defmodule Planet.Core.ServerFarmSupervisorTest do
   alias Planet.Core.FeedParser.{Entry, Feed}
   alias Planet.Core.{FeedStore, ServerFarm, ServerFarmSupervisor}
   import PlanetWeb.Support
-  import Mox
-
-  setup :set_mox_global
-  setup :verify_on_exit!
 
   @stub_feed_xml atom_fixture([author: "Mitchell Hanberg"], 2)
 
