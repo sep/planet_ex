@@ -21,6 +21,10 @@ defmodule Planet.Core.FeedServer do
     GenServer.cast(server, {:update, rss})
   end
 
+  def put_feed(server, feed) do
+    GenServer.cast(server, {:put_feed, feed})
+  end
+
   def stop(server) do
     GenServer.stop(server)
   end
@@ -46,12 +50,18 @@ defmodule Planet.Core.FeedServer do
     {:noreply, new_state}
   end
 
+  def handle_cast({:put_feed, feed}, state) do
+    {:noreply, Map.put(state, :feed, feed)}
+  end
+
   def handle_info(:rebuild_feed, state) do
-    feed = build_feed(state.rss)
+    self()
+    |> fetch_and_build(state)
+    |> Task.start()
 
     schedule(state.timeout)
 
-    {:noreply, Map.put(state, :feed, feed)}
+    {:noreply, state}
   end
 
   defp schedule(timeout) do
@@ -64,5 +74,14 @@ defmodule Planet.Core.FeedServer do
     rss
     |> @fetcher.get()
     |> FeedParser.parse()
+  end
+
+  defp fetch_and_build(server_pid, state) do
+    fn ->
+      put_feed(
+        server_pid,
+        build_feed(state.rss)
+      )
+    end
   end
 end
