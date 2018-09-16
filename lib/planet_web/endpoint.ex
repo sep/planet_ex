@@ -55,7 +55,14 @@ defmodule PlanetWeb.Endpoint do
   def init(_key, config) do
     if config[:load_from_system_env] do
       port = System.get_env("PORT") || raise "expected the PORT environment variable to be set"
-      {:ok, Keyword.put(config, :http, [:inet6, port: port])}
+
+      config =
+        config
+        |> Keyword.put(:http, [:inet6, port: port])
+        |> Keyword.put(:secret_key_base, System.get_env("SECRET_KEY_BASE"))
+        |> Keyword.put(:url, scheme: "https", host: System.get_env("DOMAIN"), port: 443)
+
+      {:ok, config}
     else
       {:ok, config}
     end
