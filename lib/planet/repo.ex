@@ -9,7 +9,7 @@ defmodule Planet.Repo do
     opts =
       opts
       |> Keyword.put(:url, System.get_env("DATABASE_URL"))
-      |> Keyword.put(:pool_size, String.to_integer(System.get_env("POOL_SIZE")))
+      |> Keyword.put(:pool_size, String.to_integer(System.get_env("POOL_SIZE") || "18"))
 
     {:ok, opts}
   end
