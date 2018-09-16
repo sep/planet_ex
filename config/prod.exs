@@ -21,4 +21,6 @@ config :planet, PlanetWeb.Endpoint,
 config :logger, level: :info
 
 # Configure your database
-config :planet, Planet.Repo, adapter: Ecto.Adapters.Postgres
+config :planet, Planet.Repo,
+  adapter: Ecto.Adapters.Postgres,
+  load_from_system_env: true
