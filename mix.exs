@@ -38,21 +38,21 @@ defmodule Planet.Mixfile do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:cowboy, "~> 1.0"},
+      {:credo, "~> 0.10.0", only: [:dev, :test], runtime: false},
+      {:dotenv, "~> 2.0.0", only: [:dev, :prod]},
+      {:gettext, "~> 0.11"},
+      {:httpoison, "~> 1.0", override: true},
+      {:mox, "~> 0.3.2", only: :test},
       {:phoenix, "~> 1.3.2"},
-      {:phoenix_pubsub, "~> 1.0"},
       {:phoenix_ecto, "~> 3.2"},
-      {:postgrex, ">= 0.0.0"},
       {:phoenix_html, "~> 2.10"},
       {:phoenix_live_reload, "~> 1.0", only: :dev},
-      {:gettext, "~> 0.11"},
-      {:cowboy, "~> 1.0"},
-      {:wallaby, "~> 0.20.0"},
-      {:httpoison, "~> 1.0", override: true},
+      {:phoenix_pubsub, "~> 1.0"},
+      {:postgrex, ">= 0.0.0"},
       {:sweet_xml, git: "git@github.com:mhanberg/sweet_xml.git"},
       {:timex, "~> 3.0"},
-      {:mox, "~> 0.3.2", only: :test},
-      {:dotenv, "~> 2.0.0", only: [:dev, :prod]},
-      {:credo, "~> 0.10.0", only: [:dev, :test], runtime: false}
+      {:wallaby, "~> 0.20.0"}
     ]
   end
 
