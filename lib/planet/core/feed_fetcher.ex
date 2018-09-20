@@ -23,8 +23,6 @@ defmodule Planet.Core.FeedFetcher do
     url_with_creds =
       match["protocol"] <> System.get_env("SHAREPOINT_CREDS") <> "@" <> match["sharepoint_url"]
 
-    Logger.info("Fetching sharepoint feed with #{url_with_creds}")
-
     try do
       {:ok, session} = Wallaby.start_session()
 
