@@ -278,6 +278,61 @@ defmodule PlanetWeb.Support do
     beginning <> String.duplicate(item, count) <> ehnd
   end
 
+  def rss_fixture_only_description(count \\ 1) do
+    beginning = """
+    <?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+    xmlns:content="http://purl.org/rss/1.0/modules/content/"
+    xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:atom="http://www.w3.org/2005/Atom"
+    xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+    xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+    >
+
+    <channel>
+    <title>SEP Blog</title>
+    <atom:link href="https://www.sep.com/sep-blog/feed/" rel="self" type="application/rss+xml" />
+    <link>https://www.sep.com/sep-blog</link>
+    <description>Featured Posts From SEPeers</description>
+    <lastBuildDate>Fri, 29 Jun 2018 19:18:53 +0000</lastBuildDate>
+    <language>en-US</language>
+    <sy:updatePeriod>hourly</sy:updatePeriod>
+    <sy:updateFrequency>1</sy:updateFrequency>
+    """
+
+    item = """
+    <item>
+    <title>Optimize for cognitive load</title>
+    <link>http://arktronic.com/weblog/2016-12-30/optimize-for-cognitive-load/</link>
+    <pubDate>Published on Fri, 30 Dec 2016 16:25:00 +0000</pubDate>
+    <guid isPermaLink="false">ID 2016-12-30T16:25:00 on http://arktronic.com</guid>
+    <description>&lt;p&gt;I recently read a rather interesting post by Martin Fowler regarding &lt;a href=&quot;http://martinfowler.com/bliki/FunctionLength.html&quot;&gt;function length&lt;/a&gt;, where he suggested that very small functions that encompass the implementation for a single intention are ideal. I have a somewhat different view of this argument, which also happens to touch on larger concerns of software design and even, to a certain extent, architecture. It is a holistic view, in the sense that the same goal is desired at multiple levels, from the function to the entire system.&lt;/p&gt;
+    &lt;p&gt;Specifically, I argue that instead of optimizing for specific low-level ideals such as function length, implementation vs. intention, dogmatic adherence to patterns or practices and so on, we should optimize for cognitive load. Let me start by explaining the general concept of cognitive load and how I interpret it.&lt;/p&gt;
+    &lt;h2&gt;Cognitive Load Theory&lt;/h2&gt;
+    &lt;p&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Cognitive_load&quot;&gt;Cognitive Load Theory (CLT)&lt;/a&gt; was developed by John Sweller, an Australian professor specializing in educational psychology. According to CLT, when humans are learning, there are three types of cognitive load that occur: intrinsic, extraneous, and germane. Intrinsic cognitive load is effectively the difficulty that the topic being learned presents by itself. Not much can be done to affect that if the topic is to be learned. Extraneous cognitive load is, as the name suggests, considered unnecessary. It is created by the manner in which information is presented. For example, the extraneous cognitive load would be much higher if I were to verbally describe a geometric shape like a square, rather than just show a picture of one. Finally, germane cognitive load is involved in processing and construction of &lt;a href=&quot;https://en.wikipedia.org/wiki/Schema_(psychology)&quot;&gt;schemata&lt;/a&gt;. In the context of cognitive science, a schema is basically a grouping of learned information or a common pattern of processing such information.&lt;/p&gt;
+    &lt;p&gt;The idea of &lt;a href=&quot;https://www.nngroup.com/articles/minimize-cognitive-load/&quot;&gt;applying CLT to UX&lt;/a&gt; has been growing in popularity in recent years. Numerous articles have been written about optimizing visual and interaction design to reduce extraneous cognitive load. Unfortunately, I&apos;ve not seen much talk about this in regards to software design or architecture. It seems, we software engineers tend to focus more on the technical and less on the human side. But we need to take both into account when working on real (i.e., not personal/toy) projects if we want to increase maintainability and ease of development.&lt;/p&gt;
+    &lt;h2&gt;Application of CLT&lt;/h2&gt;
+    &lt;p&gt;My interpretation of cognitive load as it applies to software design is rooted in how many steps you must go through to understand the code involved in executing an API call, a workflow, a use case. This is, of course, a multifaceted problem with no clear generic solution. In most situations, in order to understand a particular flow to a &lt;em&gt;sufficient degree&lt;/em&gt;, you don&apos;t need to know all the minutiae involved in it. For example, if you&apos;re working on a RESTful API, you rarely (hopefully never) need to debug down to the level of TCP connections or Ethernet frames. Often, you don&apos;t even need to know the exact processes your framework of choice uses to translate an HTTP request to an appropriate function call in your code. And, depending on what aspect of the codebase you&apos;re trying to understand, you can often skip other important code in order to focus on what currently matters to you.&lt;/p&gt;
+    &lt;h3&gt;Functions&lt;/h3&gt;
+    &lt;p&gt;So how does all this affect software design? Let&apos;s start with function length and go up from there. From a CLT perspective, a very long function that encompasses a significant amount of data processing will have high extraneous cognitive load when you analyze it because it will likely deal with multiple states that you have to keep in mind at all times while mentally processing the various permutations of conditionals and loops, what happens inside each of them, and how those previous decisions affect further conditionals and loops later on. This is a lot of information to keep track of, and so is inefficient for us to process.&lt;/p&gt;
+    &lt;p&gt;At the same time, very small functions will also have high extraneous cognitive load. The above load of dealing with state is replaced with the load of incessant context switching when you have to look at many different functions, then back again down a stack, then forward again from the next step, and so forth. This causes the same problem of presenting too much information to keep track of, and so is still inefficient.&lt;/p&gt;
+    &lt;p&gt;The ideal function length is somewhere inbetween. I hesitate to give concrete numbers, since there are multiple conflicting models of human &lt;a href=&quot;https://en.wikipedia.org/wiki/Working_memory&quot;&gt;working memory&lt;/a&gt;, which have different implications for how many items we can hold in our minds while working on a problem. Instead, I&apos;d suggest that you rely on your intuition to help determine the right balance. Look at examples of very long functions and of sets of very short ones, and try to analyze the flow through them. Seeing the issues with both by looking at examples at each extreme will help you to find a balance.&lt;/p&gt;
+    &lt;p&gt;Of course, there are other factors that play into your ability to analyze code. Descriptive function names, for example, are very important, as is a well thought out hierarchical (class/file/project) separation.&lt;/p&gt;
+    &lt;h3&gt;Design and architecture&lt;/h3&gt;
+    &lt;p&gt;Speaking of hierarchical separation, this can affect cognitive load in a different way: well-designed separation can improve germane cognitive load. If you&apos;re working on a well-designed codebase for a significant amount of time, your mind will use schemata to quickly guide you to the correct project or directory or file &amp;quot;without thinking&amp;quot;. You are probably familiar with this phenomenon already: working on such codebases will let you quickly find the location of some code in question even if you&apos;re not sure where it is precisely, because you&apos;re familiar with the overall design of the system.&lt;/p&gt;
+    &lt;p&gt;Conversely, codebases that are not well-designed will hamper your ability to find code whose precise location you don&apos;t already remember. This can be attributed to the inability to form a cohesive schema related to this codebase, since code is haphazardly separated without a clear hierarchy or other organizational means.&lt;/p&gt;
+    &lt;p&gt;Architectural and design patterns will often help to organize code in a way that we can process more easily, but we must be careful not to apply too many such patterns or apply them improperly to avoid confusion. The use of well-known patterns enhances our ability to process and understand a codebase because we have already developed (or can begin to develop) schemata to deal with these patterns.&lt;/p&gt;
+    &lt;h2&gt;Bringing everything together&lt;/h2&gt;
+    &lt;p&gt;All this human-centric discussion doesn&apos;t negate technical needs. Certain choices must be made for technical reasons, and sometimes these choices will make part of a codebase more difficult to analyze. As always, a balance must be struck. Modern compilers and interpreters are extraordinarily adept at optimizing code for execution performance, so low level optimizations are rarely needed these days. Technical needs will most often be expressed at higher levels. As an example, when system extensibility is required, certain architectural and design decisions must be made to support this requirement. Unfortunately, these decisions may lead to worsened readability, but you don&apos;t always have a great way to balance out system needs with human analysis needs.&lt;/p&gt;
+    &lt;p&gt;I urge you to keep the human factors dicussed here in mind when performing any task from the writing of functions to the design of systems. While different goals may take precedence at different times, simply keeping these concerns in mind will allow you to create better software.&lt;/p&gt;</description>
+    </item>
+    """
+
+    ehnd = "</channel></rss>"
+
+    beginning <> String.duplicate(item, count) <> ehnd
+  end
+
   def sharepoint_fixture do
     """
     <html xmlns="http://www.w3.org/1999/xhtml" xmlns:dc="http://purl.org/dc/elements/1.1/" id="HtmlRootTag" dir="ltr"><!--?xml version="1.0" encoding="UTF-8"?--><!--RSS generated by Microsoft SharePoint Foundation RSS Generator on 7/29/2018 11:24:18 AM --><!--?xml-stylesheet type="text/xsl" href="/personal/ohri/Blog/_layouts/15/RssXslt.aspx?List=cc026f11-42a9-481a-92a4-03608256b2f1" version="1.0"?--><head></head><body><rss version="2.0">
@@ -290,29 +345,29 @@ defmodule PlanetWeb.Support do
     <ttl>60</ttl>
     <language>en-US</language>
     <img />
-      <title>Blog: Posts</title>
-      <url>https://sharepoint.sep.com:8383/personal/ohri/Blog/_layouts/15/images/siteIcon.png</url>
-      <link />https://sharepoint.sep.com:8383/personal/ohri/Blog/Lists/Posts/AllPosts.aspx
+    <title>Blog: Posts</title>
+    <url>https://sharepoint.sep.com:8383/personal/ohri/Blog/_layouts/15/images/siteIcon.png</url>
+    <link />https://sharepoint.sep.com:8383/personal/ohri/Blog/Lists/Posts/AllPosts.aspx
 
     <item>
-      <title>Staffing Meeting Notes 7/3/18</title>
-      <link />https://sharepoint.sep.com:8383/personal/ohri/Blog/Lists/Posts/ViewPost.aspx?ID=400
-      <description><!--[CDATA[<div--><b>Body:</b> <div class="ExternalClass8E387C3D4A3B497E84470A1B4BECD791"><p>JML – RRC (Rolls-Royce Corporation) still hasn't signed off for the T4 Extension.  Ada<br /></p><p>CRT – Reviewed and signed Dealer Channel SOW (Statement Of Work) from Deere.  Waiting for counter-signed copy.<br /></p><p>KLP – Sent RRC quote for KMS (Knowledge Management System) CI (Continuous Integration) / CD (Continuous Deployment) Pipeline in Azure.  Azure<br /></p><p>KLP – Sent RRC quote for EHMS (Engine Health Monitoring System) Flight Processing Change. RR still trying to talk the Air Force out of this.<br /></p><p>JML – Talking with Ascension on Thursday about intermediate development support.  Will also be discussing longer term support.<br /></p><p>JML – Working on support plan for AACCEE (Automated Analysis of Customer Configured Engines &amp; Equipment) for RRC.  Their contact is out all week, so we'll touch base next week.</p><p>JML – Good meeting with Crown about IMM (Information Management Module) v2. Exploring architecture work under new working model.<br /></p><p>JML – Will contact RRC about Test Cell UMACS (Universal Monitor and Control System) Development.  Qt, QNX</p><p>RMS – We have verbal with DK Pierce.  Need to figure out how to quote it.</p><p>JML – Continuing discussions with RRC about GMT (Ground Maintenance Terminal) SPL (Software Product Line) (EaaS). Looking to do a prototype to show them what's possible.</p><p>KLP – Will discuss FY (Fiscal Year) 19 work for Agronauts team with Deere mid-July.</p><p>JML – Integrated Partners (worked with them for Ascension) has some other work.  Will discuss by mid-July.</p><p>CRT – Will be discussing FY19 work with Deere in the next few weeks.</p><p>ARS – Meeting next week with Martin Brothers.  Looking for development help.  React, Java, Mobile</p><p>ARS – AMB Surgical has an application that they want a mobile version developed.  Meeting with them next year.  First step will be rough order of magnitude estimate.</p><p>JML – We're conducting a proactive internal audit of the Lilly work, looking at the PSA (Professional Services Agreement), Quality Agreement, Security Agreement.  Hope this will be a template that can be used for other clients in the future.  Discussion of doing more frequent project checks rather than focusing it all annually prior to the ISO audit.</p></div>
+    <title>Staffing Meeting Notes 7/3/18</title>
+    <link />https://sharepoint.sep.com:8383/personal/ohri/Blog/Lists/Posts/ViewPost.aspx?ID=400
+    <description><!--[CDATA[<div--><b>Body:</b> <div class="ExternalClass8E387C3D4A3B497E84470A1B4BECD791"><p>JML – RRC (Rolls-Royce Corporation) still hasn't signed off for the T4 Extension.  Ada<br /></p><p>CRT – Reviewed and signed Dealer Channel SOW (Statement Of Work) from Deere.  Waiting for counter-signed copy.<br /></p><p>KLP – Sent RRC quote for KMS (Knowledge Management System) CI (Continuous Integration) / CD (Continuous Deployment) Pipeline in Azure.  Azure<br /></p><p>KLP – Sent RRC quote for EHMS (Engine Health Monitoring System) Flight Processing Change. RR still trying to talk the Air Force out of this.<br /></p><p>JML – Talking with Ascension on Thursday about intermediate development support.  Will also be discussing longer term support.<br /></p><p>JML – Working on support plan for AACCEE (Automated Analysis of Customer Configured Engines &amp; Equipment) for RRC.  Their contact is out all week, so we'll touch base next week.</p><p>JML – Good meeting with Crown about IMM (Information Management Module) v2. Exploring architecture work under new working model.<br /></p><p>JML – Will contact RRC about Test Cell UMACS (Universal Monitor and Control System) Development.  Qt, QNX</p><p>RMS – We have verbal with DK Pierce.  Need to figure out how to quote it.</p><p>JML – Continuing discussions with RRC about GMT (Ground Maintenance Terminal) SPL (Software Product Line) (EaaS). Looking to do a prototype to show them what's possible.</p><p>KLP – Will discuss FY (Fiscal Year) 19 work for Agronauts team with Deere mid-July.</p><p>JML – Integrated Partners (worked with them for Ascension) has some other work.  Will discuss by mid-July.</p><p>CRT – Will be discussing FY19 work with Deere in the next few weeks.</p><p>ARS – Meeting next week with Martin Brothers.  Looking for development help.  React, Java, Mobile</p><p>ARS – AMB Surgical has an application that they want a mobile version developed.  Meeting with them next year.  First step will be rough order of magnitude estimate.</p><p>JML – We're conducting a proactive internal audit of the Lilly work, looking at the PSA (Professional Services Agreement), Quality Agreement, Security Agreement.  Hope this will be a template that can be used for other clients in the future.  Discussion of doing more frequent project checks rather than focusing it all annually prior to the ISO audit.</p></div>
     <div><b>Published:</b> 7/3/2018 11:03 AM</div>
     ]]&gt;</description>
-      <author>Raman N. Ohri</author>
-      <pubdate>Tue, 03 Jul 2018 15:07:18 GMT</pubdate>
-      <guid ispermalink="true">https://sharepoint.sep.com:8383/personal/ohri/Blog/Lists/Posts/ViewPost.aspx?ID=400</guid>
+    <author>Raman N. Ohri</author>
+    <pubdate>Tue, 03 Jul 2018 15:07:18 GMT</pubdate>
+    <guid ispermalink="true">https://sharepoint.sep.com:8383/personal/ohri/Blog/Lists/Posts/ViewPost.aspx?ID=400</guid>
     </item>
     <item>
-      <title>Staffing Meeting Notes 6/26/18</title>
-      <link />https://sharepoint.sep.com:8383/personal/ohri/Blog/Lists/Posts/ViewPost.aspx?ID=399
-      <description><!--[CDATA[<div--><b>Body:</b> <div class="ExternalClass9EC13A54D4FE485FBB9D61B2FDA38848"><p>JML – Still waiting for PO (Purchase Order) from RRC (Rolls-Royce Corporation) for T4 Extension.  Ada<br /></p><p>CMA – Talked with Allegion last week about them needing a team.  They have a meeting this Thursday when they should get more clarity.  I'll follow up after that.​<br /></p><p>CRT – Expecting SOW from Deere for Dealer Channel work.  Java, React, Redux.<br /></p><p>JML – Small amount of work available (2 weeks) from TCS (Time Compression Strategies) for continuing database work.<br /></p><p>KLP – Proposing KMS (Knowledge Management System) CI (Continuous Integration) / CD (Continuous Deployment) Pipeline in Azure to RRC this week.<br /></p><p>RMS – Will propose to Beckman Coulter an Azure Architecture Review.<br /></p><p>JML – Putting together a proposal to help support Ascension until they're ready for the next phase.<br /></p><p>JML – Working on planning for support of AACCEE (Automated Analysis of Customer Configured Engines &amp; Equipment) for 3Q work.  .NET core, Python<br /></p><p>KLP – Proposing EHMS Flight Processing Change this week with RRC.  Web, Oracle, Perl, C#, Javascript<br /></p><p>JML – Met yesterday with Crown.  Real opportunity to help out again.  They seem to be sold on the practices we were asking for.  Will be proposing an approach after some internal discussions.<br /></p></div>
+    <title>Staffing Meeting Notes 6/26/18</title>
+    <link />https://sharepoint.sep.com:8383/personal/ohri/Blog/Lists/Posts/ViewPost.aspx?ID=399
+    <description><!--[CDATA[<div--><b>Body:</b> <div class="ExternalClass9EC13A54D4FE485FBB9D61B2FDA38848"><p>JML – Still waiting for PO (Purchase Order) from RRC (Rolls-Royce Corporation) for T4 Extension.  Ada<br /></p><p>CMA – Talked with Allegion last week about them needing a team.  They have a meeting this Thursday when they should get more clarity.  I'll follow up after that.​<br /></p><p>CRT – Expecting SOW from Deere for Dealer Channel work.  Java, React, Redux.<br /></p><p>JML – Small amount of work available (2 weeks) from TCS (Time Compression Strategies) for continuing database work.<br /></p><p>KLP – Proposing KMS (Knowledge Management System) CI (Continuous Integration) / CD (Continuous Deployment) Pipeline in Azure to RRC this week.<br /></p><p>RMS – Will propose to Beckman Coulter an Azure Architecture Review.<br /></p><p>JML – Putting together a proposal to help support Ascension until they're ready for the next phase.<br /></p><p>JML – Working on planning for support of AACCEE (Automated Analysis of Customer Configured Engines &amp; Equipment) for 3Q work.  .NET core, Python<br /></p><p>KLP – Proposing EHMS Flight Processing Change this week with RRC.  Web, Oracle, Perl, C#, Javascript<br /></p><p>JML – Met yesterday with Crown.  Real opportunity to help out again.  They seem to be sold on the practices we were asking for.  Will be proposing an approach after some internal discussions.<br /></p></div>
     <div><b>Published:</b> 7/2/2018 4:21 PM</div>
     ]]&gt;</description>
-      <author>Raman N. Ohri</author>
-      <pubdate>Mon, 02 Jul 2018 20:22:48 GMT</pubdate>
-      <guid ispermalink="true">https://sharepoint.sep.com:8383/personal/ohri/Blog/Lists/Posts/ViewPost.aspx?ID=399</guid>
+    <author>Raman N. Ohri</author>
+    <pubdate>Mon, 02 Jul 2018 20:22:48 GMT</pubdate>
+    <guid ispermalink="true">https://sharepoint.sep.com:8383/personal/ohri/Blog/Lists/Posts/ViewPost.aspx?ID=399</guid>
     </item>
     </channel>
     </rss></body></html>

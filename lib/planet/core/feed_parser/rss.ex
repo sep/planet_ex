@@ -52,10 +52,19 @@ defmodule Planet.Core.FeedParser.Rss do
 
   defp description(xml) do
     xml
-    |> xpath(~x"./description")
-    |> elem(8)
-    |> :xmerl.export_simple_content(:xmerl_html)
-    |> List.to_string()
+    |> xpath(~x"./description/text()"so)
+    |> String.trim()
+    |> case do
+      "" ->
+        xml
+        |> xpath(~x"./description")
+        |> elem(8)
+        |> :xmerl.export_simple_content(:xmerl_html)
+        |> List.to_string()
+
+      desc ->
+        desc
+    end
   end
 
   defp put_published(%Entry{} = entry, xml) do

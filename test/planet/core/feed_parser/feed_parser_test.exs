@@ -173,6 +173,32 @@ defmodule Planet.Core.FeedParserTest do
       assert expected_entry.published == actual.published
       assert expected_entry.author == actual.author
     end
+
+    test "parses entry data from feed with only description field" do
+      expected_entry = %FeedParser.Entry{
+        title: "Optimize for cognitive load",
+        url: "http://arktronic.com/weblog/2016-12-30/optimize-for-cognitive-load/",
+        content: "<p>I recently read a rather",
+        author: nil,
+        published:
+          Timex.parse!(
+            "Fri, 30 Dec 2016 16:25:00 +0000",
+            "{WDshort}, {0D} {Mshort} {YYYY} {h24}:{m}:{s} {Z}"
+          )
+      }
+
+      actual =
+        rss_fixture_only_description()
+        |> FeedParser.parse()
+        |> Map.get(:entries)
+        |> List.first()
+
+      assert expected_entry.title == actual.title
+      assert expected_entry.url == actual.url
+      assert actual.content =~ expected_entry.content
+      assert expected_entry.published == actual.published
+      assert expected_entry.author == actual.author
+    end
   end
 
   describe "parse/1 for sharepoint feeds" do
