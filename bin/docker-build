@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+set -ev
+
+docker build -t planet-image .
+
+exit 0

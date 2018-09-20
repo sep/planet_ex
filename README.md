@@ -21,7 +21,7 @@ If you have [asdf](https://github.com/asdf-vm/asdf) installed, simply run `asdf 
 Run the bootstrap script to install the remaining dependencies and create your
 development database:
 
-```shell
+```bash
 $ cd planet
 $ bin/setup
 ```
@@ -30,13 +30,69 @@ To run the server: `mix phx.server`.
 
 ## Running the tests, formatter, and linter
 
-```shell
+```bash
 $ mix verify
 
 ==> mix format --check-formatted
 ==> mix credo
 ==> mix test.all
 ```
+
+## Releasing and Deployment
+
+Planet uses [Distillery](https://github.com/bitwalker/distillery/) and [Docker](https://www.docker.com/) to build Erlang releases targeted for Ubuntu.
+
+### Prerequisites
+
+* Docker
+* Server provisioned with the following
+    * Postgres 10 
+        * Can be hosted on the same machine as the release or seperately.
+    * xvfb
+    * Google Chrome
+    * ChromeDriver
+
+### Release
+
+* `bin/docker-build` - builds your Docker container.
+    * You only need to do this once.
+* `bin/release` - builds your Distillery release.
+    * Build artifacts are located in `/rel/artifacts`
+
+### Deployment
+
+#### Environment Variables
+
+##### Required
+
+* PORT
+* DOMAIN
+* POOL_SIZE
+* SECRET_KEY_BASE
+    * Can be generated using `mix phx.gen.secret`
+* DATABASE_URL
+
+##### Optional
+
+* SHAREPOINT_CREDS
+    * In order to aggregate blogs from protected SharePoint sites, you must supply credentials in the form of `username:password`
+
+#### Deliver to remote host
+* `scp rel/artifacts/<your release> user@host:/path/to/release` - Move release tar ball to the server.
+* `tar -xvf /path/to/release` - unpack the release.
+
+#### Start the server
+
+* `/path/to/release/bin/yourapp start` - start the server in the background as a daemon
+    * To stop the server - `/path/to/release/bin/yourapp stop`
+or
+* `/path/to/release/bin/yourapp foreground` - start the server in the foreground (analogous to `mix phx.server`)
+
+### Database migrations
+
+Planet comes with a migration release task.
+
+On the remote server, run `/path/to/release/bin/yourapp migrate []`
 
 ## Built With
 
@@ -45,4 +101,4 @@ $ mix verify
 
 ## Contributors
 
-- Mitchell Hanberg
+- Mitchell Hanberg ([mhanberg](https://www.github.com/mahanberg))

@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+set -ev
+
+docker run -v '$(pwd)':/opt/build --rm -it planet-image:latest /opt/build/bin/build
+
+exit 0
