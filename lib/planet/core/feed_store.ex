@@ -48,7 +48,7 @@ defmodule Planet.Core.FeedStore do
 
     initial_feed = %Feed{
       title: "Planet: The Blogs of SEP",
-      url: "https://planet.sep.com",
+      url: "http://planet.sep.com",
       author: "SEPeers"
     }
 
