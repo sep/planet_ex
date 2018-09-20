@@ -60,7 +60,7 @@ defmodule PlanetWeb.Endpoint do
         config
         |> Keyword.put(:http, [:inet6, port: port])
         |> Keyword.put(:secret_key_base, System.get_env("SECRET_KEY_BASE"))
-        |> Keyword.put(:url, scheme: "https", host: System.get_env("DOMAIN"), port: 443)
+        |> Keyword.put(:url, scheme: "http", host: System.get_env("DOMAIN"), port: 80)
 
       {:ok, config}
     else
