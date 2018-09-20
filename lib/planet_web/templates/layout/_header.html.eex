@@ -4,6 +4,5 @@
   </a>
   <span class="flex justify-end">
     <a class="text-xl no-underline hover:underline" href="/rss">Feeds</a>
-    <a class="text-charcoal text-xl no-underline hover:underline ml-4" href="#">Log out</a>
   </span>
 </header>
