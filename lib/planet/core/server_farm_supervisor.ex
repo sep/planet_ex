@@ -54,7 +54,7 @@ defmodule Planet.Core.ServerFarmSupervisor do
           Logger.debug(fn -> "Writing feed.xml" end)
 
           File.write!(
-            "assets/static/feed.xml",
+            Application.app_dir(:planet, "priv/static/feed.xml"),
             Phoenix.View.render_to_iodata(PlanetWeb.RssView, "feed.xml", feed: feed)
           )
         end
