@@ -41,7 +41,7 @@ defmodule Planet.Mixfile do
       {:cowboy, "~> 1.0"},
       {:credo, "~> 0.10.0", only: [:dev, :test], runtime: false},
       {:distillery, "~> 2.0"},
-      {:dotenv, "~> 2.0.0", only: [:dev, :prod]},
+      {:dotenv, "~> 2.0.0", only: :dev},
       {:gettext, "~> 0.11"},
       {:httpoison, "~> 1.0", override: true},
       {:mox, "~> 0.3.2", only: :test},
