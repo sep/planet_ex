@@ -16,7 +16,8 @@ defmodule PlanetWeb.Endpoint do
     at: "/",
     from: :planet,
     gzip: false,
-    only: ~w(css fonts images js favicon.ico robots.txt feed.xml)
+    only: ~w(css fonts images js robots.txt feed.xml),
+    only_matching: ~w(favicon)
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
