@@ -2,7 +2,7 @@ defmodule Planet.Core.FeedParser.Feed do
   @moduledoc """
   This module represents a feed and certain operations that can be done on a feed.
   """
-  defstruct [:type, :title, :url, :author, entries: []]
+  defstruct [:title, :url, :author, entries: []]
 
   def with_entries(feed, page, per_page) do
     selected_entries =

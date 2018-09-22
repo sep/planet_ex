@@ -79,4 +79,53 @@ defmodule Planet.FeedsTest do
       assert %Ecto.Changeset{} = Feeds.change_rss(rss)
     end
   end
+
+  describe "planet" do
+    alias Planet.Feeds
+
+    @valid_attrs %{author: "some author", title: "some title", url: "some url"}
+    @update_attrs %{
+      author: "some updated author",
+      title: "some updated title",
+      url: "some updated url"
+    }
+    @invalid_attrs %{author: nil, title: nil, url: nil}
+
+    def planet_fixture(attrs \\ %{}) do
+      {:ok, planet} =
+        %Feeds.Planet{}
+        |> Feeds.Planet.changeset(
+          attrs
+          |> Enum.into(@valid_attrs)
+        )
+        |> Repo.insert()
+
+      planet
+    end
+
+    test "get_planet/1 returns the planet with given id" do
+      planet = planet_fixture()
+      assert Feeds.get_planet!(planet.id) == planet
+    end
+
+    test "update_planet/2 with valid data updates the planet" do
+      planet = planet_fixture()
+      assert {:ok, planet} = Feeds.update_planet(planet, @update_attrs)
+      assert %Feeds.Planet{} = planet
+      assert planet.author == "some updated author"
+      assert planet.title == "some updated title"
+      assert planet.url == "some updated url"
+    end
+
+    test "update_planet/2 with invalid data returns error changeset" do
+      planet = planet_fixture()
+      assert {:error, %Ecto.Changeset{}} = Feeds.update_planet(planet, @invalid_attrs)
+      assert planet == Feeds.get_planet!(planet.id)
+    end
+
+    test "change_planet/1 returns a planet changeset" do
+      planet = planet_fixture()
+      assert %Ecto.Changeset{} = Feeds.change_planet(planet)
+    end
+  end
 end

@@ -1,0 +1,31 @@
+<%= form_for @changeset, @action, [onsubmit: "Planet.disableSubmitButton()", class: "max-w-xs-sm mx-auto"], fn(f) -> %>
+  <div class="flex flex-col">
+    <%= label f, :title, [class: "text-label-grey opacity-75"] do %>
+      Title 
+      <%= error_tag f, :title %>
+    <% end %>
+    <%= text_input f, :title, [class: "bg-green-ultimate-light p-3 mt-2 mb-4 soft-placeholder green-focus", required: true, placeholder: "Our Planet Roll"] %>
+
+    <%= label f, :url, [class: "text-label-grey opacity-75"] do %>
+      URL
+      <%= error_tag f, :url %>
+    <% end %>
+    <%= url_input f, :url, [class: "bg-green-ultimate-light p-3 mt-2 mb-4 soft-placeholder green-focus", required: true, placeholder: "Our Planet URL"] %>
+
+    <%= label f, :author, [class: "text-label-grey opacity-75"] do %>
+      Author
+      <%= error_tag f, :author %>
+    <% end %>
+    <%= text_input f, :author, [class: "bg-green-ultimate-light p-3 mt-2 mb-4 soft-placeholder green-focus", required: true, placeholder: "Planeteers"] %>
+  </div>
+
+  <div class="flex justify-between mt-4">
+    <button id="submitButton" type="submit" class="bg-green hover:bg-green-dark text-xl text-white px-8 py-2 rounded-full">
+      Update
+    </button>
+    <a href="/rss" class="bg-white hover:bg-red-light text-xl text-grey hover:text-white px-8 py-2 rounded-full hover:no-underline">
+      Cancel
+    </a>
+  </div>
+<% end %>
+

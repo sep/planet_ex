@@ -18,5 +18,6 @@ defmodule PlanetWeb.Router do
 
     get "/", EntriesController, :index
     resources "/rss", RssController
+    resources "/planets", PlanetController, only: [:edit, :update]
   end
 end

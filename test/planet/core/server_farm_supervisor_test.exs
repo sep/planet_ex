@@ -55,9 +55,9 @@ defmodule Planet.Core.ServerFarmSupervisorTest do
 
     %{feed: actual} = :sys.get_state(FeedStore)
 
-    assert "Planet: The Blogs of SEP" == actual.title
-    assert "http://planet.sep.com" == actual.url
-    assert "SEPeers" == actual.author
+    assert "Our Planet Feed" == actual.title
+    assert "Our Planet URL" == actual.url
+    assert "Our Planet Contributors" == actual.author
 
     assert "Blerg content" ==
              actual.entries

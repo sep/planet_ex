@@ -33,6 +33,10 @@ defmodule Planet.Core.FeedStore do
     GenServer.cast(__MODULE__, {:update, rss})
   end
 
+  def update_planet(planet) do
+    GenServer.cast(__MODULE__, {:update_planet, planet})
+  end
+
   def remove(rss) do
     GenServer.cast(__MODULE__, {:remove, rss})
   end
@@ -46,10 +50,12 @@ defmodule Planet.Core.FeedStore do
         Map.put(acc, feed.id, pid)
       end)
 
+    our_planet = Planet.Feeds.get_planet!(1)
+
     initial_feed = %Feed{
-      title: "Planet: The Blogs of SEP",
-      url: "http://planet.sep.com",
-      author: "SEPeers"
+      title: our_planet.title,
+      url: our_planet.url,
+      author: our_planet.author
     }
 
     {:ok, %{feed: initial_feed, feed_servers: proc_table}}
@@ -83,6 +89,17 @@ defmodule Planet.Core.FeedStore do
     FeedServer.update(server_pid, updated_rss)
 
     {:noreply, state}
+  end
+
+  def handle_cast({:update_planet, updated_planet}, %{feed: feed} = state) do
+    updated_feed = %Feed{
+      title: updated_planet.title,
+      url: updated_planet.url,
+      author: updated_planet.author,
+      entries: feed.entries
+    }
+
+    {:noreply, Map.put(state, :feed, updated_feed)}
   end
 
   def handle_cast({:remove, old_rss}, %{feed_servers: feed_servers} = state) do

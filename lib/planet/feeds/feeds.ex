@@ -115,4 +115,53 @@ defmodule Planet.Feeds do
   def change_rss(%Rss{} = rss) do
     Rss.changeset(rss, %{})
   end
+
+  alias Planet.Feeds.Planet
+
+  @doc """
+  Gets a single planet.
+
+  Raises `Ecto.NoResultsError` if the Planets does not exist.
+
+  ## Examples
+
+      iex> get_planet!(123)
+      %Planet{}
+
+      iex> get_planet!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_planet!(id), do: Repo.get!(Planet, id)
+
+  @doc """
+  Updates a planet.
+
+  ## Examples
+
+      iex> update_planet(planets, %{field: new_value})
+      {:ok, %Planet{}}
+
+      iex> update_planet(planet, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_planet(%Planet{} = planet, attrs) do
+    planet
+    |> Planet.changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking planet changes.
+
+  ## Examples
+
+      iex> change_planets(planet)
+      %Ecto.Changeset{source: %Planet{}}
+
+  """
+  def change_planet(%Planet{} = planet) do
+    Planet.changeset(planet, %{})
+  end
 end

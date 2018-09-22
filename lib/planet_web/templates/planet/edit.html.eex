@@ -1,0 +1,6 @@
+<div class="max-w-sm mx-auto">
+  <div class="text-5xl font-light text-center">Our Planet</div>
+  <hr class="w-full h-px bg-green-lightest mb-8">
+</div>
+
+<%= render "_form.html", Map.put(assigns, :action, planet_path(@conn, :update, @planet)) %>
