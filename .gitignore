@@ -15,6 +15,8 @@ npm-debug.log
 /assets/static/feed.xml
 screenshots/
 /rel/artifacts
+/.hex
+/.mix
 
 # Since we are building assets from assets/,
 # we ignore priv/static. You may want to comment
