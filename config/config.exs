@@ -6,22 +6,22 @@
 use Mix.Config
 
 # General application configuration
-config :planet, ecto_repos: [Planet.Repo]
+config :planetex, ecto_repos: [PlanetEx.Repo]
 
 # Configures the endpoint
-config :planet, PlanetWeb.Endpoint,
+config :planetex, PlanetExWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "TYlZ+tfWNCIki6f8W7avWBhwzG0t6Yio8z21KcV0JcnGy0T9fP1i0qyG8TR16I3/",
-  render_errors: [view: PlanetWeb.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: Planet.PubSub, adapter: Phoenix.PubSub.PG2]
+  render_errors: [view: PlanetExWeb.ErrorView, accepts: ~w(html json)],
+  pubsub: [name: PlanetEx.PubSub, adapter: Phoenix.PubSub.PG2]
 
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:user_id]
 
-config :planet, :server_farm_supervisor, Planet.Core.ServerFarmSupervisor
-config :planet, :server_timeout, 60000
+config :planetex, :server_farm_supervisor, PlanetEx.Core.ServerFarmSupervisor
+config :planetex, :server_timeout, 60000
 
 config :wallaby,
   screenshot_on_failure: true,

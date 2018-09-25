@@ -1,4 +1,4 @@
-defmodule Planet.Feeds.Planet do
+defmodule PlanetEx.Feeds.Planet do
   @moduledoc """
   This schema describes the aggregated feed displayed on the home page. This is a singleton.
   """

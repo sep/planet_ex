@@ -1,9 +1,9 @@
-defmodule Planet.Core.FeedParser do
+defmodule PlanetEx.Core.FeedParser do
   @moduledoc """
   This module coordinates parsing feeds, delegating to the appropriate parser.
   """
   require Logger
-  alias Planet.Core.FeedParser.{Atom, Feed, Rss, Sharepoint}
+  alias PlanetEx.Core.FeedParser.{Atom, Feed, Rss, Sharepoint}
 
   def parse(""), do: %Feed{}
 

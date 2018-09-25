@@ -1,9 +1,9 @@
-defmodule PlanetWeb.Features.RssTest do
-  use PlanetWeb.FeatureCase
+defmodule PlanetExWeb.Features.RssTest do
+  use PlanetExWeb.FeatureCase
 
   @moduletag :feature
-  alias Planet.Core.ServerFarmSupervisor
-  import PlanetWeb.Support
+  alias PlanetEx.Core.ServerFarmSupervisor
+  import PlanetExWeb.Support
 
   import Wallaby.Query
 
@@ -16,7 +16,7 @@ defmodule PlanetWeb.Features.RssTest do
       ]
 
       FetchMock
-      |> Mox.stub(:get, fn _ -> atom_fixture(author: "Mitchell Hanberg") end)
+      |> Mox.stub(:get, fn _ -> feature_fixture(author: "Mitchell Hanberg") end)
 
       start_supervised!(ServerFarmSupervisor)
 

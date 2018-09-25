@@ -1,10 +1,10 @@
-defmodule PlanetWeb.Endpoint do
-  use Phoenix.Endpoint, otp_app: :planet
+defmodule PlanetExWeb.Endpoint do
+  use Phoenix.Endpoint, otp_app: :planetex
 
-  socket "/socket", PlanetWeb.UserSocket
+  socket "/socket", PlanetExWeb.UserSocket
 
   # Wallaby configuration
-  if Application.get_env(:planet, :sql_sandbox) do
+  if Application.get_env(:planetex, :sql_sandbox) do
     plug Phoenix.Ecto.SQL.Sandbox
   end
 
@@ -14,7 +14,7 @@ defmodule PlanetWeb.Endpoint do
   # when deploying your static files in production.
   plug Plug.Static,
     at: "/",
-    from: :planet,
+    from: :planetex,
     gzip: false,
     only: ~w(css fonts images js robots.txt feed.xml),
     only_matching: ~w(favicon)
@@ -45,7 +45,7 @@ defmodule PlanetWeb.Endpoint do
     key: "_planet_key",
     signing_salt: "YamjpzQ6"
 
-  plug PlanetWeb.Router
+  plug PlanetExWeb.Router
 
   @doc """
   Callback invoked for dynamically configuring the endpoint.

@@ -1,4 +1,4 @@
-defmodule PlanetWeb.FeatureCase do
+defmodule PlanetExWeb.FeatureCase do
   @moduledoc """
   This module sets up Feature tests using Wallaby and Google Chrome. 
   """
@@ -8,26 +8,26 @@ defmodule PlanetWeb.FeatureCase do
     quote do
       use Wallaby.DSL
 
-      alias Planet.Repo
+      alias PlanetEx.Repo
       import Ecto
       import Ecto.Changeset
       import Ecto.Query
       import Mox
 
-      import PlanetWeb.Router.Helpers
+      import PlanetExWeb.Router.Helpers
     end
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Planet.Repo)
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(PlanetEx.Repo)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(Planet.Repo, {:shared, self()})
+      Ecto.Adapters.SQL.Sandbox.mode(PlanetEx.Repo, {:shared, self()})
     end
 
     Mox.set_mox_global()
 
-    metadata = Phoenix.Ecto.SQL.Sandbox.metadata_for(Planet.Repo, self())
+    metadata = Phoenix.Ecto.SQL.Sandbox.metadata_for(PlanetEx.Repo, self())
     {:ok, session} = Wallaby.start_session(metadata: metadata)
     session = Wallaby.Browser.resize_window(session, 1024, 1024)
     {:ok, session: session}

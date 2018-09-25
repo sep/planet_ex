@@ -1,4 +1,4 @@
-defmodule PlanetWeb.ConnCase do
+defmodule PlanetExWeb.ConnCase do
   @moduledoc """
   This module defines the test case to be used by
   tests that require setting up a connection.
@@ -19,21 +19,21 @@ defmodule PlanetWeb.ConnCase do
     quote do
       # Import conveniences for testing with connections
       use Phoenix.ConnTest
-      import PlanetWeb.Router.Helpers
+      import PlanetExWeb.Router.Helpers
       import Ecto.Query, warn: false
-      alias Planet.Repo
+      alias PlanetEx.Repo
       import Mox
 
       # The default endpoint for testing
-      @endpoint PlanetWeb.Endpoint
+      @endpoint PlanetExWeb.Endpoint
     end
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Planet.Repo)
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(PlanetEx.Repo)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(Planet.Repo, {:shared, self()})
+      Ecto.Adapters.SQL.Sandbox.mode(PlanetEx.Repo, {:shared, self()})
     end
 
     Mox.set_mox_global()

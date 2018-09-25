@@ -1,8 +1,8 @@
-defmodule Planet.Core.FeedParser.Sharepoint do
+defmodule PlanetEx.Core.FeedParser.Sharepoint do
   @moduledoc """
   This modules understands how to parse a feed from Microsoft Sharepoint.
   """
-  alias Planet.Core.FeedParser.{Rss}
+  alias PlanetEx.Core.FeedParser.{Rss}
   import SweetXml
 
   def parse(html) do

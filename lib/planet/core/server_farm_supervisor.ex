@@ -1,12 +1,12 @@
-defmodule Planet.Core.ServerFarmSupervisor do
+defmodule PlanetEx.Core.ServerFarmSupervisor do
   @moduledoc """
   This modules supervises the process that fetch and serve the feeds.
   """
   use Supervisor
-  alias Planet.Core.Cron
-  alias Planet.Core.FeedServer
-  alias Planet.Core.FeedStore
-  alias Planet.Core.ServerFarm
+  alias PlanetEx.Core.Cron
+  alias PlanetEx.Core.FeedServer
+  alias PlanetEx.Core.FeedStore
+  alias PlanetEx.Core.ServerFarm
 
   require Logger
 
@@ -54,8 +54,8 @@ defmodule Planet.Core.ServerFarmSupervisor do
           Logger.debug(fn -> "Writing feed.xml" end)
 
           File.write!(
-            Application.app_dir(:planet, "priv/static/feed.xml"),
-            Phoenix.View.render_to_iodata(PlanetWeb.RssView, "feed.xml", feed: feed)
+            Application.app_dir(:planetex, "priv/static/feed.xml"),
+            Phoenix.View.render_to_iodata(PlanetExWeb.RssView, "feed.xml", feed: feed)
           )
         end
       },

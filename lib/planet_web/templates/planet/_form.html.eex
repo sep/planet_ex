@@ -1,4 +1,4 @@
-<%= form_for @changeset, @action, [onsubmit: "Planet.disableSubmitButton()", class: "max-w-xs-sm mx-auto"], fn(f) -> %>
+<%= form_for @changeset, @action, [onsubmit: "PlanetEx.disableSubmitButton()", class: "max-w-xs-sm mx-auto"], fn(f) -> %>
   <div class="flex flex-col">
     <%= label f, :title, [class: "text-label-grey opacity-75"] do %>
       Title 

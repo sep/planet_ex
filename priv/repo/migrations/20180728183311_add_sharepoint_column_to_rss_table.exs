@@ -1,4 +1,4 @@
-defmodule Planet.Repo.Migrations.AddSharepointColumnToRssTable do
+defmodule PlanetEx.Repo.Migrations.AddSharepointColumnToRssTable do
   use Ecto.Migration
 
   def change do

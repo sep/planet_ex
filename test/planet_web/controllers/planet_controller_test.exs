@@ -1,7 +1,7 @@
-defmodule PlanetWeb.PlanetsControllerTest do
-  use PlanetWeb.ConnCase
+defmodule PlanetExWeb.PlanetControllerTest do
+  use PlanetExWeb.ConnCase
 
-  alias Planet.Feeds
+  alias PlanetEx.Feeds
 
   @create_attrs %{author: "some author", title: "some title", url: "some url"}
   @update_attrs %{
@@ -33,12 +33,12 @@ defmodule PlanetWeb.PlanetsControllerTest do
     setup [:create_planet]
 
     test "redirects when data is valid", %{conn: conn, planet: planet} do
-      start_supervised!(Planet.Core.ServerFarmSupervisor)
+      start_supervised!(PlanetEx.Core.ServerFarmSupervisor)
 
       conn = put(conn, planet_path(conn, :update, planet), planet: @update_attrs)
       assert redirected_to(conn) == entries_path(conn, :index)
 
-      :sys.get_state(Planet.Core.ServerFarmSupervisor)
+      :sys.get_state(PlanetEx.Core.ServerFarmSupervisor)
 
       conn = get conn, entries_path(conn, :index)
       assert html_response(conn, 200) =~ "some updated title"

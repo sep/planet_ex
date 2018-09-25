@@ -10,7 +10,7 @@
 
 import "phoenix_html";
 
-export const Planet = {
+export const PlanetEx = {
   disableSubmitButton() {
     const submitButton = document.getElementById("submitButton");
 

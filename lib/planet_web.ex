@@ -1,12 +1,12 @@
-defmodule PlanetWeb do
+defmodule PlanetExWeb do
   @moduledoc """
   The entrypoint for defining your web interface, such
   as controllers, views, channels and so on.
 
   This can be used in your application as:
 
-      use PlanetWeb, :controller
-      use PlanetWeb, :view
+      use PlanetExWeb, :controller
+      use PlanetExWeb, :view
 
   The definitions below will be executed for every view,
   controller, etc, so keep them short and clean, focused
@@ -19,10 +19,10 @@ defmodule PlanetWeb do
 
   def controller do
     quote do
-      use Phoenix.Controller, namespace: PlanetWeb
+      use Phoenix.Controller, namespace: PlanetExWeb
       import Plug.Conn
-      import PlanetWeb.Router.Helpers
-      import PlanetWeb.Gettext
+      import PlanetExWeb.Router.Helpers
+      import PlanetExWeb.Gettext
     end
   end
 
@@ -30,7 +30,7 @@ defmodule PlanetWeb do
     quote do
       use Phoenix.View,
         root: "lib/planet_web/templates",
-        namespace: PlanetWeb
+        namespace: PlanetExWeb
 
       # Import convenience functions from controllers
       import Phoenix.Controller, only: [get_flash: 1, view_module: 1]
@@ -38,9 +38,9 @@ defmodule PlanetWeb do
       # Use all HTML functionality (forms, tags, etc)
       use Phoenix.HTML
 
-      import PlanetWeb.Router.Helpers
-      import PlanetWeb.ErrorHelpers
-      import PlanetWeb.Gettext
+      import PlanetExWeb.Router.Helpers
+      import PlanetExWeb.ErrorHelpers
+      import PlanetExWeb.Gettext
     end
   end
 
@@ -55,7 +55,7 @@ defmodule PlanetWeb do
   def channel do
     quote do
       use Phoenix.Channel
-      import PlanetWeb.Gettext
+      import PlanetExWeb.Gettext
     end
   end
 

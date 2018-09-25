@@ -1,5 +1,5 @@
-defmodule PlanetWeb.ErrorView do
-  use PlanetWeb, :view
+defmodule PlanetExWeb.ErrorView do
+  use PlanetExWeb, :view
 
   # If you want to customize a particular status code
   # for a certain format, you may uncomment below.

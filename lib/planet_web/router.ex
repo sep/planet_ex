@@ -1,5 +1,5 @@
-defmodule PlanetWeb.Router do
-  use PlanetWeb, :router
+defmodule PlanetExWeb.Router do
+  use PlanetExWeb, :router
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -13,7 +13,7 @@ defmodule PlanetWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", PlanetWeb do
+  scope "/", PlanetExWeb do
     pipe_through :browser
 
     get "/", EntriesController, :index

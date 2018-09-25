@@ -1,4 +1,4 @@
-defmodule PlanetWeb.ChannelCase do
+defmodule PlanetExWeb.ChannelCase do
   @moduledoc """
   This module defines the test case to be used by
   channel tests.
@@ -21,15 +21,15 @@ defmodule PlanetWeb.ChannelCase do
       use Phoenix.ChannelTest
 
       # The default endpoint for testing
-      @endpoint PlanetWeb.Endpoint
+      @endpoint PlanetExWeb.Endpoint
     end
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Planet.Repo)
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(PlanetEx.Repo)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(Planet.Repo, {:shared, self()})
+      Ecto.Adapters.SQL.Sandbox.mode(PlanetEx.Repo, {:shared, self()})
     end
 
     :ok

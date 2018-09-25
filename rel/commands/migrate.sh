@@ -1,3 +1,3 @@
 #!/bin/sh
 
-release_ctl eval --mfa "Planet.ReleaseTasks.migrate/1" -- "$@"
+release_ctl eval --mfa "PlanetEx.ReleaseTasks.migrate/1" -- "$@"

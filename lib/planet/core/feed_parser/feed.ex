@@ -1,4 +1,4 @@
-defmodule Planet.Core.FeedParser.Feed do
+defmodule PlanetEx.Core.FeedParser.Feed do
   @moduledoc """
   This module represents a feed and certain operations that can be done on a feed.
   """

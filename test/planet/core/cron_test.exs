@@ -1,7 +1,7 @@
-defmodule Planet.Core.CronTest do
+defmodule PlanetEx.Core.CronTest do
   use ExUnit.Case
 
-  alias Planet.Core.Cron
+  alias PlanetEx.Core.Cron
 
   test "should execute the job" do
     id = self()

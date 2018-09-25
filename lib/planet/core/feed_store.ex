@@ -1,10 +1,10 @@
-defmodule Planet.Core.FeedStore do
+defmodule PlanetEx.Core.FeedStore do
   @moduledoc """
-  This module is responsible for holding the Planet feed.
+  This module is responsible for holding the PlanetEx feed.
   """
-  alias Planet.Core.FeedParser.Feed
-  alias Planet.Core.FeedServer
-  alias Planet.Core.ServerFarm
+  alias PlanetEx.Core.FeedParser.Feed
+  alias PlanetEx.Core.FeedServer
+  alias PlanetEx.Core.ServerFarm
 
   use GenServer
   require Logger
@@ -43,14 +43,14 @@ defmodule Planet.Core.FeedStore do
 
   def init(_args) do
     proc_table =
-      Planet.Feeds.list_rss()
+      PlanetEx.Feeds.list_rss()
       |> Enum.reduce(%{}, fn feed, acc ->
         {:ok, pid} = ServerFarm.plant(feed)
 
         Map.put(acc, feed.id, pid)
       end)
 
-    our_planet = Planet.Feeds.get_planet!(1)
+    our_planet = PlanetEx.Feeds.get_planet!(1)
 
     initial_feed = %Feed{
       title: our_planet.title,

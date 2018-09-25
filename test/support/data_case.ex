@@ -1,4 +1,4 @@
-defmodule Planet.DataCase do
+defmodule PlanetEx.DataCase do
   @moduledoc """
   This module defines the setup for tests requiring
   access to the application's data layer.
@@ -16,21 +16,21 @@ defmodule Planet.DataCase do
 
   using do
     quote do
-      alias Planet.Repo
+      alias PlanetEx.Repo
 
       import Ecto
       import Ecto.Changeset
       import Ecto.Query
-      import Planet.DataCase
+      import PlanetEx.DataCase
       import Mox
     end
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Planet.Repo)
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(PlanetEx.Repo)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(Planet.Repo, {:shared, self()})
+      Ecto.Adapters.SQL.Sandbox.mode(PlanetEx.Repo, {:shared, self()})
     end
 
     Mox.set_mox_global()

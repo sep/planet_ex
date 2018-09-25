@@ -1,9 +1,9 @@
-defmodule Planet.Core.ServerFarmTest do
+defmodule PlanetEx.Core.ServerFarmTest do
   use ExUnit.Case
   import Mox
-  import PlanetWeb.Support
+  import PlanetExWeb.Support
 
-  alias Planet.Core.ServerFarm
+  alias PlanetEx.Core.ServerFarm
 
   setup :set_mox_global
   setup :verify_on_exit!
@@ -17,7 +17,7 @@ defmodule Planet.Core.ServerFarmTest do
   @stub_feed_xml atom_fixture([author: "Mitchell Hanberg"], 2)
 
   test "start a child" do
-    feed = %Planet.Feeds.Rss{id: 1, url: "Feed_url"}
+    feed = %PlanetEx.Feeds.Rss{id: 1, url: "Feed_url"}
 
     FetchMock
     |> Mox.expect(:get, fn ^feed -> @stub_feed_xml end)
@@ -26,7 +26,7 @@ defmodule Planet.Core.ServerFarmTest do
   end
 
   test "stops a child" do
-    feed = %Planet.Feeds.Rss{id: 1, url: "Feed_url"}
+    feed = %PlanetEx.Feeds.Rss{id: 1, url: "Feed_url"}
 
     FetchMock
     |> Mox.expect(:get, fn ^feed -> @stub_feed_xml end)

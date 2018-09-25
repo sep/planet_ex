@@ -1,9 +1,9 @@
-defmodule Planet.Core.ServerFarm do
+defmodule PlanetEx.Core.ServerFarm do
   @moduledoc """
   This module handles supervising the farm of FeedServers.
   """
   use DynamicSupervisor
-  alias Planet.Core.FeedServer
+  alias PlanetEx.Core.FeedServer
 
   def start_link(_args) do
     DynamicSupervisor.start_link(__MODULE__, [], name: __MODULE__)

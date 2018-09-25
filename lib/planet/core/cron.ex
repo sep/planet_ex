@@ -1,10 +1,10 @@
-defmodule Planet.Core.Cron do
+defmodule PlanetEx.Core.Cron do
   @moduledoc """
   This module will call the passed in function on a recurring basis.
   """
   use GenServer
 
-  @timeout Application.get_env(:planet, :server_timeout)
+  @timeout Application.get_env(:planetex, :server_timeout)
 
   def start_link(job) do
     GenServer.start_link(__MODULE__, job)

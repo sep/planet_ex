@@ -13,7 +13,7 @@
         <div id="feedName" class="text-3xl py-2"><%= feed.name %></div>
 
         <div class="relative inline-block">
-          <button id="btn-<%= feed.id %>" onclick="Planet.openFeedMenu(event, '<%= feed.id %>')" class="cursor-pointer focus:outline-none dropdown-button">
+          <button id="btn-<%= feed.id %>" onclick="PlanetEx.openFeedMenu(event, '<%= feed.id %>')" class="cursor-pointer focus:outline-none dropdown-button">
             <svg  class="inline-block h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 12a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0-6a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 12a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/></svg>
           </button>
           <div id="<%= feed.id %>-dropdown" class="hidden absolute bg-grey-lightest shadow z-10 dropdown-content">
@@ -28,4 +28,4 @@
   <% end %>
 </div>
 
-<script> Planet.setupCloseFeedMenuHandler(); </script>
+<script> PlanetEx.setupCloseFeedMenuHandler(); </script>

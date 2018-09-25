@@ -1,7 +1,7 @@
-defmodule Planet.Core.FeedParserTest do
+defmodule PlanetEx.Core.FeedParserTest do
   use ExUnit.Case
-  alias Planet.Core.FeedParser
-  import PlanetWeb.Support
+  alias PlanetEx.Core.FeedParser
+  import PlanetExWeb.Support
 
   test "returns and empty string when it is passed an Feed" do
     assert FeedParser.parse("") == %FeedParser.Feed{}

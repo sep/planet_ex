@@ -1,8 +1,8 @@
-defmodule Planet.Core.ServerFarmSupervisorTest do
-  use Planet.DataCase
-  alias Planet.Core.FeedParser.{Entry, Feed}
-  alias Planet.Core.{FeedStore, ServerFarm, ServerFarmSupervisor}
-  import PlanetWeb.Support
+defmodule PlanetEx.Core.ServerFarmSupervisorTest do
+  use PlanetEx.DataCase
+  alias PlanetEx.Core.FeedParser.{Entry, Feed}
+  alias PlanetEx.Core.{FeedStore, ServerFarm, ServerFarmSupervisor}
+  import PlanetExWeb.Support
 
   @stub_feed_xml atom_fixture([author: "Mitchell Hanberg"], 2)
 
@@ -30,7 +30,7 @@ defmodule Planet.Core.ServerFarmSupervisorTest do
   test "retrieves the aggregated feed" do
     start_supervised!(ServerFarmSupervisor)
 
-    assert %Planet.Core.FeedParser.Feed{} = FeedStore.status()
+    assert %PlanetEx.Core.FeedParser.Feed{} = FeedStore.status()
   end
 
   test "can merge a feed" do

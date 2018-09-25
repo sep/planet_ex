@@ -1,4 +1,4 @@
-defmodule Planet.Core.FeedParser.Entry do
+defmodule PlanetEx.Core.FeedParser.Entry do
   @moduledoc """
   This module represents an Entry, an item in a Feed.
   """

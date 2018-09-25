@@ -1,4 +1,4 @@
-defmodule Planet.ReleaseTasks do
+defmodule PlanetEx.ReleaseTasks do
   @moduledoc """
   This module is used to define post release tasks such as database migrations.
   """
@@ -9,7 +9,7 @@ defmodule Planet.ReleaseTasks do
     :ecto
   ]
 
-  @repos Application.get_env(:planet, :ecto_repos, [])
+  @repos Application.get_env(:planetex, :ecto_repos, [])
 
   def migrate(_argv) do
     start_services()

@@ -1,6 +1,6 @@
-defmodule Planet.Application do
+defmodule PlanetEx.Application do
   @moduledoc false
-  @server_farm_supervisor Application.get_env(:planet, :server_farm_supervisor)
+  @server_farm_supervisor Application.get_env(:planetex, :server_farm_supervisor)
 
   use Application
 
@@ -8,19 +8,19 @@ defmodule Planet.Application do
     children =
       Enum.filter(
         [
-          Planet.Repo,
-          PlanetWeb.Endpoint,
+          PlanetEx.Repo,
+          PlanetExWeb.Endpoint,
           @server_farm_supervisor
         ],
         & &1
       )
 
-    opts = [strategy: :one_for_one, name: Planet.Supervisor]
+    opts = [strategy: :one_for_one, name: PlanetEx.Supervisor]
     Supervisor.start_link(children, opts)
   end
 
   def config_change(changed, _new, removed) do
-    PlanetWeb.Endpoint.config_change(changed, removed)
+    PlanetExWeb.Endpoint.config_change(changed, removed)
     :ok
   end
 end

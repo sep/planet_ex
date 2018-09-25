@@ -1,8 +1,8 @@
-defmodule Planet.Core.FeedServerTest do
-  use Planet.DataCase
-  alias Planet.Core.{FeedParser, FeedServer}
+defmodule PlanetEx.Core.FeedServerTest do
+  use PlanetEx.DataCase
+  alias PlanetEx.Core.{FeedParser, FeedServer}
 
-  import PlanetWeb.Support
+  import PlanetExWeb.Support
 
   @stub_feed_xml atom_fixture([author: "Mitchell Hanberg"], 2)
 

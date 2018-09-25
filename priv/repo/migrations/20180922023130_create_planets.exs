@@ -1,4 +1,4 @@
-defmodule Planet.Repo.Migrations.CreatePlanets do
+defmodule PlanetEx.Repo.Migrations.CreatePlanets do
   use Ecto.Migration
 
   def up do
@@ -14,7 +14,7 @@ defmodule Planet.Repo.Migrations.CreatePlanets do
 
     now = NaiveDateTime.utc_now()
 
-    Planet.Repo.insert_all(
+    PlanetEx.Repo.insert_all(
       "planets",
       [
         [

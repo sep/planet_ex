@@ -1,4 +1,4 @@
-# Planet
+# PlanetEx
 
 [![CircleCI](https://circleci.com/gh/mhanberg/planet.svg?style=svg)](https://circleci.com/gh/mhanberg/planet)
 
@@ -40,7 +40,7 @@ $ mix verify
 
 ## Releasing and Deployment
 
-Planet uses [Distillery](https://github.com/bitwalker/distillery/) and [Docker](https://www.docker.com/) to build Erlang releases targeted for Ubuntu.
+PlanetEx uses [Distillery](https://github.com/bitwalker/distillery/) and [Docker](https://www.docker.com/) to build Erlang releases targeted for Ubuntu.
 
 ### Prerequisites
 
@@ -90,7 +90,7 @@ or
 
 ### Database migrations
 
-Planet comes with a migration release task.
+PlanetEx comes with a migration release task.
 
 On the remote server, run `/path/to/release/bin/yourapp migrate []`
 

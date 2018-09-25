@@ -1,16 +1,16 @@
-defmodule PlanetWeb.Features.PlanetTest do
-  use PlanetWeb.FeatureCase
+defmodule PlanetExWeb.Features.PlanetExTest do
+  use PlanetExWeb.FeatureCase
 
   @moduletag :feature
-  alias Planet.Core.ServerFarmSupervisor
-  import PlanetWeb.Support
+  alias PlanetEx.Core.ServerFarmSupervisor
+  import PlanetExWeb.Support
 
   import Wallaby.Query
 
   describe "Our Planet page" do
     setup do
       FetchMock
-      |> Mox.stub(:get, fn _ -> atom_fixture(author: "Mitchell Hanberg") end)
+      |> Mox.stub(:get, fn _ -> feature_fixture(author: "Mitchell Hanberg") end)
 
       start_supervised!(ServerFarmSupervisor)
 

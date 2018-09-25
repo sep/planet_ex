@@ -1,7 +1,7 @@
-defmodule PlanetWeb.RssControllerTest do
-  use PlanetWeb.ConnCase
-  import PlanetWeb.Support
-  alias Planet.Core.ServerFarmSupervisor
+defmodule PlanetExWeb.RssControllerTest do
+  use PlanetExWeb.ConnCase
+  import PlanetExWeb.Support
+  alias PlanetEx.Core.ServerFarmSupervisor
 
   @stub_feed_xml atom_fixture([author: "Mitchell Hanberg"], 2)
 
@@ -13,7 +13,7 @@ defmodule PlanetWeb.RssControllerTest do
 
   describe "index/2" do
     setup do
-      start_supervised!(Planet.Core.ServerFarmSupervisor)
+      start_supervised!(PlanetEx.Core.ServerFarmSupervisor)
 
       :ok
     end
@@ -46,14 +46,14 @@ defmodule PlanetWeb.RssControllerTest do
     }
 
     setup %{conn: conn} do
-      start_supervised!(Planet.Core.ServerFarmSupervisor)
+      start_supervised!(PlanetEx.Core.ServerFarmSupervisor)
       conn = post conn, "/rss", @valid_attrs
 
       {:ok, conn: conn}
     end
 
     test "should create an rss feed", %{conn: conn} do
-      assert Repo.get_by!(Planet.Feeds.Rss, url: "mitchblog.com")
+      assert Repo.get_by!(PlanetEx.Feeds.Rss, url: "mitchblog.com")
       assert get_flash(conn, :success)
     end
 
@@ -70,9 +70,9 @@ defmodule PlanetWeb.RssControllerTest do
     test "should plant a feed in the server farm", %{conn: conn} do
       post conn, "/rss", @valid_attrs
 
-      rss_id = Planet.Feeds.Rss |> Repo.get_by!(url: "mitchblog.com") |> Map.fetch!(:id)
+      rss_id = PlanetEx.Feeds.Rss |> Repo.get_by!(url: "mitchblog.com") |> Map.fetch!(:id)
 
-      assert Planet.Core.FeedStore
+      assert PlanetEx.Core.FeedStore
              |> :sys.get_state()
              |> Map.fetch!(:feed_servers)
              |> Map.has_key?(rss_id)
@@ -153,14 +153,14 @@ defmodule PlanetWeb.RssControllerTest do
 
       start_supervised!(ServerFarmSupervisor)
 
-      assert Planet.Core.FeedStore
+      assert PlanetEx.Core.FeedStore
              |> :sys.get_state()
              |> Map.fetch!(:feed_servers)
              |> Map.has_key?(rss_id)
 
       delete conn, "/rss/#{rss_id}"
 
-      refute Planet.Core.FeedStore
+      refute PlanetEx.Core.FeedStore
              |> :sys.get_state()
              |> Map.fetch!(:feed_servers)
              |> Map.has_key?(rss_id)

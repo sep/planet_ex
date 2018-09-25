@@ -1,8 +1,8 @@
-defmodule PlanetWeb.UserSocket do
+defmodule PlanetExWeb.UserSocket do
   use Phoenix.Socket
 
   ## Channels
-  # channel "room:*", PlanetWeb.RoomChannel
+  # channel "room:*", PlanetExWeb.RoomChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket
@@ -30,7 +30,7 @@ defmodule PlanetWeb.UserSocket do
   # Would allow you to broadcast a "disconnect" event and terminate
   # all active sockets and channels for a given user:
   #
-  #     PlanetWeb.Endpoint.broadcast("user_socket:#{user.id}", "disconnect", %{})
+  #     PlanetExWeb.Endpoint.broadcast("user_socket:#{user.id}", "disconnect", %{})
   #
   # Returning `nil` makes this socket anonymous.
   def id(_socket), do: nil

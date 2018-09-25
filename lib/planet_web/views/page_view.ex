@@ -1,3 +1,3 @@
-defmodule PlanetWeb.PageView do
-  use PlanetWeb, :view
+defmodule PlanetExWeb.PageView do
+  use PlanetExWeb, :view
 end

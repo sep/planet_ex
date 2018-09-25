@@ -1,5 +1,5 @@
-defmodule PlanetWeb.RssView do
-  use PlanetWeb, :view
+defmodule PlanetExWeb.RssView do
+  use PlanetExWeb, :view
 
   def last_updated_at(feed) do
     feed.entries

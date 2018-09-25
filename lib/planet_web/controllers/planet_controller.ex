@@ -1,7 +1,7 @@
-defmodule PlanetWeb.PlanetController do
-  use PlanetWeb, :controller
+defmodule PlanetExWeb.PlanetController do
+  use PlanetExWeb, :controller
 
-  alias Planet.Feeds
+  alias PlanetEx.Feeds
 
   def edit(conn, %{"id" => id}) do
     planet = Feeds.get_planet!(id)
@@ -13,7 +13,7 @@ defmodule PlanetWeb.PlanetController do
     planet = Feeds.get_planet!(id)
 
     with {:ok, updated_planet = %Feeds.Planet{}} <- Feeds.update_planet(planet, planet_params),
-         Planet.Core.FeedStore.update_planet(updated_planet) do
+         PlanetEx.Core.FeedStore.update_planet(updated_planet) do
       conn
       |> put_flash(:success, "Planet updated successfully.")
       |> redirect(to: entries_path(conn, :index))

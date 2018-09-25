@@ -1,6 +1,6 @@
-defmodule Planet.Core.FeedParser.FeedTest do
+defmodule PlanetEx.Core.FeedParser.FeedTest do
   use ExUnit.Case
-  alias Planet.Core.FeedParser.{Entry, Feed}
+  alias PlanetEx.Core.FeedParser.{Entry, Feed}
 
   describe "merge/1" do
     test "takes a list of Feeds and returns a single Feed" do

@@ -1,5 +1,5 @@
-defmodule Planet.Repo do
-  use Ecto.Repo, otp_app: :planet
+defmodule PlanetEx.Repo do
+  use Ecto.Repo, otp_app: :planetex
 
   @doc """
   Dynamically loads the repository url from the

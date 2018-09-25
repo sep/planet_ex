@@ -1,1 +1,1 @@
-Mox.defmock(FetchMock, for: Planet.Core.FeedFetcher)
+Mox.defmock(FetchMock, for: PlanetEx.Core.FeedFetcher)

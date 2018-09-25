@@ -1,3 +1,3 @@
-defmodule PlanetWeb.PageViewTest do
-  use PlanetWeb.ConnCase, async: true
+defmodule PlanetExWeb.PageViewTest do
+  use PlanetExWeb.ConnCase, async: true
 end

@@ -2,4 +2,4 @@
   <span class="text-4xl md:text-5xl font-light">Add an <strong>RSS</strong> Feed</span>
 </div>
 
-<%= render PlanetWeb.RssView, "_form.html", Map.merge(assigns, %{action: rss_path(@conn, :create), button_text: "Add"}) %>
+<%= render PlanetExWeb.RssView, "_form.html", Map.merge(assigns, %{action: rss_path(@conn, :create), button_text: "Add"}) %>

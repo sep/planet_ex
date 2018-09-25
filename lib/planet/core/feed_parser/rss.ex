@@ -1,9 +1,9 @@
-defmodule Planet.Core.FeedParser.Rss do
+defmodule PlanetEx.Core.FeedParser.Rss do
   @moduledoc """
   This module understands how to parse an RSS feed.
   """
   require Logger
-  alias Planet.Core.FeedParser.{Entry, Feed}
+  alias PlanetEx.Core.FeedParser.{Entry, Feed}
   import SweetXml
 
   def parse(xml) do

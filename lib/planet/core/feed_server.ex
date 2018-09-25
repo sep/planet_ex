@@ -1,13 +1,13 @@
-defmodule Planet.Core.FeedServer do
+defmodule PlanetEx.Core.FeedServer do
   @moduledoc """
   FeedServer fetches, parses, and serves the feeds on a configurable schedule.
   """
   use GenServer
   require Logger
-  alias Planet.Core.FeedParser
+  alias PlanetEx.Core.FeedParser
 
-  @fetcher Application.get_env(:planet, :fetcher, Planet.Core.FeedFetcher)
-  @timeout Application.get_env(:planet, :server_timeout)
+  @fetcher Application.get_env(:planetex, :fetcher, PlanetEx.Core.FeedFetcher)
+  @timeout Application.get_env(:planetex, :server_timeout)
 
   def start_link(args) do
     GenServer.start_link(__MODULE__, args)

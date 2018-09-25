@@ -1,12 +1,12 @@
-defmodule Planet.Feeds do
+defmodule PlanetEx.Feeds do
   @moduledoc """
   The Feeds context.
   """
 
   import Ecto.Query, warn: false
-  alias Planet.Repo
+  alias PlanetEx.Repo
 
-  alias Planet.Feeds.Rss
+  alias PlanetEx.Feeds.Rss
 
   @doc """
   Returns the list of rss.
@@ -116,7 +116,7 @@ defmodule Planet.Feeds do
     Rss.changeset(rss, %{})
   end
 
-  alias Planet.Feeds.Planet
+  alias PlanetEx.Feeds.Planet
 
   @doc """
   Gets a single planet.

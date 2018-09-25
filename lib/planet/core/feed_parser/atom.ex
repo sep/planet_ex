@@ -1,8 +1,8 @@
-defmodule Planet.Core.FeedParser.Atom do
+defmodule PlanetEx.Core.FeedParser.Atom do
   @moduledoc """
   This module understands how to parse an Atom feed.
   """
-  alias Planet.Core.FeedParser.{Entry, Feed}
+  alias PlanetEx.Core.FeedParser.{Entry, Feed}
   import SweetXml
 
   def parse(xml) do

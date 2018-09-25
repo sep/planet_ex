@@ -1,4 +1,4 @@
-defmodule Planet.Repo.Migrations.CreateRss do
+defmodule PlanetEx.Repo.Migrations.CreateRss do
   use Ecto.Migration
 
   def change do

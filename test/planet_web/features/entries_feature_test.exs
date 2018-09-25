@@ -1,16 +1,16 @@
-defmodule PlanetWeb.Features.EntriesTest do
-  use PlanetWeb.FeatureCase
+defmodule PlanetExWeb.Features.EntriesTest do
+  use PlanetExWeb.FeatureCase
 
   @moduletag :feature
-  alias Planet.Core.ServerFarmSupervisor
-  import PlanetWeb.Support
+  alias PlanetEx.Core.ServerFarmSupervisor
+  import PlanetExWeb.Support
 
   import Wallaby.Query
 
   describe "entries page" do
     setup do
       feed_fixture(%{name: "aname", url: "https://aurl.com"})
-      stub_feed_xml = atom_fixture([author: "Mitchell Hanberg"], 15)
+      stub_feed_xml = feature_fixture([author: "Mitchell Hanberg"], 15)
 
       FetchMock
       |> Mox.stub(:get, fn _ -> stub_feed_xml end)
@@ -23,7 +23,7 @@ defmodule PlanetWeb.Features.EntriesTest do
     test "should display blog posts on the home page", %{session: session} do
       session
       |> visit("/")
-      |> assert_text("Integrate and Deploy React with Phoenix")
+      |> assert_text("Blog Post title")
     end
 
     test "should paginate blog posts", %{session: session} do

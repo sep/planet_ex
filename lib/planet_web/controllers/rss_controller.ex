@@ -1,17 +1,17 @@
-defmodule PlanetWeb.RssController do
-  use PlanetWeb, :controller
-  alias Planet.Feeds.Rss
+defmodule PlanetExWeb.RssController do
+  use PlanetExWeb, :controller
+  alias PlanetEx.Feeds.Rss
 
   def index(conn, _p) do
-    with feeds <- Planet.Feeds.list_rss() |> Enum.sort_by(fn f -> f.name end) do
+    with feeds <- PlanetEx.Feeds.list_rss() |> Enum.sort_by(fn f -> f.name end) do
       conn
       |> render(:index, feeds: feeds)
     end
   end
 
   def create conn, %{"rss" => params} do
-    with {:ok, feed = %Rss{}} <- Planet.Feeds.create_rss(params),
-         Planet.Core.FeedStore.store(feed) do
+    with {:ok, feed = %Rss{}} <- PlanetEx.Feeds.create_rss(params),
+         PlanetEx.Core.FeedStore.store(feed) do
       conn
       |> put_status(303)
       |> put_flash(:success, "You've add the feed #{feed.url}")
@@ -29,17 +29,17 @@ defmodule PlanetWeb.RssController do
   end
 
   def edit(conn, %{"id" => id}) do
-    with feed = %Rss{} <- Planet.Feeds.get_rss!(id) do
+    with feed = %Rss{} <- PlanetEx.Feeds.get_rss!(id) do
       conn
       |> render_form(:edit, feed)
     end
   end
 
   def update(conn, %{"id" => id, "rss" => params}) do
-    feed = Planet.Feeds.get_rss!(id)
+    feed = PlanetEx.Feeds.get_rss!(id)
 
-    with {:ok, updated_feed = %Rss{}} <- Planet.Feeds.update_rss(feed, params),
-         Planet.Core.FeedStore.update(updated_feed) do
+    with {:ok, updated_feed = %Rss{}} <- PlanetEx.Feeds.update_rss(feed, params),
+         PlanetEx.Core.FeedStore.update(updated_feed) do
       conn
       |> put_status(303)
       |> put_flash(:success, "You've updated the feed #{updated_feed.name}")
@@ -53,9 +53,9 @@ defmodule PlanetWeb.RssController do
   end
 
   def delete(conn, %{"id" => id}) do
-    with %Rss{} = feed <- Planet.Feeds.get_rss(id),
-         {:ok, deleted_feed} <- Planet.Feeds.delete_rss(feed),
-         Planet.Core.FeedStore.remove(deleted_feed) do
+    with %Rss{} = feed <- PlanetEx.Feeds.get_rss(id),
+         {:ok, deleted_feed} <- PlanetEx.Feeds.delete_rss(feed),
+         PlanetEx.Core.FeedStore.remove(deleted_feed) do
       conn
       |> put_status(303)
       |> put_flash(:success, "You've deleted the feed #{deleted_feed.name}")

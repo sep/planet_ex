@@ -6,7 +6,7 @@ set -e
 
 cat <<"EOF"
 * * * * * * * * * * * * * * * * * * * * * *
-*         Planet Bootstrap Script         *
+*         PlanetEx Bootstrap Script         *
 * * * * * * * * * * * * * * * * * * * * * *
 EOF
 

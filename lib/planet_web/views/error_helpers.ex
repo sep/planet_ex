@@ -1,4 +1,4 @@
-defmodule PlanetWeb.ErrorHelpers do
+defmodule PlanetExWeb.ErrorHelpers do
   @moduledoc """
   Conveniences for translating and building error messages.
   """
@@ -36,9 +36,9 @@ defmodule PlanetWeb.ErrorHelpers do
     # should be written to the errors.po file. The :count option is
     # set by Ecto and indicates we should also apply plural rules.
     if count = opts[:count] do
-      Gettext.dngettext(PlanetWeb.Gettext, "errors", msg, msg, count, opts)
+      Gettext.dngettext(PlanetExWeb.Gettext, "errors", msg, msg, count, opts)
     else
-      Gettext.dgettext(PlanetWeb.Gettext, "errors", msg, opts)
+      Gettext.dgettext(PlanetExWeb.Gettext, "errors", msg, opts)
     end
   end
 end

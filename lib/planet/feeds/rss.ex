@@ -1,4 +1,4 @@
-defmodule Planet.Feeds.Rss do
+defmodule PlanetEx.Feeds.Rss do
   @moduledoc """
   This module provides the schema for the RSS domain concept.
 

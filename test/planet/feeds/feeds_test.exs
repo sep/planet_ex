@@ -1,10 +1,10 @@
-defmodule Planet.FeedsTest do
-  use Planet.DataCase
+defmodule PlanetEx.FeedsTest do
+  use PlanetEx.DataCase
 
-  alias Planet.Feeds
+  alias PlanetEx.Feeds
 
   describe "rss" do
-    alias Planet.Feeds.Rss
+    alias PlanetEx.Feeds.Rss
 
     @valid_attrs %{author: "some author", name: "some name", url: "some url", is_sharepoint: true}
     @update_attrs %{
@@ -81,7 +81,7 @@ defmodule Planet.FeedsTest do
   end
 
   describe "planet" do
-    alias Planet.Feeds
+    alias PlanetEx.Feeds
 
     @valid_attrs %{author: "some author", title: "some title", url: "some url"}
     @update_attrs %{
