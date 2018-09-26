@@ -1,6 +1,8 @@
 # PlanetEx
 
-[![CircleCI](https://circleci.com/gh/mhanberg/planet.svg?style=svg)](https://circleci.com/gh/mhanberg/planet)
+[![CircleCI](https://circleci.com/gh/mhanberg/planet_ex.svg?style=svg)](https://circleci.com/gh/mhanberg/planet_ex)
+
+PlanetEx is an Elixir application for aggregating employee and SharePoint blogs.
 
 ## Getting started
 
@@ -102,3 +104,10 @@ On the remote server, run `/path/to/release/bin/yourapp migrate []`
 ## Contributors
 
 - Mitchell Hanberg ([mhanberg](https://www.github.com/mahanberg))
+
+---
+
+[![Powered by SEP logo](powered-by-sep.svg)](https://www.sep.com)
+
+PlanetEx is supported by SEP: a Software Product Design + Development company. If you'd like to [join our team](https://www.sep.com/careers/open-positions/), don't hesitate to get in touch!
+
