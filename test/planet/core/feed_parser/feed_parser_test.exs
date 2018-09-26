@@ -18,8 +18,8 @@ defmodule PlanetEx.Core.FeedParserTest do
 
     test "parses the title, url, and author fields" do
       expected = %FeedParser.Feed{
-        title: "Mitchell Hanberg’s Blog",
-        url: "https://www.mitchellhanberg.com/",
+        title: "Blog's Blog",
+        url: "https://www.blog.com/",
         author: "Mitchell Hanberg"
       }
 
@@ -39,9 +39,8 @@ defmodule PlanetEx.Core.FeedParserTest do
 
     test "parses entry data from feed" do
       expected_entry = %FeedParser.Entry{
-        title: "Integrate and Deploy React with Phoenix",
-        url:
-          "https://www.mitchellhanberg.com/post/2018/02/22/integrate-and-deploy-react-with-phoenix",
+        title: "Blog title",
+        url: "https://www.blog.com/path/to/blog",
         author: "Mitchell Hanberg",
         content: "<blockquote>",
         published: Timex.parse!("2018-02-22T12:00:00+00:00", "{ISO:Extended}")
@@ -87,7 +86,7 @@ defmodule PlanetEx.Core.FeedParserTest do
         url:
           "https://www.mitchellhanberg.com/post/2018/02/22/integrate-and-deploy-react-with-phoenix",
         author: "Mitchell Hanberg",
-        content: ~s{<a href="https://www.mitchellhanberg.com/relativelink">},
+        content: ~s{<a href="https://www.blog.com/relativelink">},
         published: Timex.parse!("2018-02-22T12:00:00+00:00", "{ISO:Extended}")
       }
 
@@ -106,7 +105,7 @@ defmodule PlanetEx.Core.FeedParserTest do
         url:
           "https://www.mitchellhanberg.com/post/2018/02/22/integrate-and-deploy-react-with-phoenix",
         author: "Mitchell Hanberg",
-        content: "<img src=\"https://www.mitchellhanberg.com/images/contact.png\"",
+        content: "<img src=\"https://www.blog.com/images/contact.png\"",
         published: Timex.parse!("2018-02-22T12:00:00+00:00", "{ISO:Extended}")
       }
 
@@ -150,10 +149,10 @@ defmodule PlanetEx.Core.FeedParserTest do
 
     test "parses entry data from feed" do
       expected_entry = %FeedParser.Entry{
-        title: "Meet the 2018 Interns",
-        url: "https://www.sep.com/sep-blog/2018/06/19/meet-the-2018-interns/",
-        content: "Berkley",
-        author: "SEP Interns",
+        title: "Blog title",
+        url: "https://www.sep.com/sep-blog/path/to/blog/",
+        content: "This is the content of this blog post",
+        author: "SEPeer",
         published:
           Timex.parse!(
             "Tue, 19 Jun 2018 15:53:03 +0000",
@@ -176,9 +175,9 @@ defmodule PlanetEx.Core.FeedParserTest do
 
     test "parses entry data from feed with only description field" do
       expected_entry = %FeedParser.Entry{
-        title: "Optimize for cognitive load",
-        url: "http://arktronic.com/weblog/2016-12-30/optimize-for-cognitive-load/",
-        content: "<p>I recently read a rather",
+        title: "Blog title",
+        url: "http://blog.com/path/to/post/",
+        content: "<p>This is the body of this blog post</p>",
         author: nil,
         published:
           Timex.parse!(
@@ -224,17 +223,16 @@ defmodule PlanetEx.Core.FeedParserTest do
     test "parses all entries" do
       actual = FeedParser.parse(@sharepoint_feed)
 
-      assert 2 == Enum.count(actual.entries)
+      assert 1 == Enum.count(actual.entries)
       assert %FeedParser.Entry{} = List.first(actual.entries)
     end
 
     test "parses entry data from feed" do
       expected_entry = %FeedParser.Entry{
-        title: "Staffing Meeting Notes 7/3/18",
-        url:
-          "https://sharepoint.sep.com:8383/personal/ohri/Blog/Lists/Posts/ViewPost.aspx?ID=400",
-        content: "JML",
-        author: "Raman N. Ohri",
+        title: "Blog title",
+        url: "https://blog.com/post",
+        content: "This is the body of the blog post.",
+        author: "Blog Author",
         published:
           Timex.parse!(
             "Tue, 03 Jul 2018 15:07:18 GMT",
