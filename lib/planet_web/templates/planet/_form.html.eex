@@ -23,7 +23,7 @@
     <button id="submitButton" type="submit" class="bg-green hover:bg-green-dark text-xl text-white px-8 py-2 rounded-full">
       Update
     </button>
-    <a href="/rss" class="bg-white hover:bg-red-light text-xl text-grey hover:text-white px-8 py-2 rounded-full hover:no-underline">
+    <a href="/" class="bg-white hover:bg-red-light text-xl text-grey hover:text-white px-8 py-2 rounded-full hover:no-underline">
       Cancel
     </a>
   </div>
