@@ -1,6 +1,6 @@
 # PlanetEx
 
-[![CircleCI](https://circleci.com/gh/mhanberg/planet_ex.svg?style=svg)](https://circleci.com/gh/mhanberg/planet_ex)
+[![CircleCI](https://circleci.com/gh/sep/planet_ex.svg?style=svg)](https://circleci.com/gh/sep/planet_ex)
 
 PlanetEx is an Elixir application for aggregating employee and SharePoint blogs.
 
