@@ -107,7 +107,7 @@ On the remote server, run `/path/to/release/bin/yourapp migrate []`
 
 ---
 
-[![Powered by SEP logo](powered-by-sep.svg)](https://www.sep.com)
+[![Powered by SEP logo](https://raw.githubusercontent.com/sep/assets/master/images/powered-by-sep.svg)](https://www.sep.com)
 
 PlanetEx is supported by SEP: a Software Product Design + Development company. If you'd like to [join our team](https://www.sep.com/careers/open-positions/), don't hesitate to get in touch!
 
