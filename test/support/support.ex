@@ -19,15 +19,16 @@ defmodule PlanetExWeb.Support do
 
     beginning = """
     <?xml version="1.0" encoding="utf-8"?>
-    <feed xmlns="http://www.w3.org/2005/Atom" >
-    <generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator>
-    <link href="https://www.blog.com/feed.xml" rel="self" type="application/atom+xml" />
-    <link href="https://www.blog.com/" rel="alternate" type="text/html" />
-    <updated>2018-06-03T22:29:43+00:00</updated>
-    <id>https://www.blog.com/</id>
-    <title type="html">Blog's Blog</title>
-    <author><name>#{author}</name>
-    </author>
+      <feed xmlns="http://www.w3.org/2005/Atom" >
+      <generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator>
+      <link href="https://www.blog.com/feed.xml" rel="self" type="application/atom+xml" />
+      <link href="https://www.blog.com/" rel="alternate" type="text/html" />
+      <updated>2018-06-03T22:29:43+00:00</updated>
+      <id>unique_id1234</id>
+      <title type="html">Blog's Blog</title>
+      <author>
+        <name>#{author}</name>
+      </author>
     """
 
     relative_link = "&lt;a href=&quot;/relativelink&quot;&gt;create-react-app&lt;/a&gt;"

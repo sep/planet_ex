@@ -58,7 +58,7 @@ defmodule PlanetEx.Core.FeedParser.Atom do
   end
 
   defp put_url(struct, xml) do
-    struct(struct, url: xpath(xml, ~x"./id/text()"s))
+    struct(struct, url: xpath(xml, ~x"./link[@rel='alternate']/@href"s))
   end
 
   defp put_author(struct, xml) do

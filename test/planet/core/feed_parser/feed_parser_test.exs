@@ -40,7 +40,7 @@ defmodule PlanetEx.Core.FeedParserTest do
     test "parses entry data from feed" do
       expected_entry = %FeedParser.Entry{
         title: "Blog title",
-        url: "https://www.blog.com/path/to/blog",
+        url: "https://www.blog.com/path/to/blog/",
         author: "Mitchell Hanberg",
         content: "<blockquote>",
         published: Timex.parse!("2018-02-22T12:00:00+00:00", "{ISO:Extended}")
