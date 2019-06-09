@@ -53,7 +53,7 @@ defmodule PlanetEx.Mixfile do
       {:postgrex, ">= 0.0.0"},
       {:sweet_xml, git: "git@github.com:mhanberg/sweet_xml.git"},
       {:timex, "~> 3.0"},
-      {:wallaby, "~> 0.20.0"}
+      {:wallaby, "~> 0.22.0"}
     ]
   end
 
