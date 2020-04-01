@@ -102,7 +102,7 @@ On the remote server, run `/path/to/release/bin/yourapp migrate []`
 - [TailwindCSS](https://tailwindcss.com/) - CSS library
 
 ## Contributors
-- Paul Steele ([ptsteele])(https://github.com/ptsteele)
+- Paul Steele ([ptsteele](https://github.com/ptsteele))
 - Mitchell Hanberg ([mhanberg](https://www.github.com/mahanberg))(alumni)
 
 ---
