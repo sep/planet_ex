@@ -12,7 +12,7 @@
     <entry>
       <title type="text"><%= escape(entry.title) %></title>
       <author>
-        <name><%= entry.author %></name>
+        <name><%= escape(entry.author) %></name>
       </author>
       <link href="<%= entry.url %>"/>
       <id><%= entry.url %></id>
